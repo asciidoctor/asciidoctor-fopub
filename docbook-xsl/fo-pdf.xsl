@@ -349,9 +349,9 @@
     <xsl:attribute name="border-width">1pt</xsl:attribute>
     <xsl:attribute name="border-style">solid</xsl:attribute>
     <xsl:attribute name="border-color">#E6E6E6</xsl:attribute>
-    <xsl:attribute name="padding-top">0</xsl:attribute>
+    <xsl:attribute name="padding-top">12pt</xsl:attribute>
     <xsl:attribute name="padding-right">12pt</xsl:attribute>
-    <xsl:attribute name="padding-bottom">12pt</xsl:attribute>
+    <xsl:attribute name="padding-bottom">0</xsl:attribute>
     <xsl:attribute name="padding-left">12pt</xsl:attribute>
     <xsl:attribute name="margin-left">0</xsl:attribute>
     <xsl:attribute name="margin-right">0</xsl:attribute>
