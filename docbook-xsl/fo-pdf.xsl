@@ -810,7 +810,7 @@
   </xsl:attribute-set>
 
   <xsl:template match="title" mode="book.titlepage.recto.auto.mode">
-    <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" color="{$text.color}">
+    <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" color="black">
       <xsl:call-template name="division.title">
         <xsl:with-param name="node" select="ancestor-or-self::book[1]"/>
       </xsl:call-template>
