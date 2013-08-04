@@ -59,4 +59,12 @@
     <fo:inline font-style="italic" color="#999999"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
 
+  <xsl:template match="xslthl:title" mode="xslthl">
+    <fo:inline color="#880000"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:bullet" mode="xslthl">
+    <fo:inline color="#008800"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
 </xsl:stylesheet>
