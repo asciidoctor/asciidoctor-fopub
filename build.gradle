@@ -1,0 +1,30 @@
+apply plugin: 'application'
+
+group = 'org.asciidoctor'
+version = '0.1.4-SNAPSHOT'
+
+repositories {
+  mavenCentral()
+  mavenLocal() // snag valid artifacts from local Maven repository
+}
+
+dependencies {
+  // xml-resolver needed to fix buggy resolver in JDK
+  runtime 'xml-resolver:xml-resolver:1.2'
+  // avalon dependencies need to be specified to align with version available
+  compile 'org.apache.avalon.framework:avalon-framework-api:4.3.1'
+  compile 'org.apache.avalon.framework:avalon-framework-impl:4.3.1'
+  compile 'org.apache.xmlgraphics:fop:1.1'
+  runtime 'net.sf.xslthl:xslthl:2.1.0'
+  //runtime 'net.sf.docbook:docbook-xsl:1.78.0'
+}
+
+mainClassName = 'org.apache.fop.cli.Main'
+
+run {
+  // FIXME use XML_CATALOG_FILES if available
+  systemProperties['xml.catalog.files'] = '/etc/xml/catalog'
+  if (project.hasProperty('fop_opts')) {
+    args project.fop_opts.split('\\s+')
+  }
+}
