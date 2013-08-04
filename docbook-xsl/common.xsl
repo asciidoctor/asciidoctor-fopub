@@ -6,8 +6,19 @@
   <xsl:param name="link.color">#005498</xsl:param>
   <xsl:param name="border.color">#DDDDDD</xsl:param>
   <xsl:param name="title.color">#BA3925</xsl:param>
+  <xsl:param name="chapter.title.color" select="$title.color"/>
+  <xsl:param name="section.title.color" select="$title.color"/>
+  <xsl:param name="caption.color">#7A2518</xsl:param>
 
+  <!-- disable messages that cause some processors to exit prematurely -->
+  <xsl:template name="root.messages"/>
+
+  <!-- Disable watermark image to avoid long timeouts fetching from internet -->
+  <xsl:param name="draft.watermark.image"/>
+
+  <!--
   <xsl:param name="use.extensions">1</xsl:param>
+  -->
 
   <!-- show URLs of links in footnotes -->
   <xsl:param name="ulink.show" select="1"/>
