@@ -128,19 +128,26 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="monospace.properties">
-    <xsl:attribute name="background-color">#EEEEEE</xsl:attribute>
+    <xsl:attribute name="color"><xsl:value-of select="$code.color"/></xsl:attribute>
+    <xsl:attribute name="font-weight"><xsl:value-of select="$code.font-weight"/></xsl:attribute>
+    <xsl:attribute name="background-color"><xsl:value-of select="$code.color"/></xsl:attribute>
     <!--
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 0.9"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
     -->
-    <xsl:attribute name="padding">.3em .25em .1em .25em</xsl:attribute>
-    <!--
-    <xsl:attribute name="font-family"><xsl:value-of select="$monospace.font.family"/></xsl:attribute>
-    -->
+    <xsl:attribute name="background-color"><xsl:value-of select="$code.background-color"/></xsl:attribute>
+    <xsl:attribute name="padding">
+      <xsl:choose>
+        <xsl:when test="$code.background-color != 'transparent'">.3em .25em .1em .25em</xsl:when>
+        <xsl:otherwise>0</xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="verbatim.properties">
+    <xsl:attribute name="color"><xsl:value-of select="$text.color"/></xsl:attribute>
+    <xsl:attribute name="font-weight">normal</xsl:attribute>
     <xsl:attribute name="border-top-style">dotted</xsl:attribute>
     <xsl:attribute name="border-bottom-style">dotted</xsl:attribute>
     <xsl:attribute name="border-width">1pt</xsl:attribute>
@@ -160,7 +167,7 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="monospace.verbatim.properties"
-                     use-attribute-sets="verbatim.properties monospace.properties">
+                     use-attribute-sets="monospace.properties verbatim.properties">
     <!--
     <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
     -->
@@ -370,7 +377,7 @@
  
   <xsl:attribute-set name="sidebar.title.properties">
     <xsl:attribute name="font-family"><xsl:value-of select="$title.fontset"/></xsl:attribute>
-    <xsl:attribute name="font-weight">normal</xsl:attribute>
+    <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
     <xsl:attribute name="color"><xsl:value-of select="$caption.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.6"/><xsl:text>pt</xsl:text>
@@ -609,7 +616,8 @@
 
   <xsl:attribute-set name="section.title.properties">
     <xsl:attribute name="font-family"><xsl:value-of select="$title.fontset"/></xsl:attribute>
-    <xsl:attribute name="font-weight">normal</xsl:attribute>
+    <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
+    <xsl:attribute name="color"><xsl:value-of select="$title.color"/></xsl:attribute>
     <!-- font size is calculated dynamically by section.heading template -->
     <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
@@ -624,42 +632,36 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level1.properties">
-    <xsl:attribute name="color"><xsl:value-of select="$section.title.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.6"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level2.properties">
-    <xsl:attribute name="color"><xsl:value-of select="$section.title.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.4"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level3.properties">
-    <xsl:attribute name="color"><xsl:value-of select="$section.title.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.3"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level4.properties">
-    <xsl:attribute name="color"><xsl:value-of select="$section.title.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.2"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level5.properties">
-    <xsl:attribute name="color"><xsl:value-of select="$section.title.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 1.1"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:attribute-set name="section.title.level6.properties">
-    <xsl:attribute name="color"><xsl:value-of select="$section.title.color"/></xsl:attribute>
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
     </xsl:attribute>
@@ -686,6 +688,8 @@
       <xsl:value-of select="concat($body.font.master, 'pt')"/>
     </xsl:attribute>
     <xsl:attribute name="hyphenate">false</xsl:attribute>
+    <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
+    <!-- color support on fo:block, to which this gets applied, added in DocBook XSL 1.78.1 -->
     <xsl:attribute name="color">
       <xsl:choose>
         <xsl:when test="not(parent::db:chapter | parent::db:article | parent::db:appendix)">
@@ -704,6 +708,7 @@
     </xsl:attribute>
   </xsl:attribute-set>
 
+  <!-- override to set color -->
   <xsl:template match="formalpara/title">
     <xsl:variable name="titleStr">
       <xsl:apply-templates/>
@@ -791,17 +796,14 @@
     <xsl:attribute name="font-weight">normal</xsl:attribute>
     <xsl:attribute name="text-align">left</xsl:attribute>
     <!--xsl:attribute name="wrap-option">no-wrap</xsl:attribute-->
+    <!--
     <xsl:attribute name="padding-left">1em</xsl:attribute>
     <xsl:attribute name="padding-right">1em</xsl:attribute>
+    -->
   </xsl:attribute-set>
 
   <xsl:attribute-set name="preface.titlepage.recto.style" use-attribute-sets="chapter.titlepage.recto.style">
     <xsl:attribute name="font-family"><xsl:value-of select="$title.fontset"/></xsl:attribute>
-    <!--
-    <xsl:attribute name="color">#4a5d75</xsl:attribute>
-    <xsl:attribute name="font-size">12pt</xsl:attribute>
-    <xsl:attribute name="font-weight">normal</xsl:attribute>
-    -->
   </xsl:attribute-set>
 
   <xsl:attribute-set name="part.titlepage.recto.style">
@@ -809,22 +811,19 @@
     <xsl:attribute name="text-align">center</xsl:attribute>
   </xsl:attribute-set>
 
+  <!-- override to set different color for book title -->
   <xsl:template match="title" mode="book.titlepage.recto.auto.mode">
-    <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" color="black">
+    <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt">
+      <!-- FIXME don't use hardcoded value here -->
+      <xsl:attribute name="color">black</xsl:attribute>
+      <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
       <xsl:call-template name="division.title">
         <xsl:with-param name="node" select="ancestor-or-self::book[1]"/>
       </xsl:call-template>
     </fo:block>
   </xsl:template>
 
-  <xsl:template match="title" mode="chapter.titlepage.recto.auto.mode">
-    <fo:block xsl:use-attribute-sets="chapter.titlepage.recto.style">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::chapter[1]"/>
-      </xsl:call-template>
-    </fo:block>
-  </xsl:template>
-
+  <!-- add revision info on title page -->
   <xsl:template match="revision" mode="book.titlepage.recto.auto.mode">
     <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="14.4pt" space-before="1in" font-family="{$title.fontset}">
       <xsl:call-template name="gentext">
@@ -838,6 +837,7 @@
     </fo:block>
   </xsl:template>
 
+  <!-- override to force use of title, author and one revision on titlepage -->
   <xsl:template name="book.titlepage.recto">
     <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/title"/>
     <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/author"/>
@@ -847,137 +847,9 @@
     -->
   </xsl:template>
 
+  <!-- cut out these pages -->
   <xsl:template name="book.titlepage.before.verso"/>
   <xsl:template name="book.titlepage.verso"/>
-
-  <xsl:template name="preface.titlepage.recto">
-    <fo:block xsl:use-attribute-sets="preface.titlepage.recto.style">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::preface[1]"/>
-      </xsl:call-template>
-    </fo:block>
-  </xsl:template>
-
-  <xsl:template name="table.of.contents.titlepage.recto">
-    <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="table.of.contents.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" start-indent="0pt" font-size="17.28pt" font-family="{$title.fontset}" color="{$title.color}">
-      <xsl:call-template name="gentext">
-        <xsl:with-param name="key" select="'TableofContents'"/>
-      </xsl:call-template>
-    </fo:block>
-  </xsl:template>
-
-  <xsl:template match="title" mode="appendix.titlepage.recto.auto.mode">
-    <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::appendix[1]"/>
-      </xsl:call-template>
-    </fo:block>
-  </xsl:template>
-
-  <xsl:template name="dedication.titlepage.recto">
-    <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="dedication.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::dedication[1]"/>
-      </xsl:call-template>
-    </fo:block>
-    <xsl:choose>
-      <xsl:when test="dedicationinfo/subtitle">
-        <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="dedicationinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="docinfo/subtitle">
-        <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="docinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="info/subtitle">
-        <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="info/subtitle"/>
-      </xsl:when>
-      <xsl:when test="subtitle">
-        <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="subtitle"/>
-      </xsl:when>
-    </xsl:choose>
-  
-    <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="dedicationinfo/itermset"/>
-    <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="docinfo/itermset"/>
-    <xsl:apply-templates mode="dedication.titlepage.recto.auto.mode" select="info/itermset"/>
-  </xsl:template>
-
-  <xsl:template name="bibliography.titlepage.recto">
-    <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliography.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::bibliography[1]"/>
-      </xsl:call-template>
-    </fo:block>
-    <xsl:choose>
-      <xsl:when test="bibliographyinfo/subtitle">
-        <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="bibliographyinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="docinfo/subtitle">
-        <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="docinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="info/subtitle">
-        <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="info/subtitle"/>
-      </xsl:when>
-      <xsl:when test="subtitle">
-        <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="subtitle"/>
-      </xsl:when>
-    </xsl:choose>
-  
-    <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="bibliographyinfo/itermset"/>
-    <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="docinfo/itermset"/>
-    <xsl:apply-templates mode="bibliography.titlepage.recto.auto.mode" select="info/itermset"/>
-  </xsl:template>
-
-  <xsl:template name="glossary.titlepage.recto">
-    <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossary.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::glossary[1]"/>
-      </xsl:call-template>
-    </fo:block>
-    <xsl:choose>
-      <xsl:when test="glossaryinfo/subtitle">
-        <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="glossaryinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="docinfo/subtitle">
-        <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="docinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="info/subtitle">
-        <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="info/subtitle"/>
-      </xsl:when>
-      <xsl:when test="subtitle">
-        <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="subtitle"/>
-      </xsl:when>
-    </xsl:choose>
-  
-    <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="glossaryinfo/itermset"/>
-    <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="docinfo/itermset"/>
-    <xsl:apply-templates mode="glossary.titlepage.recto.auto.mode" select="info/itermset"/>
-  </xsl:template>
-
-  <xsl:template name="index.titlepage.recto">
-    <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="index.titlepage.recto.style" margin-left="0pt" font-size="24.8832pt" font-family="{$title.fontset}">
-      <xsl:call-template name="component.title">
-        <xsl:with-param name="node" select="ancestor-or-self::index[1]"/>
-        <xsl:with-param name="pagewide" select="1"/>
-      </xsl:call-template>
-    </fo:block>
-    <xsl:choose>
-      <xsl:when test="indexinfo/subtitle">
-        <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="indexinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="docinfo/subtitle">
-        <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="docinfo/subtitle"/>
-      </xsl:when>
-      <xsl:when test="info/subtitle">
-        <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="info/subtitle"/>
-      </xsl:when>
-      <xsl:when test="subtitle">
-        <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="subtitle"/>
-      </xsl:when>
-    </xsl:choose>
-  
-    <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="indexinfo/itermset"/>
-    <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="docinfo/itermset"/>
-    <xsl:apply-templates mode="index.titlepage.recto.auto.mode" select="info/itermset"/>
-  </xsl:template>
 
   <!--
     Footnotes
