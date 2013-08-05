@@ -29,10 +29,15 @@
     <fo:inline color="navy"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
 
+  <xsl:template match="xslthl:htmltag" mode="xslthl">
+    <fo:inline color="navy"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
   <xsl:template match="xslthl:attribute" mode="xslthl">
     <fo:inline color="teal"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
 
+  <!-- value is mapped to an attribute value in XML -->
   <xsl:template match="xslthl:value" mode="xslthl">
     <fo:inline color="#DD1144"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
@@ -48,10 +53,12 @@
     -->
   </xsl:template>
   
+  <!-- directive is mapped to a processing instruction in XML -->
   <xsl:template match="xslthl:directive" mode="xslthl">
-    <!--
-    <fo:inline color="#008888"><xsl:apply-templates mode="xslthl"/></fo:inline>
-    -->
+    <fo:inline font-weight="bold" color="#999999"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:doctype" mode="xslthl">
     <fo:inline font-weight="bold" color="#999999"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
   
@@ -59,8 +66,12 @@
     <fo:inline font-style="italic" color="#999999"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
 
-  <xsl:template match="xslthl:title" mode="xslthl">
+  <xsl:template match="xslthl:heading" mode="xslthl">
     <fo:inline color="#880000"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:title" mode="xslthl">
+    <fo:inline font-weight="bold" color="#880000"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
 
   <xsl:template match="xslthl:bullet" mode="xslthl">
