@@ -843,11 +843,8 @@
   <!-- override to force use of title, author and one revision on titlepage -->
   <xsl:template name="book.titlepage.recto">
     <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:title | bookinfo/title"/>
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:author | bookinfo/author"/>
+    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo//db:author | bookinfo//author"/>
     <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:revhistory/db:revision[1] | bookinfo/revhistory/revision[1]"/>
-    <!--
-    <xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:revhistory | bookinfo/revhistory"/>
-    -->
   </xsl:template>
 
   <!-- cut out these pages -->
