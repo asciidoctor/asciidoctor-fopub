@@ -11,7 +11,10 @@
   <xsl:param name="callout.icon.size">9pt</xsl:param>
   <xsl:param name="callout.graphics">1</xsl:param>
   <xsl:param name="callout.graphics.number.limit">10</xsl:param>
+  <xsl:param name="callout.graphics.extension">.svg</xsl:param>
+  <!--
   <xsl:param name="callout.graphics.extension">.png</xsl:param>
+  -->
   <!--
   <xsl:param name="callout.list.table">1</xsl:param>
   -->
