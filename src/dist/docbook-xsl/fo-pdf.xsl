@@ -130,7 +130,6 @@
   <xsl:attribute-set name="monospace.properties">
     <xsl:attribute name="color"><xsl:value-of select="$code.color"/></xsl:attribute>
     <xsl:attribute name="font-weight"><xsl:value-of select="$code.font-weight"/></xsl:attribute>
-    <xsl:attribute name="background-color"><xsl:value-of select="$code.color"/></xsl:attribute>
     <!--
     <xsl:attribute name="font-size">
       <xsl:value-of select="$body.font.master * 0.9"/><xsl:text>pt</xsl:text>
@@ -690,13 +689,17 @@
     <xsl:attribute name="hyphenate">false</xsl:attribute>
     <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
     <!-- color support on fo:block, to which this gets applied, added in DocBook XSL 1.78.1 -->
+    <xsl:attribute name="color"><xsl:value-of select="$title.color"/></xsl:attribute>
+    <!--
     <xsl:attribute name="color">
       <xsl:choose>
         <xsl:when test="not(parent::db:chapter | parent::db:article | parent::db:appendix)">
           <xsl:value-of select="$title.color"/>
         </xsl:when>
+        <xsl:otherwise>inherit</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
+    -->
     <xsl:attribute name="text-align">
       <xsl:choose>
         <xsl:when test="((parent::db:article | parent::db:articleinfo) and not(ancestor::db:book) and not(self::db:bibliography)) or (parent::db:slides | parent::db:slidesinfo)">center</xsl:when>
@@ -709,7 +712,7 @@
   </xsl:attribute-set>
 
   <!-- override to set color -->
-  <xsl:template match="formalpara/title">
+  <xsl:template match="db:formalpara/db:title | formalpara/title">
     <xsl:variable name="titleStr">
       <xsl:apply-templates/>
     </xsl:variable>
@@ -812,38 +815,38 @@
   </xsl:attribute-set>
 
   <!-- override to set different color for book title -->
-  <xsl:template match="title" mode="book.titlepage.recto.auto.mode">
+  <xsl:template match="db:title | title" mode="book.titlepage.recto.auto.mode">
     <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt">
       <!-- FIXME don't use hardcoded value here -->
       <xsl:attribute name="color">black</xsl:attribute>
       <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
       <xsl:call-template name="division.title">
-        <xsl:with-param name="node" select="ancestor-or-self::book[1]"/>
+        <xsl:with-param name="node" select="ancestor-or-self::db:book[1] | ancestor-or-self::book[1]"/>
       </xsl:call-template>
     </fo:block>
   </xsl:template>
 
   <!-- add revision info on title page -->
-  <xsl:template match="revision" mode="book.titlepage.recto.auto.mode">
+  <xsl:template match="db:revision | revision" mode="book.titlepage.recto.auto.mode">
     <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="14.4pt" space-before="1in" font-family="{$title.fontset}">
       <xsl:call-template name="gentext">
         <xsl:with-param name="key" select="'Revision'"/>
       </xsl:call-template> 
       <xsl:call-template name="gentext.space"/>
-      <xsl:apply-templates select="revnumber" mode="titlepage.mode"/>
+      <xsl:apply-templates select="db:revnumber | revnumber" mode="titlepage.mode"/>
     </fo:block>
     <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="14.4pt" font-family="{$title.fontset}">
-      <xsl:apply-templates select="date" mode="titlepage.mode"/> 
+      <xsl:apply-templates select="db:date | date" mode="titlepage.mode"/> 
     </fo:block>
   </xsl:template>
 
   <!-- override to force use of title, author and one revision on titlepage -->
   <xsl:template name="book.titlepage.recto">
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/title"/>
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/author"/>
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="bookinfo/revhistory/revision[1]"/>
+    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:title | bookinfo/title"/>
+    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:author | bookinfo/author"/>
+    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:revhistory/db:revision[1] | bookinfo/revhistory/revision[1]"/>
     <!--
-    <xsl:apply-templates mode="titlepage.mode" select="bookinfo/revhistory"/>
+    <xsl:apply-templates mode="titlepage.mode" select="db:bookinfo/db:revhistory | bookinfo/revhistory"/>
     -->
   </xsl:template>
 

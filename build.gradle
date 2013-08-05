@@ -5,7 +5,7 @@ version = '0.1.4-SNAPSHOT'
 
 repositories {
   mavenCentral()
-  mavenLocal() // snag valid artifacts from local Maven repository
+  mavenLocal() // snags valid artifacts from local Maven repository
 }
 
 configurations {
@@ -20,46 +20,59 @@ dependencies {
   compile 'org.apache.avalon.framework:avalon-framework-impl:4.3.1'
   compile 'org.apache.xmlgraphics:fop:1.1'
   runtime 'net.sf.xslthl:xslthl:2.1.0'
-  dist 'net.sf.docbook:docbook-xsl:1.78.0:ns-resources@zip'
+  //dist 'net.sf.docbook:docbook-xsl:1.78.0:ns-resources@zip'
 }
 
 mainClassName = 'org.apache.fop.cli.Main'
-// FIXME use XML_CATALOG_FILES if available
-//applicationDefaultJvmArgs = ['-Dxml.catalog.files=/etc/xml/catalog']
 applicationDefaultJvmArgs = ["-Dxml.catalog.files=$buildDir/${project.name}/catalog.xml"]
-
-run {
-  //if (project.hasProperty('fop_opts')) {
-  //  args project.fop_opts.split('\\s+')
-  //}
-}
+//applicationDefaultJvmArgs = ['-Dxml.catalog.files=/etc/xml/catalog']
 
 installApp {
   destinationDir = file("$buildDir/${project.name}")
 }
 
-// FIXME move docbook-xsl to src/dist and this will happen automatically
-// put our custom DocBook XSL stylesheets and configuration into the dist
-applicationDistribution.from('docbook-xsl') {
-  into 'docbook-xsl'
+task downloadDocbookXsl(type: Download) {
+  url = 'http://downloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.zip'
+  destinationFile = file("$buildDir/docbook-xsl-ns-1.78.1.zip")
 }
 
-task extractDocbookXsl(type: Copy) {
-  def archive = null
-  configurations.dist.each { File file ->
-    if (file.name.endsWith('.zip')) {
-      archive = file
-      return
+task extractDocbookXsl(type: Copy, dependsOn: downloadDocbookXsl) {
+  // if ony 1.78.1 were available in the Maven repository :(
+  //def archive = null
+  //configurations.dist.each { File file ->
+  //  if (file.name.endsWith('.zip')) {
+  //    archive = file
+  //    return
+  //  }
+  //}
+  def archive = file("$buildDir/docbook-xsl-ns-1.78.1.zip")
+
+  def outputDir = file("$buildDir/unpacked/docbook")
+  // extract zip, stripping root directory
+  from(zipTree(archive)) {
+    eachFile { details ->
+      details.path = details.path.substring(details.relativePath.segments[0].length())
     }
   }
-  def outputDir = file("$buildDir/unpacked")
-  from zipTree(archive)
   into outputDir
 }
 
 // put the official DocBook resources (XSL, images, etc) into the dist
 applicationDistribution.from(extractDocbookXsl) {
-  into ""
+  into "docbook"
+}
+
+class Download extends DefaultTask {
+  @Input
+  String url
+ 
+  @OutputFile
+  File destinationFile
+ 
+  @TaskAction
+  def downloadFile() {
+    destinationFile.bytes = new URL(url).bytes
+  }
 }
 
 task wrapper(type: Wrapper) {

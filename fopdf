@@ -21,6 +21,7 @@ fi
 PRG="$0"
 PRG_DIR=`dirname "$0"`
 PRG_ABS_DIR=`abspath "$PRG_DIR"`
+GRADLEW_CMD="$PRG_DIR/gradlew"
 if [ "$PRG_DIR" == '.' ]; then
   PRG_DIR=""
 else
@@ -32,7 +33,7 @@ FOPDF_CMD="$FOPDF_DIR/bin/fopdf"
 
 if [ ! -e "$FOPDF_CMD" ]; then
   echo Initializing application...
-  "${PRG_DIR}gradlew" -q installApp 
+  "${GRADLEW_CMD}" -q installApp 
   echo Application initialized!
 fi
 
