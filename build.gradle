@@ -24,19 +24,21 @@ dependencies {
 }
 
 mainClassName = 'org.apache.fop.cli.Main'
+// FIXME use XML_CATALOG_FILES if available
+//applicationDefaultJvmArgs = ['-Dxml.catalog.files=/etc/xml/catalog']
+applicationDefaultJvmArgs = ["-Dxml.catalog.files=$buildDir/${project.name}/catalog.xml"]
 
 run {
-  // FIXME use XML_CATALOG_FILES if available
-  systemProperties['xml.catalog.files'] = '/etc/xml/catalog'
-  if (project.hasProperty('fop_opts')) {
-    args project.fop_opts.split('\\s+')
-  }
+  //if (project.hasProperty('fop_opts')) {
+  //  args project.fop_opts.split('\\s+')
+  //}
 }
 
 installApp {
   destinationDir = file("$buildDir/${project.name}")
 }
 
+// FIXME move docbook-xsl to src/dist and this will happen automatically
 // put our custom DocBook XSL stylesheets and configuration into the dist
 applicationDistribution.from('docbook-xsl') {
   into 'docbook-xsl'
@@ -58,4 +60,8 @@ task extractDocbookXsl(type: Copy) {
 // put the official DocBook resources (XSL, images, etc) into the dist
 applicationDistribution.from(extractDocbookXsl) {
   into ""
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '1.7-rc-2'
 }

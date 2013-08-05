@@ -1,0 +1,71 @@
+#!/bin/bash
+
+abspath() {
+  PATH_REL_DIRNAME=`dirname "$1"`
+  PATH_ABS_DIRNAME=`cd "$PATH_REL_DIRNAME"; pwd`
+  PATH_BASENAME=`basename "$1"`
+  echo "$PATH_ABS_DIRNAME/$PATH_BASENAME" 
+}
+
+if [ -z "$1" ]; then
+  echo "You must specify a DocBook XML source file as the first command argument"
+  exit 1
+fi
+
+if [ ! -z "$2" ]; then
+  TYPE=$2
+else
+  TYPE=pdf
+fi
+
+PRG="$0"
+PRG_DIR=`dirname "$0"`
+PRG_ABS_DIR=`abspath "$PRG_DIR"`
+if [ "$PRG_DIR" == '.' ]; then
+  PRG_DIR=""
+else
+  PRG_DIR="$PRG_DIR/"
+fi
+FOPDF_DIR="${PRG_DIR}build/fopdf"
+FOPDF_ABS_DIR="$PRG_ABS_DIR/build/fopdf"
+FOPDF_CMD="$FOPDF_DIR/bin/fopdf"
+
+if [ ! -e "$FOPDF_CMD" ]; then
+  echo Initializing application...
+  "${PRG_DIR}gradlew" -q installApp 
+  echo Application initialized!
+fi
+
+SOURCE_FILE="$1"
+SOURCE_BASENAME="${SOURCE_FILE%.xml}"
+
+OUTPUT_PDF_FILE="$SOURCE_BASENAME.pdf"
+OUTPUT_FO_FILE="$SOURCE_BASENAME.fo"
+
+DOCBOOK_DIR="$FOPDF_DIR/docbook"
+DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
+DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
+XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
+
+case $TYPE in
+  pdf)
+    $FOPDF_CMD -q -catalog \
+      -c "$DOCBOOK_XSL_DIR/fop-config.xml" \
+      -xml "$SOURCE_FILE" \
+      -xsl "$DOCBOOK_XSL_DIR/fo-pdf.xsl" \
+      -pdf "$OUTPUT_PDF_FILE" \
+      -param highlight.xslthl.config "$XSLTHL_CONFIG_URI" \
+      -param admon.graphics.path "$DOCBOOK_DIR/images"
+  ;;
+  fo)
+    $FOPDF_CMD -q -catalog \
+      -c "$DOCBOOK_XSL_DIR/fop-config.xml" \
+      -xml "$SOURCE_FILE" \
+      -xsl "$DOCBOOK_XSL_DIR/fo-pdf.xsl" \
+      -foout "$OUTPUT_FO_FILE" \
+      -param highlight.xslthl.config "$XSLTHL_CONFIG_URI" \
+      -param admon.graphics.path "$DOCBOOK_DIR/images"
+  ;;
+esac
+
+exit 0
