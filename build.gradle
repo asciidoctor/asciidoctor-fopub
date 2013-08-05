@@ -8,6 +8,10 @@ repositories {
   mavenLocal() // snag valid artifacts from local Maven repository
 }
 
+configurations {
+  dist
+}
+
 dependencies {
   // xml-resolver needed to fix buggy resolver in JDK
   runtime 'xml-resolver:xml-resolver:1.2'
@@ -16,7 +20,7 @@ dependencies {
   compile 'org.apache.avalon.framework:avalon-framework-impl:4.3.1'
   compile 'org.apache.xmlgraphics:fop:1.1'
   runtime 'net.sf.xslthl:xslthl:2.1.0'
-  //runtime 'net.sf.docbook:docbook-xsl:1.78.0'
+  dist 'net.sf.docbook:docbook-xsl:1.78.0:ns-resources@zip'
 }
 
 mainClassName = 'org.apache.fop.cli.Main'
@@ -27,4 +31,31 @@ run {
   if (project.hasProperty('fop_opts')) {
     args project.fop_opts.split('\\s+')
   }
+}
+
+installApp {
+  destinationDir = file("$buildDir/${project.name}")
+}
+
+// put our custom DocBook XSL stylesheets and configuration into the dist
+applicationDistribution.from('docbook-xsl') {
+  into 'docbook-xsl'
+}
+
+task extractDocbookXsl(type: Copy) {
+  def archive = null
+  configurations.dist.each { File file ->
+    if (file.name.endsWith('.zip')) {
+      archive = file
+      return
+    }
+  }
+  def outputDir = file("$buildDir/unpacked")
+  from zipTree(archive)
+  into outputDir
+}
+
+// put the official DocBook resources (XSL, images, etc) into the dist
+applicationDistribution.from(extractDocbookXsl) {
+  into ""
 }
