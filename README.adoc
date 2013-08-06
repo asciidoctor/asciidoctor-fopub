@@ -211,17 +211,17 @@ That handywork is performed by Gradle.
 http://www.gradle.org[Gradle] is a Java-based automation and build tool that specializes in setting up Java applications (among other capabilities).
 Gradle can fetch files from remote repositories, move them around, create start scripts and assemble an application distribution.
 
-We are using Gradle to prepare a Java application into the directory +build/fopdf+ that the +fopdf+ script can run.
+We are using Gradle to prepare a Java application into the +build/fopdf+ directory that the +fopdf+ script can execute.
 
 You may be wondering why Gradle isn't a prerequisite of this project.
 The answer is that the Gradle project provides a tool that can bootstrap Gradle from nothing.
-That tool, +gradlew+ is included within the project.
+That tool, +gradlew+, is included with the project.
 It gets invoked the first time you run the +fopdf+ script.
 *Magic.*
 
 And that's essentially what this project is all about, *magic*.
 Converting from DocBook to PDF shouldn't be hard.
-We do are best to hide those details so that it's as simple as it should be.
+We are doing our best to hide those details so that it's as simple as it should be.
 
 == Software versions
 
