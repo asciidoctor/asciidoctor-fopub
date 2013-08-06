@@ -4,7 +4,11 @@ abspath() {
   PATH_REL_DIRNAME=`dirname "$1"`
   PATH_ABS_DIRNAME=`cd "$PATH_REL_DIRNAME"; pwd`
   PATH_BASENAME=`basename "$1"`
-  echo "$PATH_ABS_DIRNAME/$PATH_BASENAME" 
+  if [ "$PATH_BASENAME" == "." ]; then
+    echo "$PATH_ABS_DIRNAME" 
+  else
+    echo "$PATH_ABS_DIRNAME/$PATH_BASENAME" 
+  fi
 }
 
 if [ -z "$1" ]; then
@@ -21,12 +25,7 @@ fi
 PRG_DIR=`dirname "$0"`
 PRG_ABS_DIR=`abspath "$PRG_DIR"`
 GRADLEW_CMD="$PRG_DIR/gradlew"
-if [ "$PRG_DIR" == '.' ]; then
-  PRG_DIR=""
-else
-  PRG_DIR="$PRG_DIR/"
-fi
-FOPDF_DIR="${PRG_DIR}build/fopdf"
+FOPDF_DIR="${PRG_DIR}/build/fopdf"
 FOPDF_ABS_DIR="$PRG_ABS_DIR/build/fopdf"
 FOPDF_CMD="$FOPDF_DIR/bin/fopdf"
 
@@ -41,37 +40,47 @@ if [ ! -e "$FOPDF_CMD" ]; then
 fi
 
 SOURCE_FILE="$1"
-SOURCE_ROOTNAME="${SOURCE_FILE%.xml}"
+SOURCE_EXTENSION="${SOURCE_FILE##*.}"
 
-OUTPUT_PDF_FILE="$SOURCE_ROOTNAME.pdf"
-OUTPUT_FO_FILE="$SOURCE_ROOTNAME.fo"
+if [ "$SOURCE_EXTENSION" != "xml" ] && [ "$SOURCE_EXTENSION" != "fo" ]; then
+  echo Illegal source file name: "$SOURCE_FILE"
+  echo "Source file must end in .fo (XSL-FO) or .xml (DocBook)"
+  exit 1
+fi
+
+SOURCE_ROOTNAME="${SOURCE_FILE%.*}"
+OUT_FILE="$SOURCE_ROOTNAME.$TYPE"
 
 DOCBOOK_DIR="$FOPDF_DIR/docbook"
 DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
 DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
 XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
 
+CONVERT_ARGS="-$SOURCE_EXTENSION \"$SOURCE_FILE\""
+
+if [ "$SOURCE_EXTENSION" == "xml" ]; then
+  CONVERT_ARGS="$CONVERT_ARGS -xsl \"$DOCBOOK_XSL_DIR/fo-pdf.xsl\""
+fi
+
 case $TYPE in
-  pdf)
-    $FOPDF_CMD -q -catalog \
-      -c "$DOCBOOK_XSL_DIR/fop-config.xml" \
-      -xml "$SOURCE_FILE" \
-      -xsl "$DOCBOOK_XSL_DIR/fo-pdf.xsl" \
-      -pdf "$OUTPUT_PDF_FILE" \
-      -param highlight.xslthl.config "$XSLTHL_CONFIG_URI" \
-      -param admon.graphics.path "$DOCBOOK_DIR/images/" \
-      -param callout.graphics.path "$DOCBOOK_DIR/images/callouts/"
+  pdf|ps)
+    CONVERT_ARGS="$CONVERT_ARGS -$TYPE \"$OUT_FILE\""
   ;;
   fo)
-    $FOPDF_CMD -q -catalog \
-      -c "$DOCBOOK_XSL_DIR/fop-config.xml" \
-      -xml "$SOURCE_FILE" \
-      -xsl "$DOCBOOK_XSL_DIR/fo-pdf.xsl" \
-      -foout "$OUTPUT_FO_FILE" \
-      -param highlight.xslthl.config "$XSLTHL_CONFIG_URI" \
-      -param admon.graphics.path "$DOCBOOK_DIR/images/" \
-      -param callout.graphics.path "$DOCBOOK_DIR/images/callouts/"
+    CONVERT_ARGS="$CONVERT_ARGS -foout \"$OUT_FILE\""
+  ;;
+  *)
+    echo Unexpected output type: "$TYPE"
+    echo Valid options: pdf, ps, fo
+    exit 1
   ;;
 esac
+
+eval $FOPDF_CMD -q -catalog \
+  -c \"$DOCBOOK_XSL_DIR/fop-config.xml\" \
+  $CONVERT_ARGS \
+  -param highlight.xslthl.config \"$XSLTHL_CONFIG_URI\" \
+  -param admon.graphics.path \"$DOCBOOK_DIR/images/\" \
+  -param callout.graphics.path \"$DOCBOOK_DIR/images/callouts/\"
 
 exit 0
