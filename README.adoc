@@ -162,6 +162,11 @@ In addition to making the conversion work, the project includes the following fe
 
 There's a lot of research that went into making all that happen for you :)
 
+NOTE: One of the most important features of this tool--and one of the most difficult to get right--is that it works offline.
+By default, XSL processors fetch all the necessary resources from the internet.
+Since these files are large and reference many other files, fetching them from the internet is exceptionally slow and uses unnecessary network bandwidth.
+The +fopdf+ tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while performing the conversion.
+
 == Technical details
 
 Let's talk tech.
