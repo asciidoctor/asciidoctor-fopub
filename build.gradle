@@ -57,9 +57,26 @@ task extractDocbookXsl(type: Copy, dependsOn: downloadDocbookXsl) {
   into outputDir
 }
 
+task downloadDocbookXml(type: Download) {
+  url = 'http://maven-us.nuxeo.org/nexus/content/repositories/public/docbook/docbook-xml/4.5/docbook-xml-4.5.jar'
+  destinationFile = file("$buildDir/docbook-xml-4.5.jar")
+}
+
+task extractDocbookXml(type: Copy, dependsOn: downloadDocbookXml) {
+  def archive = file("$buildDir/docbook-xml-4.5.jar")
+  def outputDir = file("$buildDir/unpacked/docbook-dtds")
+  from(zipTree(archive))
+  into outputDir
+}
+
 // put the official DocBook resources (XSL, images, etc) into the dist
 applicationDistribution.from(extractDocbookXsl) {
   into "docbook"
+}
+
+// put the DocBook DTDs into the dist
+applicationDistribution.from(extractDocbookXml) {
+  into "docbook/xml-dtd-4.5"
 }
 
 class Download extends DefaultTask {
