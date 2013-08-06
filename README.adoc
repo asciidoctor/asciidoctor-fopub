@@ -70,16 +70,13 @@ Now you're ready to convert!
 
 If you don't already have a DocBook file, you can generate one using Asciidoctor (or your tool of choice).
 
-To create a DocBook file using Asciidoctor, first create an AsciiDoc file in the current directory and populate it with this sample content:
+To create a DocBook file using Asciidoctor, first create an AsciiDoc file named [file]_sample.adoc_ in the current directory and populate it the sample content below.
 
 .sample.adoc
 [source,asciidoc]
 ----
 = Hello, AsciiDoc!
 Doc Writer <doc@example.com>
-:doctype: book
-:toc:
-:numbered:
 
 An introduction to http://asciidoc.org[AsciiDoc].
 
@@ -96,7 +93,7 @@ TIP: asciidoctor-fopdf takes the pain out of converting a DocBook file to a PDF 
 
 Next, convert the AsciiDoc file to DocBook:
 
- $ asciidoctor sample.adoc
+ $ asciidoctor -b docbook -d book -a toc -a numbered sample.adoc
 
 You should now see a file named [file]_sample.xml_ in the current directory.
 We'll now convert that file to PDF.
