@@ -205,12 +205,28 @@ We do are best to hide those details so that it's as simple as it should be.
 
 == Software versions
 
-Apache FOP:: 1.1
-DocBook XSL:: 1.78.1
-Apache Commons XML Resolver:: 1.2
-Xalan:: 2.6.0
-XSLTHL:: 2.1.0
-Gradle:: 1.7-rc-2
+[cols="2*", options="header"]
+|===
+|Project |Version
+
+|Apache FOP
+|1.1
+
+|DocBook XSL
+|1.78.1
+
+|Apache Commons XML Resolver
+|1.2
+
+|Xalan
+|2.6.0
+
+|XSLTHL
+|2.1.0
+
+|Gradle
+|1.7-rc-2
+|===
 
 == Contributing
 
