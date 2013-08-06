@@ -163,9 +163,9 @@ In addition to making the conversion work, the project includes the following fe
 There's a lot of research that went into making all that happen for you :)
 
 NOTE: One of the most important features of this tool--and one of the most difficult to get right--is that it works offline.
-By default, XSL processors fetch all the necessary resources from the internet.
-Since these files are large and reference many other files, fetching them from the internet is exceptionally slow and uses unnecessary network bandwidth.
-The +fopdf+ tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while performing the conversion.
+By default, XSL processors fetch all necessary resources from the internet.
+Since these files are large and reference many other files, fetching them from the internet is exceptionally slow and a waste of network bandwidth.
+The +fopdf+ tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while it performs the conversion.
 
 == Technical details
 
@@ -176,11 +176,11 @@ Let's talk tech.
 The main goal of this project is to download, configure and execute http://xmlgraphics.apache.org/fop[Apache FOP] to handle the conversion from DocBook to PDF using the http://en.wikipedia.org/wiki/DocBook_XSL[DocBook XSL] stylesheets.
 You can see from the first part of the http://www.sagehill.net/docbookxsl[DocBook XSL book] what a complex proposition this is.
 
+DocBook XSL:: The purpose of DocBook XSL is to provide a standard set of XML transformations (XSLT) from DocBook to several presentational formats, one of which is XSL-FO.
+
 Apache FOP:: Apache FOP (Formatting Objects Processor) is a print formatter driven by XSL formatting objects (XSL-FO) and an output independent formatter.
 It is a Java application that reads a formatting object (FO) tree and renders the resulting pages to a specified output.
 The primary output target is PDF.
-
-DocBook XSL:: The purpose of DocBook XSL is to provide a standard set of XML transformations (XSLT) from DocBook to several presentational formats, one of which is XSL-FO.
 
 Apache FOP also includes an XSLT processor (Xalan) that handles the conversion from DocBook into the intermediatory XSL-FO format that the print formatter uses to create the PDF.
 
