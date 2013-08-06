@@ -74,7 +74,7 @@ Next, let's grab a file to convert.
 
 === Generate a DocBook file
 
-If you don't already have a DocBook file, you can generate one using Asciidoctor (or your tool of choice).
+If you don't already have a DocBook file, you can generate one using http://asciidoctor.org[Asciidoctor] (or your tool of choice).
 
 To create a DocBook file using Asciidoctor, first create an AsciiDoc file named [file]_sample.adoc_ in the current directory and populate it the sample content below.
 
@@ -136,13 +136,13 @@ Open that file with a PDF viewer to see the result.
 image::sample-pdf-screenshot.png[Screenshot of sample PDF document]
 
 As you can see, all the details of the conversion are hidden behind the scenes.
-You get to focus on getting the job done, and not worry about the mess that has to be sorted out to use Apache FOP correctly and get decent-looking document.
+You get to focus on getting the job done, not worry about the mess that has to be sorted out to use Apache FOP correctly and get a decent-looking document.
 
 == Motivation
 
 The asciidoctor-fopdf project aims to provide a simple mechanism for converting DocBook to PDF.
-The plan is to use some form of this project to handle the DocBook to PDF conversion in Asciidoctor.
-Though, we hope it's generally useful outside of Asciidoctor as well.
+The plan is to use some form of this project to handle the DocBook to PDF conversion in http://asciidoctor.org[Asciidoctor].
+We hope it's generally useful outside of Asciidoctor as well.
 
 If you've ever had to do this conversion, you will appreciate how overly-complex it is.
 It requires fetching the right combination of software (including the right versions), putting all the files in the right location and associating them together using a catalog and passing in the correct parameters.
@@ -157,7 +157,7 @@ In addition to making the conversion work, the project includes the following fe
 * Applies (configurable) formatting and styling that's consistent with the Asciidoctor themes
 * Loads and embeds system fonts necessary to support the themes (Arial, Georgia and Liberation Mono)
 * Applies configuration to embed SVG-based admonition icons and callout marks
-* Works without an internet connection (once the initial run is complete); drastically speeds up execution
+* Works without an internet connection (once the initial run is complete); _drastically speeds up execution_
 * Works from any directory (planned)
 
 There's a lot of research that went into making all that happen for you :)
