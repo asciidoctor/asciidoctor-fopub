@@ -75,20 +75,27 @@ To create a DocBook file using Asciidoctor, first create an AsciiDoc file named 
 .sample.adoc
 [source,asciidoc]
 ----
-= Hello, AsciiDoc!
+= Document Title
 Doc Writer <doc@example.com>
 
-An introduction to http://asciidoc.org[AsciiDoc].
+A sample http://asciidoc.org[AsciiDoc] document.
 
-== First Section
+== Introduction
+
+A paragraph followed by a simple list.
 
 * item 1
 * item 2
 
+Here's how you say ``Hello, World!'' in Ruby.
+
+.A basic Ruby application
 [source,ruby]
 puts "Hello, World!"
 
 TIP: asciidoctor-fopdf takes the pain out of converting a DocBook file to a PDF file like this one.
+All you need is a Java runtime and this project.
+The rest of the software is fetched and configured by Gradle.
 ----
 
 Next, convert the AsciiDoc file to DocBook:
@@ -116,6 +123,9 @@ NOTE: The first time you run the command, it has to retrieve the software from t
 
 When it's all said and done, you should now see the file [file]+sample.pdf+ in the current directory.
 Open that file with a PDF viewer to see the result.
+
+.Sample PDF document rendered in viewer
+image::sample-pdf-screenshot.png[Screenshot of sample PDF document]
 
 As you can see, all the details of the conversion are hidden behind the scenes.
 You get to focus on getting the job done, and not worry about the mess that has to be sorted out to use Apache FOP correctly and get decent-looking document.
