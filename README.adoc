@@ -155,8 +155,8 @@ In addition to making the conversion work, the project includes the following fe
 * Applies (configurable) formatting and styling that's consistent with the Asciidoctor themes
 * Loads and embeds system fonts necessary to support the themes (Arial, Georgia and Liberation Mono)
 * Applies configuration to embed SVG-based admonition icons and callout marks
-* Can be used without an internet connection (once the initial run is complete)
-* Can be run from any directory (planned)
+* Works without an internet connection (once the initial run is complete); drastically speeds up execution
+* Works from any directory (planned)
 
 There's a lot of research that went into making all that happen for you :)
 
