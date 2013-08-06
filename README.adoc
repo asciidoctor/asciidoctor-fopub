@@ -9,7 +9,7 @@ ifndef::icons[]
 = asciidoctor-fopdf
 endif::icons[]
 
-DocBook-to-PDF conversion (using DocBook XSL and Apache FOP) made easy.
+DocBook-to-PDF conversion using free software made easy! (based on DocBook XSL and Apache FOP)
 
 Using the asciidoctor-fopdf project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM).
 All the open source software required to perform the conversion is automatically fetched from trusted binary repositories the first time you run it.
