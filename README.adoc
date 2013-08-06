@@ -104,7 +104,7 @@ All you need is a Java runtime and this project.
 The rest of the software is fetched and configured by Gradle.
 ----
 
-Convert the AsciiDoc file to DocBook:
+Convert the AsciiDoc file to DocBook using the +asciidoctor+ (or +asciidoc+) command:
 
  $ asciidoctor -b docbook -d book -a toc -a numbered sample.adoc
 
