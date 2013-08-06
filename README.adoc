@@ -112,8 +112,9 @@ TIP: You could also try these steps using the [file]_README.adoc_ file in the ro
 We're now ready to do the conversion!
 It's as simple as running the +fopdf+ script in the current directory on our DocBook file.
 
-WARNING: The +fopdf+ script currently on works on Unix-based systems.
-Stay tuned, a Windows batch file is in the works.
+WARNING: The +fopdf+ script is known to work on Unix-based systems.
+The Windows batch file has been drafted, but not yet tested.
+Please test it if you can!
 
  $ ./fopdf sample.xml
 
