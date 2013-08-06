@@ -4,6 +4,11 @@ Dan Allen <https://github.com/mojavelinux>
 :idprefix:
 :idseparator: -
 
+ifndef::icons[]
+[float]
+= asciidoctor-fopdf
+endif::icons[]
+
 DocBook-to-PDF conversion (using DocBook XSL and Apache FOP) made easy.
 
 Using the asciidoctor-fopdf project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM).
