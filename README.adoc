@@ -1,5 +1,6 @@
 = asciidoctor-fopdf
 Dan Allen <https://github.com/mojavelinux>
+v0.1.0, 2013-08-06
 :license: https://github.com/mojavelinux/asciidoctor-fopdf/blob/master/LICENSE[MIT]
 :idprefix:
 :idseparator: -
