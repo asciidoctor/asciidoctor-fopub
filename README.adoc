@@ -4,6 +4,7 @@ v0.1.0, 2013-08-06
 :license: https://github.com/mojavelinux/asciidoctor-fopdf/blob/master/LICENSE[MIT]
 :idprefix:
 :idseparator: -
+:experimental:
 
 ifndef::icons[]
 [float]
@@ -66,7 +67,7 @@ Next, change to the project directory:
 
 ==== Option 2: Download the archive
 
-If you want to download a zip archive, click on the button:[Download Zip] button on the right-hand side of the repository page on GitHub.
+If you want to download a zip archive, click on the btn:[Download Zip] button on the right-hand side of the repository page on GitHub.
 Once the download finishes, extract the archive, open a console and change to that directory.
 
 Next, let's grab a file to convert.
