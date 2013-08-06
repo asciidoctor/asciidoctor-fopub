@@ -12,11 +12,11 @@ endif::icons[]
 DocBook-to-PDF conversion using free software made easy! (based on DocBook XSL and Apache FOP)
 
 Using the asciidoctor-fopdf project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM).
-All the open source software required to perform the conversion is automatically fetched from trusted binary repositories the first time you run it.
+All the open source software required to perform the conversion is automatically fetched from the internet the first time you run it.
 
 == Doing is believing
 
-Before we get into the goals and the technical details of the project, let's see the conversion happen.
+Before we get into the goals and the technical details of the project, let's see the conversion in action!
 
 === Prerequisites
 
@@ -53,6 +53,8 @@ You can retrieve the asciidoctor-fopdf project in one of two ways:
 . Clone the git repository
 . Download a zip archive of the repository
 
+==== Option 1: Fetch using git clone
+
 If you want to clone the git repository, simply copy the URL of the repository on GitHub and pass it to +git clone+ command:
 
  $ git clone https://github.com/mojavelinux/asciidoctor-fopdf
@@ -61,10 +63,12 @@ Next, change to the project directory:
 
  $ cd asciidoctor-fopdf
 
-If you want to download a zip archive, click on the button:[Download Zip] button on the right-hand side of the repository page on GitHub.
-Once the download finishes, extract the archive, then open a shell and change to that directory.
+==== Option 2: Download the archive
 
-Now you're ready to convert!
+If you want to download a zip archive, click on the button:[Download Zip] button on the right-hand side of the repository page on GitHub.
+Once the download finishes, extract the archive, open a console and change to that directory.
+
+Next, let's grab a file to convert.
 
 === Generate a DocBook file
 
@@ -98,12 +102,13 @@ All you need is a Java runtime and this project.
 The rest of the software is fetched and configured by Gradle.
 ----
 
-Next, convert the AsciiDoc file to DocBook:
+Convert the AsciiDoc file to DocBook:
 
  $ asciidoctor -b docbook -d book -a toc -a numbered sample.adoc
 
 You should now see a file named [file]_sample.xml_ in the current directory.
-We'll now convert that file to PDF.
+
+It's time to convert it to PDF!
 
 TIP: You could also try these steps using the [file]_README.adoc_ file in the root directory of the project.
 
