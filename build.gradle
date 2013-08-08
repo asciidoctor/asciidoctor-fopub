@@ -91,7 +91,3 @@ class Download extends DefaultTask {
     destinationFile.bytes = new URL(url).bytes
   }
 }
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.7-rc-2'
-}
