@@ -842,9 +842,47 @@
 
   <!-- override to force use of title, author and one revision on titlepage -->
   <xsl:template name="book.titlepage.recto">
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:title | bookinfo/title"/>
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo//db:author | bookinfo//author"/>
-    <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:revhistory/db:revision[1] | bookinfo/revhistory/revision[1]"/>
+    <xsl:choose>
+      <xsl:when test="db:bookinfo/db:title | bookinfo/title">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:title | bookinfo/title"/>
+      </xsl:when>
+      <xsl:when test="db:info/db:title | info/title">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:info/db:title | info/title"/>
+      </xsl:when>
+      <xsl:when test="db:title | title">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:title | title"/>
+      </xsl:when>
+    </xsl:choose>
+
+    <xsl:choose>
+      <xsl:when test="db:bookinfo/db:subtitle | bookinfo/subtitle">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:subtitle | bookinfo/subtitle"/>
+      </xsl:when>
+      <xsl:when test="db:info/db:subtitle | info/subtitle">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:info/db:subtitle | info/subtitle"/>
+      </xsl:when>
+      <xsl:when test="db:subtitle | subtitle">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:subtitle | subtitle"/>
+      </xsl:when>
+    </xsl:choose>
+
+    <xsl:choose>
+      <xsl:when test="db:bookinfo//db:author | bookinfo//author">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo//db:author | bookinfo//author"/>
+      </xsl:when>
+      <xsl:when test="db:info//db:author | info//author">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:info//db:author | info//author"/>
+      </xsl:when>
+    </xsl:choose>
+
+    <xsl:choose>
+      <xsl:when test="db:bookinfo/db:revhistory/db:revision[1] | bookinfo/revhistory/revision[1]">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:bookinfo/db:revhistory/db:revision[1] | bookinfo/revhistory/revision[1]"/>
+      </xsl:when>
+      <xsl:when test="db:info/db:revhistory/db:revision[1] | info/revhistory/revision[1]">
+        <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="db:info/db:revhistory/db:revision[1] | info/revhistory/revision[1]"/>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
   <!-- cut out these pages -->
