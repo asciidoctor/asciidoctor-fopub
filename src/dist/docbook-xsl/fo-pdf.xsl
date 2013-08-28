@@ -775,6 +775,20 @@
     <xsl:attribute name="font-weight">bold</xsl:attribute> 
   </xsl:attribute-set>
 
+  <xsl:template name="itemizedlist.label.markup">
+    <xsl:param name="itemsymbol" select="'disc'"/>
+  
+    <xsl:choose>
+      <xsl:when test="$itemsymbol='none'"></xsl:when>
+      <xsl:when test="$itemsymbol='circle'">&#x25E6;</xsl:when>
+      <xsl:when test="$itemsymbol='disc'">&#x2022;</xsl:when>
+      <xsl:when test="$itemsymbol='square'">&#x25AA;</xsl:when>
+      <xsl:when test="$itemsymbol='checked'">&#x25A0;</xsl:when>
+      <xsl:when test="$itemsymbol='unchecked'">&#x25A1;</xsl:when>
+      <xsl:otherwise>&#x2022;</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <!--
     Title pages
   -->
