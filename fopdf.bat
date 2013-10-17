@@ -10,7 +10,7 @@
 if "%OS%"=="Windows_NT" setlocal
 
 @rem Store full-qualified drive + path of this script
-set PRG_DIR=%~dp0
+set PRG_DIR=%~dps0
 if "%PRG_DIR%" == "" set PRG_DIR=.
 
 set GRADLEW_CMD=%PRG_DIR%gradlew
