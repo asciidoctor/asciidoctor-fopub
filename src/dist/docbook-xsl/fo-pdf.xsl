@@ -56,7 +56,7 @@
   </xsl:template>
 
   <xsl:template name="pickfont-mono">
-    <xsl:text>Liberation Mono,monospace</xsl:text>
+    <xsl:text>Liberation Mono,Courier New,Courier,monospace</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-dingbat">
