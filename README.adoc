@@ -119,13 +119,15 @@ TIP: You could also try these steps using the [file]_README.adoc_ file in the ro
 We're now ready to do the conversion!
 It's as simple as running the +fopdf+ script in the current directory on our DocBook file.
 
-WARNING: The +fopdf+ script is known to work on Unix-based systems.
-The Windows batch file has been drafted, but not yet tested.
-Please test it if you can!
+On Unix-based systems (e.g., Linux, OSX), run:
 
  $ ./fopdf sample.xml
 
-IMPORTANT: Since we're executing a local script, you need to prefix the name of the command with +./+ as shown here:
+IMPORTANT: Since we're executing a local script, you need to prefix the name of the command with +./+.
+
+On Windows, run:
+
+ $ fopdf sample.xml
 
 NOTE: The first time you run the command, it has to retrieve the software from the repositories and setup the conversion application, so be patient.
 
