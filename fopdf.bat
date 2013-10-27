@@ -64,13 +64,13 @@ set XSLTHL_CONFIG_URI=!XSLTHL_CONFIG_URI:\=/!
 
 if "%TYPE%" == "pdf" (
   set OUTPUT_PDF_FILE="%SOURCE_ROOTNAME%.pdf"
-  %FOPDF_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslhl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
+  %FOPDF_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
 
 if "%TYPE%" == "fo" (
   set OUTPUT_FO_FILE="%SOURCE_ROOTNAME%.fo"
-  %FOPDF_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslhl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
+  %FOPDF_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
 
