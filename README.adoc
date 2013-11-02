@@ -140,6 +140,39 @@ image::sample-pdf-screenshot.png[Screenshot of sample PDF document]
 As you can see, all the details of the conversion are hidden behind the scenes.
 You get to focus on getting the job done, not worry about the mess that has to be sorted out to use Apache FOP correctly and get a decent-looking document.
 
+=== Customize output
+
+When you work on many documentations projets in *parallel*, you will probably need different outputs.
+
+Examples in differences output::
+  structure:::
+    . One need a picture in the book title page
+    . The other needs a special text at the bottom of this page
+  style:::
+    . One need an Asciidoctor style
+    . The other uses Colony style
+
+In order to work on these _2 documentations in parallel_, you need to have _2 docbook-xsl directories_. (The place where your design is)
+
+How it works :
+
+. Copy +docbook-xsl+ directory from fopdf install directory to your documentation path +/my/path/doc/files+
++
+.Content of the docbook-xsl directory
+image::docbook-xsl-content.png[Content of docbook-xsl directory]
+. Update the files you want in this directory
++
+For example if you want to use Colony style::
+  You delete Asciidoctor theme, Foundation theme and you uncomment Colony theme in the +common.xsl+ file.
+. Then you specify this directory when you launch the output generation :
+
+ $ /your/fopdf/install/dir/fopdf -x /my/path/doc/files/fopdf/docbook-xsl -t pdf myfile.xml
+ 
+NOTE: *-x* : optional, default value to fopdf install directory, +
+    -> this option tells fopdf which docbook-xsl directory to use +
+*-t* : optional, default value to pdf, +
+    -> this option parameter requires the type of output (pdf, fo or ps)
+
 == Motivation
 
 The asciidoctor-fopdf project aims to provide a simple mechanism for converting DocBook to PDF.

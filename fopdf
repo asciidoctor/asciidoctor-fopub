@@ -11,13 +11,37 @@ abspath() {
   fi
 }
 
+usage() {
+	echo Usage : fopdf -x /path/to/my/docbook/customized -t pdf mydoc.xml
+	echo PDF type is the default one, so -t pdf is not useful.
+	echo "if you don't specify -x option, the default xsl files will be the fopdf installation."
+}
+
+while getopts "t:x:" opt; do
+
+  case $opt in
+    x)
+      DOCBOOKXSL_PATH=$OPTARG
+      ;;
+    t)
+      TYPE=$OPTARG
+      ;;
+    *)
+      echo Unknown option
+      usage
+      exit 1
+  esac
+done
+
+shift $(( $OPTIND -1 ))
+
 if [ -z "$1" ]; then
   echo You must specify a DocBook XML source file as the first command argument
   exit 1
 fi
 
-if [ ! -z "$2" ]; then
-  TYPE=$2
+if [ ! -z $TYPE ]; then
+  echo TYPE : $TYPE
 else
   TYPE=pdf
 fi
@@ -52,8 +76,15 @@ SOURCE_ROOTNAME="${SOURCE_FILE%.*}"
 OUT_FILE="$SOURCE_ROOTNAME.$TYPE"
 
 DOCBOOK_DIR="$FOPDF_DIR/docbook"
-DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
-DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
+
+if [ ! -z "$DOCBOOKXSL_PATH" ]; then
+  DOCBOOK_XSL_DIR="$DOCBOOKXSL_PATH/docbook-xsl"
+  DOCBOOK_XSL_ABS_DIR="$DOCBOOKXSL_PATH/docbook-xsl"
+else
+  DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
+  DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
+fi
+
 XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
 
 CONVERT_ARGS="-$SOURCE_EXTENSION \"$SOURCE_FILE\""
