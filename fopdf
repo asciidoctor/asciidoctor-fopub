@@ -5,15 +5,25 @@ abspath() {
   PATH_ABS_DIRNAME=`cd "$PATH_REL_DIRNAME"; pwd`
   PATH_BASENAME=`basename "$1"`
   if [ "$PATH_BASENAME" == "." ]; then
-    echo "$PATH_ABS_DIRNAME" 
+    echo "$PATH_ABS_DIRNAME"
   else
-    echo "$PATH_ABS_DIRNAME/$PATH_BASENAME" 
+    echo "$PATH_ABS_DIRNAME/$PATH_BASENAME"
   fi
 }
 
+usage() {
+  echo "Usage: $0 FILE [TYPE]"
+}
+
 if [ -z "$1" ]; then
-  echo You must specify a DocBook XML source file as the first command argument
+  echo 'fopdf: You must specify a DocBook v4.5 or DocBook v5 XML source file as the first command argument'
+  usage
   exit 1
+fi
+
+if [ "$1" == '-h' ]; then
+  usage
+  exit 0
 fi
 
 if [ ! -z "$2" ]; then
@@ -22,30 +32,43 @@ else
   TYPE=pdf
 fi
 
+SOURCE_FILE="$1"
+SOURCE_EXTENSION="${SOURCE_FILE##*.}"
+
+if [ "$SOURCE_EXTENSION" != "xml" ] && [ "$SOURCE_EXTENSION" != "fo" ]; then
+  echo fopdf: Invalid source file name: "$SOURCE_FILE"
+  echo 'fopdf: The source file name must end in .fo (XSL-FO) or .xml (DocBook)'
+  usage
+  echo "Try \`asciidoctor -b docbook $1\` to convert your AsciiDoc source file to DocBook"
+  exit 1
+fi
+
+case $TYPE in
+  pdf|ps|fo)
+  ;;
+  *)
+    echo Unexpected output type: "$TYPE"
+    echo Valid options: pdf, ps, fo
+    usage
+    exit 1
+  ;;
+esac
+
 PRG_DIR=`dirname "$0"`
 PRG_ABS_DIR=`abspath "$PRG_DIR"`
 GRADLEW_CMD="$PRG_DIR/gradlew"
-FOPDF_DIR="${PRG_DIR}/build/fopdf"
+FOPDF_DIR="$PRG_DIR/build/fopdf"
 FOPDF_ABS_DIR="$PRG_ABS_DIR/build/fopdf"
 FOPDF_CMD="$FOPDF_DIR/bin/fopdf"
 
 if [ ! -e "$FOPDF_CMD" ]; then
   echo Initializing application...
-  "${GRADLEW_CMD}" -q -u installApp 
+  "$GRADLEW_CMD" -p "$PRG_DIR" -q -u installApp
   if [ $? != 0 ]; then
     echo Failed to initialize application
     exit 1
   fi
   echo Application initialized!
-fi
-
-SOURCE_FILE="$1"
-SOURCE_EXTENSION="${SOURCE_FILE##*.}"
-
-if [ "$SOURCE_EXTENSION" != "xml" ] && [ "$SOURCE_EXTENSION" != "fo" ]; then
-  echo Illegal source file name: "$SOURCE_FILE"
-  echo "Source file must end in .fo (XSL-FO) or .xml (DocBook)"
-  exit 1
 fi
 
 SOURCE_ROOTNAME="${SOURCE_FILE%.*}"
