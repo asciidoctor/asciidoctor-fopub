@@ -12,11 +12,30 @@ abspath() {
 }
 
 usage() {
-  echo "Usage: $0 FILE [TYPE]"
+  echo "Usage: $0 [-t <path>] [-f FORMAT] FILE"
+  echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
 }
 
+while getopts 'f:t:' opt; do
+
+  case $opt in
+    f)
+      FORMAT=$OPTARG
+      ;;
+    t)
+      DOCBOOK_XSL_DIR=$OPTARG
+      ;;
+    *)
+      echo "$0: unrecognized option '-$OPTARG'"
+      usage
+      exit 1
+  esac
+done
+
+shift $(( $OPTIND -1 ))
+
 if [ -z "$1" ]; then
-  echo 'fopdf: You must specify a DocBook v4.5 or DocBook v5 XML source file as the first command argument'
+  echo "$0: You must specify a DocBook v4.5 or DocBook v5 XML source file as the first command argument"
   usage
   exit 1
 fi
@@ -24,12 +43,6 @@ fi
 if [ "$1" == '-h' ]; then
   usage
   exit 0
-fi
-
-if [ ! -z "$2" ]; then
-  TYPE=$2
-else
-  TYPE=pdf
 fi
 
 SOURCE_FILE="$1"
@@ -43,16 +56,9 @@ if [ "$SOURCE_EXTENSION" != "xml" ] && [ "$SOURCE_EXTENSION" != "fo" ]; then
   exit 1
 fi
 
-case $TYPE in
-  pdf|ps|fo)
-  ;;
-  *)
-    echo Unexpected output type: "$TYPE"
-    echo Valid options: pdf, ps, fo
-    usage
-    exit 1
-  ;;
-esac
+if [ -z "$FORMAT" ]; then
+  FORMAT=pdf
+fi
 
 PRG_DIR=`dirname "$0"`
 PRG_ABS_DIR=`abspath "$PRG_DIR"`
@@ -72,11 +78,17 @@ if [ ! -e "$FOPDF_CMD" ]; then
 fi
 
 SOURCE_ROOTNAME="${SOURCE_FILE%.*}"
-OUT_FILE="$SOURCE_ROOTNAME.$TYPE"
+OUT_FILE="$SOURCE_ROOTNAME.$FORMAT"
 
 DOCBOOK_DIR="$FOPDF_DIR/docbook"
-DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
-DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
+
+if [ ! -z "$DOCBOOK_XSL_DIR" ]; then
+  DOCBOOK_XSL_ABS_DIR="$DOCBOOK_XSL_DIR"
+else
+  DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
+  DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
+fi
+
 XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
 
 CONVERT_ARGS="-$SOURCE_EXTENSION \"$SOURCE_FILE\""
@@ -89,16 +101,17 @@ if [ "$SOURCE_EXTENSION" == "xml" ]; then
   fi
 fi
 
-case $TYPE in
+case $FORMAT in
   pdf|ps)
-    CONVERT_ARGS="$CONVERT_ARGS -$TYPE \"$OUT_FILE\""
+    CONVERT_ARGS="$CONVERT_ARGS -$FORMAT \"$OUT_FILE\""
   ;;
   fo)
     CONVERT_ARGS="$CONVERT_ARGS -foout \"$OUT_FILE\""
   ;;
   *)
-    echo Unexpected output type: "$TYPE"
+    echo Unexpected output format: "$FORMAT"
     echo Valid options: pdf, ps, fo
+    usage
     exit 1
   ;;
 esac

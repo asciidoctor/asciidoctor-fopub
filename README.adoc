@@ -1,6 +1,6 @@
 = asciidoctor-fopdf
 Dan Allen <https://github.com/mojavelinux>
-v0.1.0, 2013-08-06
+v0.1.5, 2013-11-27
 :license: https://github.com/mojavelinux/asciidoctor-fopdf/blob/master/LICENSE[MIT]
 :idprefix:
 :idseparator: -
@@ -139,6 +139,49 @@ image::sample-pdf-screenshot.png[Screenshot of sample PDF document]
 
 As you can see, all the details of the conversion are hidden behind the scenes.
 You get to focus on getting the job done, not worry about the mess that has to be sorted out to use Apache FOP correctly and get a decent-looking document.
+
+=== Customize the output
+
+When you work on many documentations projets in *parallel*, you will probably need different outputs.
+
+.Use cases for different templates
+
+structure::
+
+  . One needs a picture in the book title page
+  . The other needs a special text at the bottom of this page
+
+style::
+
+  . One needs the default Asciidoctor style
+  . The other uses the Colony style
+
+In order to work on different documentation projects _in parallel_, you need to have different docbook-xsl directories.
+
+How it works:
+
+. Copy the +docbook-xsl+ directory from the fopdf install directory to your documentation path, [file]_/path/to/custom/fopdf_.
++
+.Content of the docbook-xsl directory
+image::docbook-xsl-content.png[Content of docbook-xsl directory]
+
+. Update the files you want in this directory
++
+For example if you want to use Colony style::
+  You delete Asciidoctor theme, Foundation theme and you uncomment Colony theme in the +common.xsl+ file.
+
+. Then you specify this directory when you launch the output generation :
+
+ $ /path/to/fopdf/fopdf -t /path/to/custom/fopdf/docbook-xsl sample.xml
+ 
+=== fopdf option flags
+
+-t <path>::
+  tells fopdf which docbook-xsl directory to use (optional, defaults to location inside fopdf installation)
+-f [pdf|ps|fo]::
+  tells fopdf which output to produce (optional, defaults to +pdf+)
+-h::
+  prints usage
 
 == Motivation
 
