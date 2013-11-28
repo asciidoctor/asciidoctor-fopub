@@ -38,7 +38,7 @@ done
 
 shift $(( $OPTIND -1 ))
 
-if [ -z "$1" ]; then
+if [ ! -r "$1" ]; then
   echo "$0: You must specify a DocBook v4.5 or DocBook v5 XML source file as the first command argument"
   usage
   exit 1
