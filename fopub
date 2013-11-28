@@ -49,8 +49,8 @@ SOURCE_FILE="$1"
 SOURCE_EXTENSION="${SOURCE_FILE##*.}"
 
 if [ "$SOURCE_EXTENSION" != "xml" ] && [ "$SOURCE_EXTENSION" != "fo" ]; then
-  echo fopdf: Invalid source file name: "$SOURCE_FILE"
-  echo 'fopdf: The source file name must end in .fo (XSL-FO) or .xml (DocBook)'
+  echo $0: Invalid source file name: "$SOURCE_FILE"
+  echo "$0: The source file name must end in .fo (XSL-FO) or .xml (DocBook)"
   usage
   echo "Try \`asciidoctor -b docbook $1\` to convert your AsciiDoc source file to DocBook"
   exit 1
@@ -63,11 +63,11 @@ fi
 PRG_DIR=`dirname "$0"`
 PRG_ABS_DIR=`abspath "$PRG_DIR"`
 GRADLEW_CMD="$PRG_DIR/gradlew"
-FOPDF_DIR="$PRG_DIR/build/fopdf"
-FOPDF_ABS_DIR="$PRG_ABS_DIR/build/fopdf"
-FOPDF_CMD="$FOPDF_DIR/bin/fopdf"
+FOPUB_DIR="$PRG_DIR/build/fopub"
+FOPUB_ABS_DIR="$PRG_ABS_DIR/build/fopub"
+FOPUB_CMD="$FOPUB_DIR/bin/fopub"
 
-if [ ! -e "$FOPDF_CMD" ]; then
+if [ ! -e "$FOPUB_CMD" ]; then
   echo Initializing application...
   "$GRADLEW_CMD" -p "$PRG_DIR" -q -u installApp
   if [ $? != 0 ]; then
@@ -80,13 +80,13 @@ fi
 SOURCE_ROOTNAME="${SOURCE_FILE%.*}"
 OUT_FILE="$SOURCE_ROOTNAME.$FORMAT"
 
-DOCBOOK_DIR="$FOPDF_DIR/docbook"
+DOCBOOK_DIR="$FOPUB_DIR/docbook"
 
 if [ ! -z "$DOCBOOK_XSL_DIR" ]; then
   DOCBOOK_XSL_ABS_DIR="$DOCBOOK_XSL_DIR"
 else
-  DOCBOOK_XSL_DIR="$FOPDF_DIR/docbook-xsl"
-  DOCBOOK_XSL_ABS_DIR="$FOPDF_ABS_DIR/docbook-xsl"
+  DOCBOOK_XSL_DIR="$FOPUB_DIR/docbook-xsl"
+  DOCBOOK_XSL_ABS_DIR="$FOPUB_ABS_DIR/docbook-xsl"
 fi
 
 XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
@@ -97,7 +97,7 @@ if [ "$SOURCE_EXTENSION" == "xml" ]; then
   CONVERT_ARGS="$CONVERT_ARGS -xsl \"$DOCBOOK_XSL_DIR/fo-pdf.xsl\""
   if [ `grep -c '^<!DOCTYPE \(book\|article\)' "$SOURCE_FILE"` == 0 ]; then
     # QUESTION should we work on a copy?
-    sed -i "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPDF//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
+    sed -i "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
   fi
 fi
 
@@ -116,7 +116,7 @@ case $FORMAT in
   ;;
 esac
 
-eval $FOPDF_CMD -q -catalog \
+eval $FOPUB_CMD -q -catalog \
   -c \"$DOCBOOK_XSL_DIR/fop-config.xml\" \
   $CONVERT_ARGS \
   -param highlight.xslthl.config \"$XSLTHL_CONFIG_URI\" \

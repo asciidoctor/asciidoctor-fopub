@@ -1,19 +1,19 @@
-= asciidoctor-fopdf
+= asciidoctor-fopub
 Dan Allen <https://github.com/mojavelinux>
-v0.1.5, 2013-11-27
-:license: https://github.com/mojavelinux/asciidoctor-fopdf/blob/master/LICENSE[MIT]
+v0.2.0, 2013-11-27
+:license: https://github.com/mojavelinux/asciidoctor-fopub/blob/master/LICENSE[MIT]
 :idprefix:
 :idseparator: -
 :experimental:
 
 ifndef::icons[]
 [float]
-= asciidoctor-fopdf
+= asciidoctor-fopub
 endif::icons[]
 
 DocBook-to-PDF conversion using free software made easy! (based on DocBook XSL and Apache FOP)
 
-Using the asciidoctor-fopdf project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM).
+Using the asciidoctor-fopub project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM).
 All the open source software required to perform the conversion is automatically fetched from the internet the first time you run it.
 
 == Doing is believing
@@ -46,11 +46,11 @@ If not, you can install a Java runtime using your system's package manager or by
 It's not even necessary to install the Java runtime into your system.
 Simply set the +JAVA_HOME+ environment variable to the location where you extract the distribution.
 
-Next, you need to retrieve the asciidoctor-fopdf project.
+Next, you need to retrieve the asciidoctor-fopub project.
 
 === Retrieve the project
 
-You can retrieve the asciidoctor-fopdf project in one of two ways:
+You can retrieve the asciidoctor-fopub project in one of two ways:
 
 . Clone the git repository
 . Download a zip archive of the repository
@@ -59,11 +59,11 @@ You can retrieve the asciidoctor-fopdf project in one of two ways:
 
 If you want to clone the git repository, simply copy the URL of the repository on GitHub and pass it to +git clone+ command:
 
- $ git clone https://github.com/mojavelinux/asciidoctor-fopdf
+ $ git clone https://github.com/mojavelinux/asciidoctor-fopub
 
 Next, change to the project directory:
 
- $ cd asciidoctor-fopdf
+ $ cd asciidoctor-fopub
 
 ==== Option 2: Download the archive
 
@@ -99,7 +99,7 @@ Here's how you say ``Hello, World!'' in Ruby.
 [source,ruby]
 puts "Hello, World!"
 
-TIP: asciidoctor-fopdf takes the pain out of converting a DocBook file to a PDF file like this one.
+TIP: asciidoctor-fopub takes the pain out of converting a DocBook file to a PDF file like this one.
 All you need is a Java runtime and this project.
 The rest of the software is fetched and configured by Gradle.
 ----
@@ -117,17 +117,17 @@ TIP: You could also try these steps using the [file]_README.adoc_ file in the ro
 === Convert DocBook to PDF
 
 We're now ready to do the conversion!
-It's as simple as running the +fopdf+ script in the current directory on our DocBook file.
+It's as simple as running the +fopub+ script in the current directory on our DocBook file.
 
 On Unix-based systems (e.g., Linux, OSX), run:
 
- $ ./fopdf sample.xml
+ $ ./fopub sample.xml
 
 IMPORTANT: Since we're executing a local script, you need to prefix the name of the command with +./+.
 
 On Windows, run:
 
- $ fopdf sample.xml
+ $ fopub sample.xml
 
 NOTE: The first time you run the command, it has to retrieve the software from the repositories and setup the conversion application, so be patient.
 
@@ -160,7 +160,7 @@ In order to work on different documentation projects _in parallel_, you need to 
 
 How it works:
 
-. Copy the +docbook-xsl+ directory from the fopdf install directory to your documentation path, [file]_/path/to/custom/fopdf_.
+. Copy the +docbook-xsl+ directory from the fopub install directory to your documentation path, [file]_/path/to/custom/fopub_.
 +
 .Content of the docbook-xsl directory
 image::docbook-xsl-content.png[Content of docbook-xsl directory]
@@ -172,20 +172,20 @@ For example if you want to use Colony style::
 
 . Then you specify this directory when you launch the output generation :
 
- $ /path/to/fopdf/fopdf -t /path/to/custom/fopdf/docbook-xsl sample.xml
+ $ /path/to/fopub/fopub -t /path/to/custom/fopub/docbook-xsl sample.xml
  
-=== fopdf option flags
+=== fopub option flags
 
 -t <path>::
-  tells fopdf which docbook-xsl directory to use (optional, defaults to location inside fopdf installation)
+  tells fopub which docbook-xsl directory to use (optional, defaults to location inside fopub installation)
 -f [pdf|ps|fo]::
-  tells fopdf which output to produce (optional, defaults to +pdf+)
+  tells fopub which output to produce (optional, defaults to +pdf+)
 -h::
   prints usage
 
 == Motivation
 
-The asciidoctor-fopdf project aims to provide a simple mechanism for converting DocBook to PDF.
+The asciidoctor-fopub project aims to provide a simple mechanism for converting DocBook to PDF.
 The plan is to use some form of this project to handle the DocBook to PDF conversion in http://asciidoctor.org[Asciidoctor].
 We hope it's generally useful outside of Asciidoctor as well.
 
@@ -210,7 +210,7 @@ There's a lot of research that went into making all that happen for you :)
 NOTE: One of the most important features of this tool--and one of the most difficult to get right--is that it works offline.
 By default, XSL processors fetch all necessary resources from the internet.
 Since these files are large and reference many other files, fetching them from the internet is exceptionally slow and a waste of network bandwidth.
-The +fopdf+ tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while it performs the conversion.
+The +fopub+ tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while it performs the conversion.
 
 == Technical details
 
@@ -229,12 +229,12 @@ The primary output target is PDF.
 
 Apache FOP also includes an XSLT processor (Xalan) that handles the conversion from DocBook into the intermediatory XSL-FO format that the print formatter uses to create the PDF.
 
-When the software is all setup, we are ultimately running a command in the +fopdf+ script similar to this one:
+When the software is all setup, we are ultimately running a command in the +fopub+ script similar to this one:
 
  $ fop -xml sample.xml -xsl docbook-xsl/fo-pdf.xsl -pdf sample.pdf
 
 In reality, it's more complex.
-You can see the full command at the bottom of the +fopdf+ script.
+You can see the full command at the bottom of the +fopub+ script.
 
 === Source highlighting using XSLTHL
 
@@ -245,7 +245,7 @@ XSLTHL integration is a well-hidden feature in the DocBook XSL project.
 It requires a Java-based XSLT processor (like the one embedded in Apache FOP) to use it.
 Activating it requires passing special parameters to the processor that specify the location of the configuration file and a flag to turn it on.
 
-When everything falls into place, as it does with the +fopdf+ script, you get nice syntax highlighting in your PDF file and happy readers.
+When everything falls into place, as it does with the +fopub+ script, you get nice syntax highlighting in your PDF file and happy readers.
 
 === Priming the pump with Gradle
 
@@ -256,12 +256,12 @@ That handywork is performed by Gradle.
 http://www.gradle.org[Gradle] is a Java-based automation and build tool that specializes in setting up Java applications (among other capabilities).
 Gradle can fetch files from remote repositories, move them around, create start scripts and assemble an application distribution.
 
-We are using Gradle to prepare a Java application into the +build/fopdf+ directory that the +fopdf+ script can execute.
+We are using Gradle to prepare a Java application into the +build/fopub+ directory that the +fopub+ script can execute.
 
 You may be wondering why Gradle isn't a prerequisite of this project.
 The answer is that the Gradle project provides a tool that can bootstrap Gradle from nothing.
 That tool, +gradlew+, is included with the project.
-It gets invoked the first time you run the +fopdf+ script.
+It gets invoked the first time you run the +fopub+ script.
 *Magic.*
 
 And that's essentially what this project is all about, *magic*.
@@ -290,7 +290,7 @@ We are doing our best to hide those details so that it's as simple as it should 
 |2.1.0
 
 |Gradle
-|1.7-rc-2
+|1.7
 |===
 
 == Contributing
@@ -299,11 +299,11 @@ In the spirit of free software, _everyone_ is encouraged to help improve this pr
 
 To contribute code, simply fork the project on GitHub, hack away and send a pull request with your proposed changes.
 
-Feel free to use the https://github.com/mojavelinux/asciidoctor-fopdf/issues[issue tracker] or http://discuss.asciidoctor.org[Asciidoctor mailing list] to provide feedback or suggestions in other ways.
+Feel free to use the https://github.com/mojavelinux/asciidoctor-fopub/issues[issue tracker] or http://discuss.asciidoctor.org[Asciidoctor mailing list] to provide feedback or suggestions in other ways.
 
 == Authors
 
-*asciidoctor-fopdf* was written by https://github.com/mojavelinux[Dan Allen].
+*asciidoctor-fopub* was written by https://github.com/mojavelinux[Dan Allen].
 It builds on prior work done by authors of the http://asciidoc.org[AsciiDoc], https://github.com/pressgang/jdocbook-core[jDocBook] and http://www.jboss.org/pressgang[PressGang] projects.
 
 == Copyright

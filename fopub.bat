@@ -1,7 +1,7 @@
 @if "%DEBUG%" == "" @echo off
 @rem ##########################################################################
 @rem
-@rem  fopdf script for Windows
+@rem  fopub script for Windows
 @rem
 @rem  WARNING: This script has not yet been tested!
 @rem
@@ -14,11 +14,11 @@ set PRG_DIR=%~dps0
 if "%PRG_DIR%" == "" set PRG_DIR=.
 
 set GRADLEW_CMD=%PRG_DIR%gradlew
-set FOPDF_DIR=%PRG_DIR%build\fopdf
-set FOPDF_CMD=%FOPDF_DIR%\bin\fopdf.bat
+set FOPUB_DIR=%PRG_DIR%build\fopub
+set FOPUB_CMD=%FOPUB_DIR%\bin\fopub.bat
 
-set DOCBOOK_DIR=%FOPDF_DIR%\docbook
-set DOCBOOK_XSL_DIR=%FOPDF_DIR%\docbook-xsl
+set DOCBOOK_DIR=%FOPUB_DIR%\docbook
+set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
 set XSLTHL_CONFIG_URI=file:///%DOCBOOK_XSL_DIR%\xslthl-config.xml
 
 :init
@@ -45,7 +45,7 @@ if "%SOURCE_FILE%" == "" (
 )
 
 :install
-if exist "%FOPDF_CMD%" goto endInstall
+if exist "%FOPUB_CMD%" goto endInstall
 echo .
 echo Initializing application...
 "%GRADLEW_CMD%" -q -u installApp
@@ -64,13 +64,13 @@ set XSLTHL_CONFIG_URI=!XSLTHL_CONFIG_URI:\=/!
 
 if "%TYPE%" == "pdf" (
   set OUTPUT_PDF_FILE="%SOURCE_ROOTNAME%.pdf"
-  %FOPDF_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
+  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
 
 if "%TYPE%" == "fo" (
   set OUTPUT_FO_FILE="%SOURCE_ROOTNAME%.fo"
-  %FOPDF_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
+  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
 
