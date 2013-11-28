@@ -174,6 +174,8 @@ Here's how you would pass that through fopub to fop.
 
 You'll now notice that the PDF generated is rendered in landscape mode.
 
+NOTE: See http://docbook.sourceforge.net/release/xsl/1.78.1/doc/param.html[DocBook XSL parameter reference] for a list of all XSL parameters you can set.
+
 CAUTION: Custom parameters are currently only implemented in the Unix version of the fopub script.
 
 === Custom XSL templates
