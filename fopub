@@ -16,11 +16,15 @@ usage() {
   echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
 }
 
-while getopts 'f:t:' opt; do
+while getopts 'f:ht:' opt; do
 
   case $opt in
     f)
       FORMAT=$OPTARG
+      ;;
+    h)
+      usage
+      exit 0
       ;;
     t)
       DOCBOOK_XSL_DIR=$OPTARG
@@ -38,11 +42,6 @@ if [ -z "$1" ]; then
   echo "$0: You must specify a DocBook v4.5 or DocBook v5 XML source file as the first command argument"
   usage
   exit 1
-fi
-
-if [ "$1" == '-h' ]; then
-  usage
-  exit 0
 fi
 
 SOURCE_FILE="$1"
