@@ -13,7 +13,7 @@ endif::icons[]
 
 DocBook-to-PDF conversion using free software made easy! (based on DocBook XSL and Apache FOP)
 
-Using the asciidoctor-fopub project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM).
+Using the asciidoctor-fopub project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM) and development kit (JDK).
 All the open source software required to perform the conversion is automatically fetched from the internet the first time you run it.
 
 == Doing is believing
@@ -22,10 +22,10 @@ Before we get into the goals and the technical details of the project, let's see
 
 === Prerequisites
 
-The only prerequisite to perform the DocBook to PDF conversion is a Java runtime (JVM) (and, naturally, an internet connection).
-You can use any recent Java runtime (i.e., Java 6 or better).
+The only prerequisite to perform the DocBook to PDF conversion is a Java Development Kit (JDK), which includes the Java runtime (and, naturally, an internet connection).
+You can use any recent JDK (i.e., Java SE 6 or better).
 
-If Java is setup correctly, you should be able to type:
+If Java runtime (JVM) is setup correctly, you should be able to type:
 
  $ java -version
 
@@ -41,9 +41,26 @@ OpenJDK Runtime Environment (fedora-2.3.10.3.fc17-x86_64)
 OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)
 ....
 
-If not, you can install a Java runtime using your system's package manager or by downloading a distribution from the http://java.com/en/download[Java download site].
+If the Java Devlopment Kit (JDK) is setup correctly, you should be able to type:
 
-It's not even necessary to install the Java runtime into your system.
+ $ javac -version
+
+or
+
+ $ "$JAVA_HOME"/bin/javac -version"
+
+and see output that looks like:
+
+....
+javac 1.7.0_25
+....
+
+If not, you can install a JDK using your system's package manager or by downloading a distribution from the http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java for developers download site].
+
+WARNING: You may encounter problems if you attempt to use the GNU compiler for Java (gcj).
+We recommend using OpenJDK or Oracle Java.
+
+TIP: It's not even necessary to install the JDK on your system.
 Simply set the +JAVA_HOME+ environment variable to the location where you extract the distribution.
 
 Next, you need to retrieve the asciidoctor-fopub project.
@@ -100,7 +117,7 @@ Here's how you say ``Hello, World!'' in Ruby.
 puts "Hello, World!"
 
 TIP: asciidoctor-fopub takes the pain out of converting a DocBook file to a PDF file like this one.
-All you need is a Java runtime and this project.
+All you need is a Java Development Kit (JDK) and this project.
 The rest of the software is fetched and configured by Gradle.
 ----
 
