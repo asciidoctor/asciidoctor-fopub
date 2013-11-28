@@ -161,7 +161,22 @@ image::sample-pdf-screenshot.png[Screenshot of sample PDF document]
 As you can see, all the details of the conversion are hidden behind the scenes.
 You get to focus on getting the job done, not worry about the mess that has to be sorted out to use Apache FOP correctly and get a decent-looking document.
 
-=== Customize the output
+=== Custom XSL parameters
+
+Any arguments that follow the source file name are passed directly to the Apache FO processor (fop).
+This feature allows you to assign XSL parameters, among other things.
+
+Let's say you want to set the orientation of the PDF to landscape.
+The DocBook XSL templates recognize the parameter named +page.orientation+.
+Here's how you would pass that through fopub to fop.
+
+ $ ./fopub sample.xml -param page.orientation landscape
+
+You'll now notice that the PDF generated is rendered in landscape mode.
+
+CAUTION: Custom parameters are currently only implemented in the Unix version of the fopub script.
+
+=== Custom XSL templates
 
 When you work on many documentations projets in *parallel*, you will probably need different outputs.
 
