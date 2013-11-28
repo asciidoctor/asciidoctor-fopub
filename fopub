@@ -16,8 +16,7 @@ usage() {
   echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
 }
 
-while getopts 'f:ht:' opt; do
-
+while getopts ':f:ht:' opt; do
   case $opt in
     f)
       FORMAT=$OPTARG
@@ -29,8 +28,8 @@ while getopts 'f:ht:' opt; do
     t)
       DOCBOOK_XSL_DIR=$OPTARG
       ;;
-    *)
-      echo "$0: unrecognized option '-$OPTARG'"
+    \?)
+      echo "$0: unrecognized option '$1'"
       usage
       exit 1
   esac
@@ -46,6 +45,7 @@ fi
 
 SOURCE_FILE="$1"
 SOURCE_EXTENSION="${SOURCE_FILE##*.}"
+shift
 
 if [ "$SOURCE_EXTENSION" != "xml" ] && [ "$SOURCE_EXTENSION" != "fo" ]; then
   echo $0: Invalid source file name: "$SOURCE_FILE"
@@ -120,6 +120,6 @@ eval $FOPUB_CMD -q -catalog \
   $CONVERT_ARGS \
   -param highlight.xslthl.config \"$XSLTHL_CONFIG_URI\" \
   -param admon.graphics.path \"$DOCBOOK_DIR/images/\" \
-  -param callout.graphics.path \"$DOCBOOK_DIR/images/callouts/\"
+  -param callout.graphics.path \"$DOCBOOK_DIR/images/callouts/\" "$@"
 
 exit 0
