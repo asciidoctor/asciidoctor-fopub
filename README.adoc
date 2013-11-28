@@ -87,6 +87,8 @@ Next, change to the project directory:
 If you want to download a zip archive, click on the btn:[Download Zip] button on the right-hand side of the repository page on GitHub.
 Once the download finishes, extract the archive, open a console and change to that directory.
 
+TIP: Instead of working out of the asciidoctor-fopub directory, you can simply add the directory to your +PATH+ environment variable.
+
 Next, let's grab a file to convert.
 
 === Generate a DocBook file
@@ -142,11 +144,13 @@ On Unix-based systems (e.g., Linux, OSX), run:
 
 IMPORTANT: Since we're executing a local script, you need to prefix the name of the command with +./+.
 
+TIP: If you've added the path to asciidoctor-fopub to your +PATH+ environment variable, you can leave off the +./+ and execute it from any directory.
+
 On Windows, run:
 
  $ fopub sample.xml
 
-NOTE: The first time you run the command, it has to retrieve the software from the repositories and setup the conversion application, so be patient.
+NOTE: The first time you run the command, asciidoctor-fopub has to retrieve the software from the repositories and setup the conversion application, so be patient.
 
 When it's all said and done, you should now see the file [file]+sample.pdf+ in the current directory.
 Open that file with a PDF viewer to see the result.
