@@ -125,7 +125,7 @@ The rest of the software is fetched and configured by Gradle.
 
 Convert the AsciiDoc file to DocBook using the +asciidoctor+ (or +asciidoc+) command:
 
- $ asciidoctor -b docbook -d book -a toc -a numbered sample.adoc
+ $ asciidoctor -b docbook -d book sample.adoc
 
 You should now see a file named [file]_sample.xml_ in the current directory.
 
