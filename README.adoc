@@ -1,7 +1,7 @@
 = asciidoctor-fopub
 Dan Allen <https://github.com/mojavelinux>
 v0.2.0, 2013-11-27
-:license: https://github.com/mojavelinux/asciidoctor-fopub/blob/master/LICENSE[MIT]
+:license: https://github.com/asciidoctor/asciidoctor-fopub/blob/master/LICENSE[MIT]
 :idprefix:
 :idseparator: -
 :experimental:
@@ -76,7 +76,7 @@ You can retrieve the asciidoctor-fopub project in one of two ways:
 
 If you want to clone the git repository, simply copy the URL of the repository on GitHub and pass it to +git clone+ command:
 
- $ git clone https://github.com/mojavelinux/asciidoctor-fopub
+ $ git clone https://github.com/asciidoctor/asciidoctor-fopub
 
 Next, change to the project directory:
 
@@ -337,7 +337,7 @@ In the spirit of free software, _everyone_ is encouraged to help improve this pr
 
 To contribute code, simply fork the project on GitHub, hack away and send a pull request with your proposed changes.
 
-Feel free to use the https://github.com/mojavelinux/asciidoctor-fopub/issues[issue tracker] or http://discuss.asciidoctor.org[Asciidoctor mailing list] to provide feedback or suggestions in other ways.
+Feel free to use the https://github.com/asciidoctor/asciidoctor-fopub/issues[issue tracker] or http://discuss.asciidoctor.org[Asciidoctor mailing list] to provide feedback or suggestions in other ways.
 
 == Authors
 
