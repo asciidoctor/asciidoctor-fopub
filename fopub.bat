@@ -14,7 +14,7 @@ set PRG_DIR=%~dps0
 if "%PRG_DIR%" == "" set PRG_DIR=.
 
 set GRADLEW_CMD=%PRG_DIR%gradlew
-set FOPUB_DIR=%PRG_DIR%build\fopub
+set FOPUB_DIR=%PRG_DIR%\build\fopub
 set FOPUB_CMD=%FOPUB_DIR%\bin\fopub.bat
 
 set DOCBOOK_DIR=%FOPUB_DIR%\docbook
