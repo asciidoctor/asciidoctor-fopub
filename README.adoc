@@ -56,7 +56,7 @@ WARNING: You may encounter problems if you attempt to use the GNU compiler for J
 We recommend using OpenJDK or Oracle Java.
 
 TIP: It's not even necessary to install the JDK on your system.
-Simply set the +JAVA_HOME+ environment variable to the location where you extract the distribution.
+Simply set the `JAVA_HOME` environment variable to the location where you extract the distribution.
 
 Next, you need to retrieve the asciidoctor-fopub project.
 
@@ -69,7 +69,7 @@ You can retrieve the asciidoctor-fopub project in one of two ways:
 
 ==== Option 1: Fetch using git clone
 
-If you want to clone the git repository, simply copy the URL of the repository on GitHub and pass it to +git clone+ command:
+If you want to clone the git repository, simply copy the URL of the repository on GitHub and pass it to `git clone` command:
 
  $ git clone https://github.com/asciidoctor/asciidoctor-fopub
 
@@ -82,7 +82,7 @@ Next, change to the project directory:
 If you want to download a zip archive, click on the btn:[Download Zip] button on the right-hand side of the repository page on GitHub.
 Once the download finishes, extract the archive, open a console and change to that directory.
 
-TIP: Instead of working out of the asciidoctor-fopub directory, you can simply add the directory to your +PATH+ environment variable.
+TIP: Instead of working out of the asciidoctor-fopub directory, you can simply add the directory to your `PATH` environment variable.
 
 Next, let's grab a file to convert.
 
@@ -94,7 +94,7 @@ To create a DocBook file using Asciidoctor, first create an AsciiDoc file named 
 
 .sample.adoc
 [source,asciidoc]
-----
+....
 = Document Title
 Doc Writer <doc@example.com>
 
@@ -107,18 +107,20 @@ A paragraph followed by a simple list.
 * item 1
 * item 2
 
-Here's how you say ``Hello, World!'' in Ruby.
+Here's how you say "`Hello, World!`" in Ruby.
 
 .A basic Ruby application
 [source,ruby]
+----
 puts "Hello, World!"
+----
 
 TIP: asciidoctor-fopub takes the pain out of converting a DocBook file to a PDF file like this one.
 All you need is a Java Development Kit (JDK) and this project.
 The rest of the software is fetched and configured by Gradle.
-----
+....
 
-Convert the AsciiDoc file to DocBook using the +asciidoctor+ (or +asciidoc+) command:
+Convert the AsciiDoc file to DocBook using the `asciidoctor` (or `asciidoc`) command:
 
  $ asciidoctor -b docbook -d book sample.adoc
 
@@ -131,15 +133,15 @@ TIP: You could also try these steps using the [file]_README.adoc_ file in the ro
 === Convert DocBook to PDF
 
 We're now ready to do the conversion!
-It's as simple as running the +fopub+ script in the current directory on our DocBook file.
+It's as simple as running the `fopub` script in the current directory on our DocBook file.
 
 On Unix-based systems (e.g., Linux, OSX), run:
 
  $ ./fopub sample.xml
 
-IMPORTANT: Since we're executing a local script, you need to prefix the name of the command with +./+.
+IMPORTANT: Since we're executing a local script, you need to prefix the name of the command with `./`.
 
-TIP: If you've added the path to asciidoctor-fopub to your +PATH+ environment variable, you can leave off the +./+ and execute it from any directory.
+TIP: If you've added the path to asciidoctor-fopub to your `PATH` environment variable, you can leave off the `./` and execute it from any directory.
 
 On Windows, run:
 
@@ -147,7 +149,7 @@ On Windows, run:
 
 NOTE: The first time you run the command, asciidoctor-fopub has to retrieve the software from the repositories and setup the conversion application, so be patient.
 
-When it's all said and done, you should now see the file [file]+sample.pdf+ in the current directory.
+When it's all said and done, you should now see the file [file]_sample.pdf_ in the current directory.
 Open that file with a PDF viewer to see the result.
 
 .Sample PDF document rendered in viewer
@@ -162,7 +164,7 @@ Any arguments that follow the source file name are passed directly to the Apache
 This feature allows you to assign XSL parameters, among other things.
 
 Let's say you want to set the orientation of the PDF to landscape.
-The DocBook XSL templates recognize the parameter named +page.orientation+.
+The DocBook XSL templates recognize the parameter named `page.orientation`.
 Here's how you would pass that through fopub to fop.
 
  $ ./fopub sample.xml -param page.orientation landscape
@@ -193,7 +195,7 @@ In order to work on different documentation projects _in parallel_, you need to 
 
 How it works:
 
-. Copy the +docbook-xsl+ directory from the fopub install directory to your documentation path, [file]_/path/to/custom/fopub_.
+. Copy the `docbook-xsl` directory from the fopub install directory to your documentation path, [file]_/path/to/custom/fopub_.
 +
 .Content of the docbook-xsl directory
 image::docbook-xsl-content.png[Content of docbook-xsl directory]
@@ -201,7 +203,7 @@ image::docbook-xsl-content.png[Content of docbook-xsl directory]
 . Update the files you want in this directory
 +
 For example if you want to use Colony style::
-  You delete Asciidoctor theme, Foundation theme and you uncomment Colony theme in the +common.xsl+ file.
+  You delete Asciidoctor theme, Foundation theme and you uncomment Colony theme in the `common.xsl` file.
 
 . Then you specify this directory when you launch the output generation :
 
@@ -212,7 +214,7 @@ For example if you want to use Colony style::
 -t <path>::
   tells fopub which docbook-xsl directory to use (optional, defaults to location inside fopub installation)
 -f [pdf|ps|fo]::
-  tells fopub which output to produce (optional, defaults to +pdf+)
+  tells fopub which output to produce (optional, defaults to `pdf`)
 -h::
   prints usage
 
@@ -243,7 +245,7 @@ There's a lot of research that went into making all that happen for you :)
 NOTE: One of the most important features of this tool--and one of the most difficult to get right--is that it works offline.
 By default, XSL processors fetch all necessary resources from the internet.
 Since these files are large and reference many other files, fetching them from the internet is exceptionally slow and a waste of network bandwidth.
-The +fopub+ tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while it performs the conversion.
+The `fopub` tool carefully ensures that the processor has all the files it needs (on the first run) and thus keeps it from reaching out to the internet while it performs the conversion.
 
 == Technical details
 
@@ -262,12 +264,12 @@ The primary output target is PDF.
 
 Apache FOP also includes an XSLT processor (Xalan) that handles the conversion from DocBook into the intermediatory XSL-FO format that the print formatter uses to create the PDF.
 
-When the software is all setup, we are ultimately running a command in the +fopub+ script similar to this one:
+When the software is all setup, we are ultimately running a command in the `fopub` script similar to this one:
 
  $ fop -xml sample.xml -xsl docbook-xsl/fo-pdf.xsl -pdf sample.pdf
 
 In reality, it's more complex.
-You can see the full command at the bottom of the +fopub+ script.
+You can see the full command at the bottom of the `fopub` script.
 
 === Source highlighting using XSLTHL
 
@@ -278,7 +280,7 @@ XSLTHL integration is a well-hidden feature in the DocBook XSL project.
 It requires a Java-based XSLT processor (like the one embedded in Apache FOP) to use it.
 Activating it requires passing special parameters to the processor that specify the location of the configuration file and a flag to turn it on.
 
-When everything falls into place, as it does with the +fopub+ script, you get nice syntax highlighting in your PDF file and happy readers.
+When everything falls into place, as it does with the `fopub` script, you get nice syntax highlighting in your PDF file and happy readers.
 
 === Priming the pump with Gradle
 
@@ -289,12 +291,12 @@ That handywork is performed by Gradle.
 http://www.gradle.org[Gradle] is a Java-based automation and build tool that specializes in setting up Java applications (among other capabilities).
 Gradle can fetch files from remote repositories, move them around, create start scripts and assemble an application distribution.
 
-We are using Gradle to prepare a Java application into the +build/fopub+ directory that the +fopub+ script can execute.
+We are using Gradle to prepare a Java application into the `build/fopub` directory that the `fopub` script can execute.
 
 You may be wondering why Gradle isn't a prerequisite of this project.
 The answer is that the Gradle project provides a tool that can bootstrap Gradle from nothing.
-That tool, +gradlew+, is included with the project.
-It gets invoked the first time you run the +fopub+ script.
+That tool, `gradlew`, is included with the project.
+It gets invoked the first time you run the `fopub` script.
 *Magic.*
 
 And that's essentially what this project is all about, *magic*.
