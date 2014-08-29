@@ -24,7 +24,7 @@ dependencies {
 }
 
 mainClassName = 'org.apache.fop.cli.Main'
-applicationDefaultJvmArgs = ["-Dxml.catalog.files=$buildDir/${project.name}/catalog.xml"]
+applicationDefaultJvmArgs = ["-Dxml.catalog.files=APP_DIR/catalog.xml"]
 //applicationDefaultJvmArgs = ['-Dxml.catalog.files=/etc/xml/catalog']
 
 installApp {
@@ -89,5 +89,13 @@ class Download extends DefaultTask {
   @TaskAction
   def downloadFile() {
     destinationFile.bytes = new URL(url).bytes
+  }
+}
+
+CreateStartScripts startScripts = project.startScripts
+startScripts.with {
+  doLast {
+    unixScript.text = unixScript.text.replaceFirst('APP_DIR', '\\$APP_DIR')
+    windowsScript.text = windowsScript.text.replaceFirst('APP_DIR', '%APP_HOME%')
   }
 }
