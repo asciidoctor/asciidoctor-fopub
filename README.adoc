@@ -1,6 +1,7 @@
 = asciidoctor-fopub
 Dan Allen <https://github.com/mojavelinux>
 v0.2.0, 2013-11-27
+ifdef::basebackend-docbook[:doctype: book]
 :license: https://github.com/asciidoctor/asciidoctor-fopub/blob/master/LICENSE[MIT]
 :idprefix:
 :idseparator: -
@@ -122,9 +123,12 @@ The rest of the software is fetched and configured by Gradle.
 
 Convert the AsciiDoc file to DocBook using the `asciidoctor` (or `asciidoc`) command:
 
- $ asciidoctor -b docbook -d book sample.adoc
+ $ asciidoctor -b docbook -d book -a data-uri! sample.adoc
 
-You should now see a file named [file]_sample.xml_ in the current directory.
+After executing this command, you should now see a new file named [file]_sample.xml_ in the current directory.
+
+IMPORTANT: We explicitly disable the `data-uri` attribute just in case it's set in the AsciiDoc document.
+The PDF processor will choke if it comes across embedded image data in the generated DocBook.
 
 It's time to convert it to PDF!
 
