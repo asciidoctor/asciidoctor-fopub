@@ -506,7 +506,7 @@
               <xsl:with-param name="default.units" select="'px'"/>
             </xsl:call-template>
           </xsl:when>
-          <xsl:when test="not(@depth) and not(ancestor::inlinemediaobject) and $default.image.width != ''">
+          <xsl:when test="not(@depth) and name(../..) != 'inlinemediaobject' and $default.image.width != ''">
             <xsl:call-template name="length-spec">
               <xsl:with-param name="length" select="$default.image.width"/>
               <xsl:with-param name="default.units" select="'px'"/>
@@ -528,7 +528,7 @@
               <xsl:with-param name="default.units" select="'px'"/>
             </xsl:call-template>
           </xsl:when>
-          <xsl:when test="ancestor::inlinemediaobject">
+          <xsl:when test="name(../..) = 'inlinemediaobject' and $default.inline.image.height != ''">
             <xsl:call-template name="length-spec">
               <xsl:with-param name="length" select="$default.inline.image.height"/>
               <xsl:with-param name="default.units" select="'px'"/>
