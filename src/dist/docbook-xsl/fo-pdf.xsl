@@ -102,11 +102,11 @@
   -->
 
   <xsl:param name="hyphenate">false</xsl:param>
+  <xsl:param name="line-height">1.5</xsl:param>
   <!--
   <xsl:param name="alignment">left</xsl:param>
   -->
   <xsl:param name="alignment">justify</xsl:param>
-  <xsl:param name="line-height">1.5</xsl:param>
   <xsl:param name="body.font.master">12</xsl:param>
   <xsl:param name="body.font.size">
     <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
