@@ -792,6 +792,24 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="db:listitem/db:simpara[1] | listitem/simpara">
+    <xsl:choose>
+      <xsl:when test="count(following-sibling::*) > 0">
+        <!-- Treat first paragraph of complex list item as normal paragraph (padding below) -->
+        <fo:block xsl:use-attribute-sets="normal.para.spacing">
+          <xsl:call-template name="anchor"/>
+          <xsl:apply-templates/>
+        </fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block>
+          <xsl:call-template name="anchor"/>
+          <xsl:apply-templates/>
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <!--
     Title pages
   -->
