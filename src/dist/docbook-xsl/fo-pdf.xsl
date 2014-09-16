@@ -258,6 +258,7 @@
   <xsl:param name="body.end.indent">0</xsl:param> <!-- text recess from right -->
   <xsl:param name="region.before.extent">10mm</xsl:param> <!-- height of page header -->
   <xsl:param name="region.after.extent">10mm</xsl:param> <!-- height of page footer -->
+  <xsl:param name="header.column.widths">1 5 1</xsl:param>
 
   <!--
     Table of Contents
