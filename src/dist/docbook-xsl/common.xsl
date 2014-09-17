@@ -74,7 +74,23 @@
       <xsl:otherwise>0</xsl:otherwise>
     </xsl:choose>
   </xsl:param>
-  <xsl:param name="section.autolabel.max.depth" select="2"/>
+  <xsl:param name="section.autolabel.max.depth">
+    <xsl:choose>
+      <xsl:when test="/processing-instruction('asciidoc-numbered')">
+        <xsl:variable name="depth">
+          <xsl:call-template name="pi-attribute">
+            <xsl:with-param name="pis" select="/processing-instruction('asciidoc-numbered')"/>
+            <xsl:with-param name="attribute" select="'maxdepth'"/>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="$depth != ''"><xsl:value-of select="$depth"/></xsl:when>
+          <xsl:otherwise>2</xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>2</xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
   <xsl:param name="section.label.includes.component.label" select="1"/>
 
   <xsl:param name="suppress.navigation">0</xsl:param>
