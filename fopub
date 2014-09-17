@@ -122,4 +122,7 @@ eval $FOPUB_CMD -q -catalog \
   -param admon.graphics.path \"$DOCBOOK_DIR/images/\" \
   -param callout.graphics.path \"$DOCBOOK_DIR/images/callouts/\" "$@"
 
+# NOTE use ignore.image.scaling to disable the image scaling logic in fo-pdf.xsl
+#  -param ignore.image.scaling \"1\" \
+
 exit 0
