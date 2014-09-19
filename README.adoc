@@ -153,6 +153,8 @@ On Windows, run:
 
 NOTE: The first time you run the command, asciidoctor-fopub has to retrieve the software from the repositories and setup the conversion application, so be patient.
 
+TIP: To use the `fopub` command from behind a proxy, you'll need to configure the Gradle proxy settings as described in http://www.gradle.org/docs/current/userguide/build_environment.html[Chapter 20 of the Gradle Reference Guide].
+
 When it's all said and done, you should now see the file [file]_sample.pdf_ in the current directory.
 Open that file with a PDF viewer to see the result.
 
