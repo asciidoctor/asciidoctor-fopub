@@ -65,6 +65,10 @@ GRADLEW_CMD="$PRG_DIR/gradlew"
 FOPUB_DIR="$PRG_DIR/build/fopub"
 FOPUB_ABS_DIR="$PRG_ABS_DIR/build/fopub"
 FOPUB_CMD="$FOPUB_DIR/bin/fopub"
+# APP_DIR allows this script to invoke a distributed version of the application
+if [ -z "$APP_DIR" ]; then
+  export APP_DIR="$FOPUB_DIR"
+fi
 
 if [ ! -e "$FOPUB_CMD" ]; then
   echo Initializing application...
