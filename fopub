@@ -82,7 +82,13 @@ OUT_FILE="$SOURCE_ROOTNAME.$FORMAT"
 DOCBOOK_DIR="$FOPUB_DIR/docbook"
 
 if [ ! -z "$DOCBOOK_XSL_DIR" ]; then
-  DOCBOOK_XSL_ABS_DIR=`readlink -f "$DOCBOOK_XSL_DIR"`
+  DOCBOOK_XSL_ABS_DIR=`readlink -f "$DOCBOOK_XSL_DIR" 2>/dev/null`
+  if [ $? -ne 0 ]; then
+    DOCBOOK_XSL_ABS_DIR=`greadlink -f "$DOCBOOK_XSL_DIR" 2>/dev/null`
+    if [ $? -ne 0 ]; then
+      DOCBOOK_XSL_ABS_DIR="$DOCBOOK_XSL_DIR"
+    fi
+  fi
 else
   DOCBOOK_XSL_DIR="$FOPUB_DIR/docbook-xsl"
   DOCBOOK_XSL_ABS_DIR="$FOPUB_ABS_DIR/docbook-xsl"
