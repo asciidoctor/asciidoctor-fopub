@@ -12,6 +12,12 @@ DocBook-to-PDF conversion using free software made easy! (based on DocBook XSL a
 Using the asciidoctor-fopub project, you can convert any DocBook file into a nicely formatted PDF with nothing more than a Java runtime (JVM) and development kit (JDK).
 All the open source software required to perform the conversion is automatically fetched from the internet the first time you run it.
 
+[NOTE,caption=Scope]
+fopub is a replacement for `a2x` command from AsciiDoc Python.
+a2x is a standalone frontend to the DocBook toolchain.
+fopub (like a2x) is meant to be used when you don't have a Gradle (or Maven) build.
+Once you are in the Gradle world, you can simply leverage the jDocBook plugin to accomplish what fopub is doing (as seen in the Spring and Hibernate builds).
+
 == Doing is believing
 
 Before we get into the goals and the technical details of the project, let's see the conversion in action!
