@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+parent_dir = File.dirname(File.absolute_path(File.dirname(__FILE__)))
+executable = /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM ? 'fopub.bat' : 'fopub'
+executable_fullpath = File.join(parent_dir, executable)
+exec executable_fullpath, *ARGV
