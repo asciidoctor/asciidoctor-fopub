@@ -294,6 +294,31 @@ Activating it requires passing special parameters to the processor that specify 
 
 When everything falls into place, as it does with the `fopub` script, you get nice syntax highlighting in your PDF file and happy readers.
 
+=== MathML rendering using JEuclid
+
+If you have MathML in your DocBook, it will be rendered using the http://jeuclid.sourceforge.net/jeuclid-fop/index.html[JEuclid plugin for Apache FOP].
+
+Asciidoctor automatically converts AsciiMath to MathML when the asciimath gem is available.
+
+First, install the asciimath gem.
+
+ $ gem install asciimath
+
+Then, enable the `stem` attribute when converting to DocBook using Asciidoctor.
+
+ $ asciidoctor -b docbook -a stem sample.adoc
+
+Finally, run `fopub` on the DocBook file as documented above.
+
+WARNING: Asciidoctor 1.5.3 only converts AsciiMath blocks.
+Asciidoctor 1.5.4 will also convert inline AsciiMath elements.
+See asciidoctor/asciidoctor#1622.
+
+WARNING: At this time, conversion of LaTeX to MathML is not supported.
+However, if you have a DocBook file that contains MathML, asciidoctor-fopub will convert it.
+
+TIP: The font used for the rendered math is selected by the pickfont-math template.
+
 === Priming the pump with Gradle
 
 Setting up a Java application is no small feat.
@@ -332,6 +357,9 @@ We are doing our best to hide those details so that it's as simple as it should 
 
 |Xalan
 |2.6.0
+
+|JEuclid
+|3.1.9
 
 |XSLTHL
 |2.1.0
