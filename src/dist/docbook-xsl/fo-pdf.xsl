@@ -67,6 +67,10 @@
     <xsl:text>Symbol,ZapfDingbats</xsl:text>
   </xsl:template>
 
+  <xsl:template name="pickfont-math">
+    <xsl:text>Liberation Serif,Times-Roman</xsl:text>
+  </xsl:template>
+
   <!--
     Fonts
   -->
@@ -92,6 +96,10 @@
     <xsl:call-template name="pickfont-symbol"/>
   </xsl:param>
   -->
+
+  <xsl:param name="math.font.family">
+    <xsl:call-template name="pickfont-math"/>
+  </xsl:param>
 
   <xsl:param name="title.font.family">
     <xsl:call-template name="pickfont-serif"/>
@@ -610,6 +618,20 @@
         </xsl:attribute>
       </xsl:if>
     </fo:external-graphic>
+  </xsl:template>
+
+  <!--
+    Math
+  -->
+
+  <xsl:template match="mml:math" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <fo:instream-foreign-object>
+      <xsl:attribute name="font-family"><xsl:value-of select="$math.font.family"/></xsl:attribute>
+      <xsl:copy>
+        <xsl:copy-of select="@*"/>
+        <xsl:apply-templates/>
+      </xsl:copy>
+    </fo:instream-foreign-object>
   </xsl:template>
 
   <!--
