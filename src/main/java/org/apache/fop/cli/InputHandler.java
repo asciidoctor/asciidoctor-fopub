@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,6 +40,7 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.fop.apps.*;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -48,10 +50,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.apache.fop.ResourceEventProducer;
-import org.apache.fop.apps.FOPException;
-import org.apache.fop.apps.FOUserAgent;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
 import org.apache.fop.render.awt.viewer.Renderable;
 
 /**
@@ -103,25 +101,23 @@ public class InputHandler implements ErrorListener, Renderable {
     public void renderTo(FOUserAgent userAgent, String outputFormat, OutputStream out)
                 throws FOPException {
 
-        FopFactory factory = userAgent.getFactory();
+        String baseURL = null;
+
+        try {
+            baseURL = new File(sourcefile.getAbsolutePath())
+                    .getParentFile().toURI().toURL().toExternalForm();
+        } catch (Exception e) {
+            baseURL = "";
+        }
+
+        FopFactory factory = new FopFactoryBuilder(URI.create(baseURL))
+                .build();
+
         Fop fop;
         if (out != null) {
             fop = factory.newFop(outputFormat, userAgent, out);
         } else {
             fop = factory.newFop(outputFormat, userAgent);
-        }
-
-        // if base URL was not explicitly set in FOUserAgent, obtain here
-        if (fop.getUserAgent().getBaseURL() == null && sourcefile != null) {
-            String baseURL = null;
-
-            try {
-                baseURL = new File(sourcefile.getAbsolutePath())
-                        .getParentFile().toURI().toURL().toExternalForm();
-            } catch (Exception e) {
-                baseURL = "";
-            }
-            fop.getUserAgent().setBaseURL(baseURL);
         }
 
         // Resulting SAX events (the generated FO) must be piped through to FOP

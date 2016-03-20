@@ -18,7 +18,7 @@ dependencies {
   // avalon dependencies need to be specified to align with version available
   compile 'org.apache.avalon.framework:avalon-framework-api:4.3.1'
   compile 'org.apache.avalon.framework:avalon-framework-impl:4.3.1'
-  compile 'org.apache.xmlgraphics:fop:1.1'
+  compile 'org.apache.xmlgraphics:fop:2.1'
   runtime 'net.sourceforge.jeuclid:jeuclid-fop:3.1.9'
   runtime 'net.sf.xslthl:xslthl:2.1.0'
   //dist 'net.sf.docbook:docbook-xsl:1.78.0:ns-resources@zip'
