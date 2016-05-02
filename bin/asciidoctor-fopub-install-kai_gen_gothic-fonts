@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'open-uri'
+require 'fileutils'
+
+FontsDir = File.expand_path(File.join(File.dirname(__FILE__),
+                                      '..', 'build', 'fopub',
+                                      'docbook-xsl', 'fonts'))
+FileUtils::mkdir_p FontsDir
+
+Fonts = %w(
+  KaiGenGothicCN-Bold-Italic.ttf
+  KaiGenGothicCN-Bold.ttf
+  KaiGenGothicCN-Regular-Italic.ttf
+  KaiGenGothicCN-Regular.ttf
+  KaiGenGothicJP-Bold-Italic.ttf
+  KaiGenGothicJP-Bold.ttf
+  KaiGenGothicJP-Regular-Italic.ttf
+  KaiGenGothicJP-Regular.ttf
+  KaiGenGothicKR-Bold-Italic.ttf
+  KaiGenGothicKR-Bold.ttf
+  KaiGenGothicKR-Regular-Italic.ttf
+  KaiGenGothicKR-Regular.ttf
+  KaiGenGothicTW-Bold-Italic.ttf
+  KaiGenGothicTW-Bold.ttf
+  KaiGenGothicTW-Regular-Italic.ttf
+  KaiGenGothicTW-Regular.ttf
+  RobotoMono-Bold.ttf
+  RobotoMono-BoldItalic.ttf
+  RobotoMono-Italic.ttf
+  RobotoMono-Regular.ttf
+)
+
+Dir.chdir(FontsDir) do
+  Fonts.each_with_index do |name, index|
+    puts "[#{index + 1}/#{Fonts.count}] Downloading #{name}"
+    File.open(name, 'wb') do |file|
+      file.write open("https://github.com/chloerei/asciidoctor-pdf-cjk-kai_gen_gothic/releases/download/v0.1.0-fonts/#{name}").read
+    end
+  end
+end
+
+puts "Done"

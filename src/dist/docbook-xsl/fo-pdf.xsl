@@ -21,6 +21,7 @@
   <xsl:import href="common.xsl"/>
   <xsl:import href="highlight.xsl"/>
   <xsl:import href="callouts.xsl"/>
+  <xsl:import href="fonts.xsl"/>
 
   <!-- Enable extensions for FOP version 0.90 and later -->
   <xsl:param name="fop1.extensions">1</xsl:param>
@@ -44,35 +45,9 @@
   </xsl:template>
 
   <!--
-    Font selectors
-  -->
-
-  <xsl:template name="pickfont-sans">
-    <xsl:text>Arial,sans-serif</xsl:text>
-  </xsl:template>
-
-  <xsl:template name="pickfont-serif">
-    <xsl:text>Georgia,serif</xsl:text>
-  </xsl:template>
-
-  <xsl:template name="pickfont-mono">
-    <xsl:text>Liberation Mono,Courier New,Courier,monospace</xsl:text>
-  </xsl:template>
-
-  <xsl:template name="pickfont-dingbat">
-    <xsl:call-template name="pickfont-sans"/>
-  </xsl:template>
-
-  <xsl:template name="pickfont-symbol">
-    <xsl:text>Symbol,ZapfDingbats</xsl:text>
-  </xsl:template>
-
-  <xsl:template name="pickfont-math">
-    <xsl:text>Liberation Serif,Times-Roman</xsl:text>
-  </xsl:template>
-
-  <!--
     Fonts
+
+    Selectors are defined in fonts.xsl
   -->
 
   <xsl:param name="body.font.family">

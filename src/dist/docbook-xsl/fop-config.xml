@@ -1,10 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fop version="1.0">
+  <font-base>@FONT-BASE@</font-base>
   <strict-configuration>true</strict-configuration>
   <renderers>
     <renderer mime="application/pdf">
       <fonts>
-        <auto-detect />
+        <font kerning="yes" embed-url="RobotoMono-Regular.ttf">
+          <font-triplet name="RobotoMono" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="RobotoMono-Bold.ttf">
+          <font-triplet name="RobotoMono" style="normal" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="RobotoMono-BoldItalic.ttf">
+          <font-triplet name="RobotoMono" style="italic" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicCN-Regular.ttf">
+          <font-triplet name="KaiGenGothicCN" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicCN-Bold.ttf">
+          <font-triplet name="KaiGenGothicCN" style="normal" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicCN-Regular-Italic.ttf">
+          <font-triplet name="KaiGenGothicCN" style="italic" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicCN-Bold-Italic.ttf">
+          <font-triplet name="KaiGenGothicCN" style="italic" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicTW-Regular.ttf">
+          <font-triplet name="KaiGenGothicTW" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicTW-Bold.ttf">
+          <font-triplet name="KaiGenGothicTW" style="normal" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicTW-Regular-Italic.ttf">
+          <font-triplet name="KaiGenGothicTW" style="italic" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicTW-Bold-Italic.ttf">
+          <font-triplet name="KaiGenGothicTW" style="italic" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicJP-Regular.ttf">
+          <font-triplet name="KaiGenGothicJP" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicJP-Bold.ttf">
+          <font-triplet name="KaiGenGothicJP" style="normal" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicJP-Regular-Italic.ttf">
+          <font-triplet name="KaiGenGothicJP" style="italic" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicJP-Bold-Italic.ttf">
+          <font-triplet name="KaiGenGothicJP" style="italic" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicKR-Regular.ttf">
+          <font-triplet name="KaiGenGothicKR" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicKR-Bold.ttf">
+          <font-triplet name="KaiGenGothicKR" style="normal" weight="bold"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicKR-Regular-Italic.ttf">
+          <font-triplet name="KaiGenGothicKR" style="italic" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="KaiGenGothicKR-Bold-Italic.ttf">
+          <font-triplet name="KaiGenGothicKR" style="italic" weight="bold"/>
+        </font>
+        <auto-detect/>
       </fonts>
     </renderer>
   </renderers>

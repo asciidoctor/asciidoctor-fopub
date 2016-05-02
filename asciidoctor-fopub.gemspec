@@ -20,6 +20,18 @@ Using the asciidoctor-fopub project, you can convert any DocBook file into a nic
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.post_install_message = <<-EOF
+
+====================================================
+
+Run this command to download CJK fonts (only required for CJK documents):
+
+  $ asciidoctor-fopub-install-kai_gen_gothic-fonts
+
+====================================================
+
+  EOF
+  
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
 end

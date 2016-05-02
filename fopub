@@ -110,6 +110,30 @@ if [ "$SOURCE_EXTENSION" == "xml" ]; then
   fi
 fi
 
+function find_lang() {
+  grep "xml:lang" "$1" | sed -e 's|.*xml:lang="\(.*\)".*|\1|g' | head -n 1
+}
+# Find out the language and force fop to use it.
+#
+# NOTE: we force the document language via the 'l10n.gentext.language'
+# attribute by setting it through the fop commandline. This makes the language
+# directly visiable to the docbook xsl, so we can use it to customize
+# attributes for different languages. For example, we can customize CJK fonts
+# based on the document language. This seem the only viable approach since the
+# `pick-sans` templates seems to get evaluated before parsing the documents
+# (so we can not obtain the correct document language in the template).
+DOCUMENT_LANG=`find_lang "$SOURCE_FILE"`
+if [ -z "$DOCUMENT_LANG" ]; then
+  DOCUMENT_LANG="en"
+fi
+
+# Modify fop-config.xml to fix bundled font-path
+FOP_CONFIG_XML="$DOCBOOK_XSL_ABS_DIR/fop-config.xml"
+BUNDLED_FONTS_DIR="$DOCBOOK_XSL_ABS_DIR/fonts"
+if [ -f "$FOP_CONFIG_XML" ]; then
+  sed -i "s|@FONT-BASE@|$BUNDLED_FONTS_DIR|g" "$FOP_CONFIG_XML"
+fi
+
 case $FORMAT in
   pdf|ps)
     CONVERT_ARGS="$CONVERT_ARGS -$FORMAT \"$OUT_FILE\""
@@ -128,6 +152,7 @@ esac
 eval $FOPUB_CMD -q -catalog \
   -c \"$DOCBOOK_XSL_DIR/fop-config.xml\" \
   $CONVERT_ARGS \
+  -param l10n.gentext.language \"$DOCUMENT_LANG\" \
   -param highlight.xslthl.config \"$XSLTHL_CONFIG_URI\" \
   -param admon.graphics.path \"$DOCBOOK_DIR/images/\" \
   -param callout.graphics.path \"$DOCBOOK_DIR/images/callouts/\" "$@"
