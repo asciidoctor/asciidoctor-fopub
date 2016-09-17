@@ -10,11 +10,11 @@
   exclude-result-prefixes="db">
   <!--
     The absolute URL imports point to system-wide locations by way of this /etc/xml/catalog entry:
-  
+
       <rewriteURI
         uriStartString="http://docbook.sourceforge.net/release/xsl/current"
         rewritePrefix="file:///usr/share/sgml/docbook/xsl-stylesheets-%docbook-style-xsl-version%"/>
-  
+
     %docbook-style-xsl-version% represents the version installed on the system.
   -->
   <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl"/>
@@ -48,11 +48,11 @@
   -->
 
   <xsl:template name="pickfont-sans">
-    <xsl:text>Arial,sans-serif</xsl:text>
+    <xsl:text>Liberation Sans,Arial,sans-serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-serif">
-    <xsl:text>Georgia,serif</xsl:text>
+    <xsl:text>DejaVu Serif,Liberation Serif,serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-mono">
@@ -76,7 +76,7 @@
   -->
 
   <xsl:param name="body.font.family">
-     <xsl:call-template name="pickfont-sans"/>
+     <xsl:call-template name="pickfont-serif"/>
   </xsl:param>
 
   <xsl:param name="sans.font.family">
@@ -102,14 +102,14 @@
   </xsl:param>
 
   <xsl:param name="title.font.family">
-    <xsl:call-template name="pickfont-serif"/>
+    <xsl:call-template name="pickfont-sans"/>
   </xsl:param>
 
   <!--
     Text properties
   -->
 
-  <xsl:param name="hyphenate">false</xsl:param>
+  <xsl:param name="hyphenate">true</xsl:param>
   <xsl:param name="line-height">1.5</xsl:param>
   <!--
   <xsl:param name="alignment">left</xsl:param>
@@ -342,6 +342,12 @@
 
   <xsl:attribute-set name="formal.title.properties">
     <xsl:attribute name="color"><xsl:value-of select="$caption.color"/></xsl:attribute>
+    <xsl:attribute name="font-weight"><xsl:value-of select="$caption.font-weight"/></xsl:attribute>
+    <xsl:attribute name="font-style"><xsl:value-of select="$caption.font-style"/></xsl:attribute>
+    <xsl:attribute name="font-size">
+      <xsl:value-of select="$body.font.master * 1.0"></xsl:value-of>
+      <xsl:text>pt</xsl:text>
+    </xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:template match="*" mode="admon.graphic.width">
@@ -384,7 +390,7 @@
     <xsl:attribute name="padding-top">18pt</xsl:attribute>
     <xsl:attribute name="padding-bottom">0</xsl:attribute>
   </xsl:attribute-set>
- 
+
   <xsl:attribute-set name="sidebar.title.properties">
     <xsl:attribute name="font-family"><xsl:value-of select="$title.fontset"/></xsl:attribute>
     <xsl:attribute name="font-weight"><xsl:value-of select="$header.font-weight"/></xsl:attribute>
@@ -746,9 +752,11 @@
         <xsl:value-of select="substring($titleStr,string-length($titleStr),1)"/>
       </xsl:if>
     </xsl:variable>
-  
+
     <xsl:if test="$runinhead.default.title.break.after = '1'">
-      <fo:block font-weight="bold" color="{$caption.color}">
+      <fo:block font-weight="{$caption.font-weight}"
+                 color="{$caption.color}"
+                 font-style="{$caption.font-style}">
         <xsl:copy-of select="$titleStr"/>
         <xsl:if test="$lastChar != '' and not(contains($runinhead.title.end.punct, $lastChar))">
           <xsl:value-of select="$runinhead.default.title.end.punct"/>
@@ -756,10 +764,11 @@
       </fo:block>
     </xsl:if>
     <xsl:if test="not($runinhead.default.title.break.after = '1')">
-      <fo:inline font-weight="bold"
+      <fo:inline font-weight="{$caption.font-weight}"
                  color="{$caption.color}"
                  keep-with-next.within-line="always"
-                 padding-end="1em">
+                 padding-end="1em"
+                 font-style="{$caption.font-style}">
         <xsl:copy-of select="$titleStr"/>
         <xsl:if test="$lastChar != '' and not(contains($runinhead.title.end.punct, $lastChar))">
           <xsl:value-of select="$runinhead.default.title.end.punct"/>
@@ -768,6 +777,7 @@
       <xsl:text>&#160;</xsl:text>
     </xsl:if>
   </xsl:template>
+
 
   <!--
     Anchors & Links
@@ -808,12 +818,12 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="variablelist.term.properties">
-    <xsl:attribute name="font-weight">bold</xsl:attribute> 
+    <xsl:attribute name="font-weight">bold</xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:template name="itemizedlist.label.markup">
     <xsl:param name="itemsymbol" select="'disc'"/>
-  
+
     <xsl:choose>
       <xsl:when test="$itemsymbol='none'"></xsl:when>
       <xsl:when test="$itemsymbol='circle'">&#x25E6;</xsl:when>
@@ -899,12 +909,12 @@
     <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="14.4pt" space-before="1in" font-family="{$title.fontset}">
       <xsl:call-template name="gentext">
         <xsl:with-param name="key" select="'Revision'"/>
-      </xsl:call-template> 
+      </xsl:call-template>
       <xsl:call-template name="gentext.space"/>
       <xsl:apply-templates select="db:revnumber | revnumber" mode="titlepage.mode"/>
     </fo:block>
     <fo:block xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="14.4pt" font-family="{$title.fontset}">
-      <xsl:apply-templates select="db:date | date" mode="titlepage.mode"/> 
+      <xsl:apply-templates select="db:date | date" mode="titlepage.mode"/>
     </fo:block>
   </xsl:template>
 
@@ -1002,5 +1012,9 @@
     <xsl:attribute name="color"><xsl:value-of select="$text.color"/></xsl:attribute>
   </xsl:attribute-set>
   -->
+
+  <!-- Provide enough space for two digit labels (needed in bibliography). -->
+  <xsl:param name="orderedlist.label.width">1.9em</xsl:param>
+
 
 </xsl:stylesheet>

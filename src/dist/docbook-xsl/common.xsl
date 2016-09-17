@@ -11,6 +11,8 @@
   <xsl:param name="chapter.title.color" select="$title.color"/>
   <xsl:param name="section.title.color" select="$title.color"/>
   <xsl:param name="caption.color">#7A2518</xsl:param>
+  <xsl:param name="caption.font-style">italic</xsl:param>
+  <xsl:param name="caption.font-weight">normal</xsl:param>
   <xsl:param name="code.color" select="$text.color"/>
   <xsl:param name="code.font-weight">normal</xsl:param>
   <xsl:param name="code.background-color">#EEEEEE</xsl:param>
@@ -25,6 +27,8 @@
   <xsl:param name="chapter.title.color" select="$title.color"/>
   <xsl:param name="section.title.color" select="$title.color"/>
   <xsl:param name="caption.color">#7A2518</xsl:param>
+  <xsl:param name="caption.font-style">normal</xsl:param>
+  <xsl:param name="caption.font-weight">bold</xsl:param>
   <xsl:param name="code.color">#7F0A0C</xsl:param>
   <xsl:param name="code.font-weight">bold</xsl:param>
   <xsl:param name="code.background-color">transparent</xsl:param>
@@ -40,6 +44,8 @@
   <xsl:param name="chapter.title.color" select="$title.color"/>
   <xsl:param name="section.title.color" select="$title.color"/>
   <xsl:param name="caption.color">#003B6B</xsl:param>
+  <xsl:param name="caption.font-style">normal</xsl:param>
+  <xsl:param name="caption.font-weight">bold</xsl:param>
   <xsl:param name="code.color">#003426</xsl:param>
   <xsl:param name="code.font-weight">bold</xsl:param>
   <xsl:param name="code.background-color">transparent</xsl:param>
@@ -157,5 +163,11 @@ book    nop
       </xsl:otherwise>
     </xsl:choose>
   </xsl:param>
+
+  <!-- Format xref: Example:
+    0 => Section 4.8,
+    1 =>  Section  4.8, “Functionality oriented validation"
+  -->
+  <xsl:param name="xref.with.number.and.title" select="1"></xsl:param>
 
 </xsl:stylesheet>
