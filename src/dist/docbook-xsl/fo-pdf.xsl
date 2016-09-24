@@ -1016,5 +1016,9 @@
   <!-- Provide enough space for two digit labels (needed in bibliography). -->
   <xsl:param name="orderedlist.label.width">1.9em</xsl:param>
 
+  <!-- Right aligned numbers. -->
+  <xsl:attribute-set name="orderedlist.label.properties">
+     <xsl:attribute name="text-align">right</xsl:attribute>
+  </xsl:attribute-set>
 
 </xsl:stylesheet>
