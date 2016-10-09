@@ -48,11 +48,11 @@
   -->
 
   <xsl:template name="pickfont-sans">
-    <xsl:text>Liberation Sans,Arial,sans-serif</xsl:text>
+    <xsl:text>DejaVu Sans,Liberation Sans,Arial,sans-serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-serif">
-    <xsl:text>DejaVu Serif,Liberation Serif,serif</xsl:text>
+    <xsl:text>DejaVu Serif,Liberation Serif,Georgia,serif</xsl:text>
   </xsl:template>
 
   <xsl:template name="pickfont-mono">
