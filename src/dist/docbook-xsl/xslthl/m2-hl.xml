@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Syntax highlighting definition for Python
+Syntax highlighting definition for Modulo-2
 
 xslthl - XSLT Syntax Highlighting
 http://sourceforge.net/projects/xslthl/
@@ -29,72 +29,62 @@ Michiel Hendriks <elmuerte at users.sourceforge.net>
 
 -->
 <highlighters>
-	<highlighter type="annotation">
-		<!-- these are actually called decorators -->
-		<start>@</start>
-		<valueStart>(</valueStart>
-		<valueEnd>)</valueEnd>
-	</highlighter>
-	<highlighter type="oneline-comment">#</highlighter>
-	<highlighter type="string">
-		<string>"""</string>
-		<spanNewLines />
-	</highlighter>
-	<highlighter type="string">
-		<string>'''</string>
-		<spanNewLines />
+	<highlighter type="nested-multiline-comment">
+		<start>(*</start>
+		<end>*)</end>
 	</highlighter>
 	<highlighter type="string">
 		<string>"</string>
-		<escape>\</escape>
 	</highlighter>
 	<highlighter type="string">
 		<string>'</string>
-		<escape>\</escape>
-	</highlighter>
-	<highlighter type="hexnumber">
-		<prefix>0x</prefix>
-		<suffix>l</suffix>
-		<ignoreCase />
 	</highlighter>
 	<highlighter type="number">
 		<point>.</point>
-		<pointStarts />
 		<exponent>e</exponent>
-		<suffix>l</suffix>
 		<ignoreCase />
 	</highlighter>
 	<highlighter type="keywords">
 		<keyword>and</keyword>
-		<keyword>del</keyword>
-		<keyword>from</keyword>
-		<keyword>not</keyword>
-		<keyword>while</keyword>
-		<keyword>as</keyword>
-		<keyword>elif</keyword>
-		<keyword>global</keyword>
-		<keyword>or</keyword>
-		<keyword>with</keyword>
-		<keyword>assert</keyword>
+		<keyword>array</keyword>
+		<keyword>begin</keyword>
+		<keyword>by</keyword>
+		<keyword>case</keyword>
+		<keyword>const</keyword>
+		<keyword>definition</keyword>
+		<keyword>div</keyword>
+		<keyword>do</keyword>
 		<keyword>else</keyword>
-		<keyword>if</keyword>
-		<keyword>pass</keyword>
-		<keyword>yield</keyword>
-		<keyword>break</keyword>
-		<keyword>except</keyword>
-		<keyword>import</keyword>
-		<keyword>print</keyword>
-		<keyword>class</keyword>
-		<keyword>exec</keyword>
-		<keyword>in</keyword>
-		<keyword>raise</keyword>
-		<keyword>continue</keyword>
-		<keyword>finally</keyword>
-		<keyword>is</keyword>
-		<keyword>return</keyword>
-		<keyword>def</keyword>
+		<keyword>elsif</keyword>
+		<keyword>end</keyword>
+		<keyword>exit</keyword>
+		<keyword>export</keyword>
 		<keyword>for</keyword>
-		<keyword>lambda</keyword>
-		<keyword>try</keyword>
+		<keyword>from</keyword>
+		<keyword>if</keyword>
+		<keyword>implementation</keyword>
+		<keyword>import</keyword>
+		<keyword>in</keyword>
+		<keyword>loop</keyword>
+		<keyword>mod</keyword>
+		<keyword>module</keyword>
+		<keyword>not</keyword>
+		<keyword>of</keyword>
+		<keyword>or</keyword>
+		<keyword>pointer</keyword>
+		<keyword>procedure</keyword>
+		<keyword>qualified</keyword>
+		<keyword>record</keyword>
+		<keyword>repeat</keyword>
+		<keyword>return</keyword>
+		<keyword>set</keyword>
+		<keyword>then</keyword>
+		<keyword>to</keyword>
+		<keyword>type</keyword>
+		<keyword>until</keyword>
+		<keyword>var</keyword>
+		<keyword>while</keyword>
+		<keyword>with</keyword>
+		<ignoreCase />
 	</highlighter>
 </highlighters>
