@@ -24,6 +24,8 @@
 
   <!-- Enable extensions for FOP version 0.90 and later -->
   <xsl:param name="fop1.extensions">1</xsl:param>
+  <xsl:param name="use.extensions">1</xsl:param>
+  <xsl:param name="linenumbering.extension" select="'1'"></xsl:param>
 
   <!--
     AsciiDoc compat

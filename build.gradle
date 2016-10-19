@@ -85,10 +85,10 @@ applicationDistribution.from(extractDocbookXml) {
 class Download extends DefaultTask {
   @Input
   String url
- 
+
   @OutputFile
   File destinationFile
- 
+
   @TaskAction
   def downloadFile() {
     destinationFile.bytes = new URL(url).bytes
@@ -100,5 +100,9 @@ startScripts.with {
   doLast {
     unixScript.text = unixScript.text.replaceFirst('APP_DIR', '\\$APP_DIR')
     windowsScript.text = windowsScript.text.replaceFirst('APP_DIR', '%APP_HOME%')
+    unixScript.text = unixScript.text.replaceFirst('CLASSPATH=',
+             'CLASSPATH=\\$APP_HOME/docbook/extensions/xalan27.jar:')
+    windowsScript.text = windowsScript.text.replaceFirst('CLASSPATH=',
+             'CLASSPATH=%APP_HOME%\\\\docbook\\\\extensions\\\\xalan27.jar;')
   }
 }
