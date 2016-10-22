@@ -35,12 +35,12 @@ installApp {
 }
 
 task downloadDocbookXsl(type: Download) {
-  url = 'http://downloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.zip'
-  destinationFile = file("$buildDir/docbook-xsl-ns-1.78.1.zip")
+  url = 'http://downloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.79.1/docbook-xsl-ns-1.79.1.zip'
+  destinationFile = file("$buildDir/docbook-xsl-ns-1.79.1.zip")
 }
 
 task extractDocbookXsl(type: Copy, dependsOn: downloadDocbookXsl) {
-  // if ony 1.78.1 were available in the Maven repository :(
+  // if ony 1.79.1 were available in the Maven repository :(
   //def archive = null
   //configurations.dist.each { File file ->
   //  if (file.name.endsWith('.zip')) {
@@ -48,7 +48,7 @@ task extractDocbookXsl(type: Copy, dependsOn: downloadDocbookXsl) {
   //    return
   //  }
   //}
-  def archive = file("$buildDir/docbook-xsl-ns-1.78.1.zip")
+  def archive = file("$buildDir/docbook-xsl-ns-1.79.1.zip")
 
   def outputDir = file("$buildDir/unpacked/docbook")
   // extract zip, stripping root directory
