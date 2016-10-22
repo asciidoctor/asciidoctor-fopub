@@ -22,7 +22,7 @@ dependencies {
   runtime 'net.sourceforge.jeuclid:jeuclid-fop:3.1.9'
   runtime 'net.sf.xslthl:xslthl:2.1.0'
   // To enable hyphenation, uncomment the next line, then run `./gradlew clean` then use `./fopub`
-  //runtime 'net.sf.offo:fop-hyph:2.0'
+  runtime 'net.sf.offo:fop-hyph:2.0'
   //dist 'net.sf.docbook:docbook-xsl:1.78.0:ns-resources@zip'
 }
 
