@@ -16,6 +16,10 @@ usage() {
   echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
 }
 
+sedi () {
+    sed --version >/dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
+}
+
 while getopts ':f:ht:' opt; do
   case $opt in
     f)
@@ -102,11 +106,12 @@ XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
 
 CONVERT_ARGS="-$SOURCE_EXTENSION \"$SOURCE_FILE\""
 
+
 if [ "$SOURCE_EXTENSION" == "xml" ]; then
   CONVERT_ARGS="$CONVERT_ARGS -xsl \"$DOCBOOK_XSL_DIR/fo-pdf.xsl\""
   if [ `grep -c '^<!DOCTYPE \(book\|article\)' "$SOURCE_FILE"` == 0 ]; then
     # QUESTION should we work on a copy?
-    sed -i "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
+    sedi "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
   fi
 fi
 
