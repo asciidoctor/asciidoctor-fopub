@@ -111,7 +111,7 @@ if [ "$SOURCE_EXTENSION" == "xml" ]; then
   CONVERT_ARGS="$CONVERT_ARGS -xsl \"$DOCBOOK_XSL_DIR/fo-pdf.xsl\""
   if [ `grep -c '^<!DOCTYPE \(book\|article\)' "$SOURCE_FILE"` == 0 ]; then
     # QUESTION should we work on a copy?
-    sed -i '' "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
+    sed -i "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
   fi
 fi
 
