@@ -27,7 +27,7 @@ dependencies {
 }
 
 mainClassName = 'org.apache.fop.cli.Main'
-applicationDefaultJvmArgs = ["-Dxml.catalog.files=APP_DIR/catalog.xml"]
+applicationDefaultJvmArgs = ['-Dxml.catalog.files=APP_DIR/catalog.xml']
 //applicationDefaultJvmArgs = ['-Dxml.catalog.files=/etc/xml/catalog']
 
 installApp {
