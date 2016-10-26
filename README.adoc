@@ -220,13 +220,22 @@ For example if you want to use Colony style::
 . Then you specify this directory when you launch the output generation :
 
  $ /path/to/fopub/fopub -t /path/to/custom/fopub/docbook-xsl sample.xml
- 
+
 === fopub option flags
 
 -t <path>::
   tells fopub which docbook-xsl directory to use (optional, defaults to location inside fopub installation)
 -f [pdf|ps|fo]::
   tells fopub which output to produce (optional, defaults to `pdf`)
+-H::
+ enables hyphenation. You need to set the lang attribute to a valid country code (which defaults to en for English), e.g.
+
+ asciidoctor -a lang=es -b docbook article.adoc
++
+or in the preamble of your `article.doc` file:
+
+ :lang: es
+
 -h::
   prints usage
 
@@ -350,7 +359,7 @@ We are doing our best to hide those details so that it's as simple as it should 
 |2.1
 
 |DocBook XSL
-|1.78.1
+|1.79.1
 
 |Apache Commons XML Resolver
 |1.2
