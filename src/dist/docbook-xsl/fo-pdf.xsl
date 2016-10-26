@@ -111,7 +111,7 @@
     Text properties
   -->
 
-  <xsl:param name="hyphenate">true</xsl:param>
+  <xsl:param name="hyphenate">false</xsl:param>
   <xsl:param name="line-height">1.5</xsl:param>
   <!--
   <xsl:param name="alignment">left</xsl:param>
