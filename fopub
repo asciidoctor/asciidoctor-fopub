@@ -12,11 +12,13 @@ abspath() {
 }
 
 usage() {
-  echo "Usage: $0 [-t <path>] [-f FORMAT] FILE"
+  echo "Usage: $0 [-t <path>] [-f FORMAT] [-H] FILE"
   echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
 }
 
-while getopts ':f:ht:' opt; do
+CONVERT_ARGS=""
+
+while getopts ':f:hHt:' opt; do
   case $opt in
     f)
       FORMAT=$OPTARG
@@ -24,6 +26,9 @@ while getopts ':f:ht:' opt; do
     h)
       usage
       exit 0
+      ;;
+    H)
+      CONVERT_ARGS="-param hyphenate true"
       ;;
     t)
       DOCBOOK_XSL_DIR=$OPTARG
@@ -100,7 +105,7 @@ fi
 
 XSLTHL_CONFIG_URI="file://$DOCBOOK_XSL_ABS_DIR/xslthl-config.xml"
 
-CONVERT_ARGS="-$SOURCE_EXTENSION \"$SOURCE_FILE\""
+CONVERT_ARGS="$CONVERT_ARGS -$SOURCE_EXTENSION \"$SOURCE_FILE\""
 
 if [ "$SOURCE_EXTENSION" == "xml" ]; then
   CONVERT_ARGS="$CONVERT_ARGS -xsl \"$DOCBOOK_XSL_DIR/fo-pdf.xsl\""
