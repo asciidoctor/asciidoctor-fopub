@@ -11,6 +11,13 @@ abspath() {
   fi
 }
 
+sedi () {
+    # if GNU version of sed then `sed -i -- "$@"` otherwise `sed -i "" "$@"`
+    # (the latter is needed to support BSD version of sed used in  MacOS X)
+    sed --version >/dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
+}
+
+
 usage() {
   echo "Usage: $0 [-t <path>] [-f FORMAT] [-H] FILE"
   echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
@@ -111,7 +118,7 @@ if [ "$SOURCE_EXTENSION" == "xml" ]; then
   CONVERT_ARGS="$CONVERT_ARGS -xsl \"$DOCBOOK_XSL_DIR/fo-pdf.xsl\""
   if [ `grep -c '^<!DOCTYPE \(book\|article\)' "$SOURCE_FILE"` == 0 ]; then
     # QUESTION should we work on a copy?
-    sed -i "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
+    sedi "s:<\(book\|article\):<!DOCTYPE \1 [<!ENTITY % db5ent PUBLIC \"-//FOPUB//ENTITIES Entities for DocBook 5\" \"db5.ent\"> %db5ent;]>\n<\1:" "$SOURCE_FILE"
   fi
 fi
 
