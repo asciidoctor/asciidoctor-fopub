@@ -23,6 +23,10 @@ usage() {
   echo "Example: $0 -t /path/to/custom/docbook-xsl mydoc.xml"
 }
 
+sedi() {
+  sed --version >/dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
+}
+
 CONVERT_ARGS=""
 
 while getopts ':f:hHt:' opt; do
