@@ -35,7 +35,7 @@ installApp {
 }
 
 task downloadDocbookXsl(type: Download) {
-  url = 'http://downloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.zip'
+  url = 'https://netix.dl.sourceforge.net/project/docbook/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.zip'
   destinationFile = file("$buildDir/docbook-xsl-ns-1.78.1.zip")
 }
 
