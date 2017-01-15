@@ -23,7 +23,8 @@ dependencies {
   runtime 'net.sf.xslthl:xslthl:2.1.0'
   // To enable hyphenation, uncomment the next line, then run `./gradlew clean` then use `./fopub`
   runtime 'net.sf.offo:fop-hyph:2.0'
-  //dist 'net.sf.docbook:docbook-xsl:1.78.0:ns-resources@zip'
+  dist 'net.sf.docbook:docbook-xsl:1.78.1:ns-resources@zip'
+  dist 'org.neo4j.build.plugins:neo4j-docbook-xml:4.5'
 }
 
 mainClassName = 'org.apache.fop.cli.Main'
@@ -34,39 +35,20 @@ installApp {
   destinationDir = file("$buildDir/${project.name}")
 }
 
-task downloadDocbookXsl(type: Download) {
-  url = 'http://downloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.79.1/docbook-xsl-ns-1.79.1.zip'
-  destinationFile = file("$buildDir/docbook-xsl-ns-1.79.1.zip")
-}
-
-task extractDocbookXsl(type: Copy, dependsOn: downloadDocbookXsl) {
-  // if ony 1.79.1 were available in the Maven repository :(
-  //def archive = null
-  //configurations.dist.each { File file ->
-  //  if (file.name.endsWith('.zip')) {
-  //    archive = file
-  //    return
-  //  }
-  //}
-  def archive = file("$buildDir/docbook-xsl-ns-1.79.1.zip")
-
+task extractDocbookXsl(type: Copy) {
+  def archive = configurations.dist.find { it.name.endsWith('docbook-xsl-1.78.1-ns-resources.zip') }
   def outputDir = file("$buildDir/unpacked/docbook")
   // extract zip, stripping root directory
   from(zipTree(archive)) {
-    eachFile { details ->
-      details.path = details.path.substring(details.relativePath.segments[0].length())
-    }
+    // strip root docbook/ directory
+    eachFile { it.path = it.path.substring(it.relativePath.segments[0].length()) }
   }
   into outputDir
+  includeEmptyDirs = false
 }
 
-task downloadDocbookXml(type: Download) {
-  url = 'http://maven-us.nuxeo.org/nexus/content/repositories/public/docbook/docbook-xml/4.5/docbook-xml-4.5.jar'
-  destinationFile = file("$buildDir/docbook-xml-4.5.jar")
-}
-
-task extractDocbookXml(type: Copy, dependsOn: downloadDocbookXml) {
-  def archive = file("$buildDir/docbook-xml-4.5.jar")
+task extractDocbookXml(type: Copy) {
+  def archive = configurations.dist.find { it.name.endsWith('docbook-xml-4.5.jar') }
   def outputDir = file("$buildDir/unpacked/docbook-dtds")
   from(zipTree(archive))
   into outputDir
@@ -85,10 +67,10 @@ applicationDistribution.from(extractDocbookXml) {
 class Download extends DefaultTask {
   @Input
   String url
-
+ 
   @OutputFile
   File destinationFile
-
+ 
   @TaskAction
   def downloadFile() {
     destinationFile.bytes = new URL(url).bytes
