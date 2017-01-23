@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<highlighters>
+    <highlighter type="regex">
+        <pattern>([A-Z])\w.+?(:|\*:)\s</pattern>
+        <style>rule-heading</style>
+    </highlighter>
+    <highlighter type="regex">
+        <pattern>'.+?'</pattern>
+        <style>literal</style>
+    </highlighter>
+    <highlighter type="regex">
+        <pattern>\{[A-Za-z].+?\}</pattern>
+        <style>actions</style>
+    </highlighter>
+    <highlighter type="regex">
+        <pattern>;</pattern>
+        <style>rule-terminals</style>
+    </highlighter>
+    <highlighter type="keywords">
+        <keyword>fragment</keyword>
+        <keyword>true</keyword>
+        <keyword>false</keyword>
+        <keyword>current</keyword>
+    </highlighter>
+    <highlighter type="multiline-comment">
+        <start>/*</start>
+        <end>*/</end>
+    </highlighter>
+    <highlighter type="multiline-comment">
+        <start>/**</start>
+        <end>*/</end>
+        <style>doccomment</style>
+    </highlighter>
+    <highlighter type="oneline-comment">//</highlighter>
+    <highlighter type="regex">
+        <pattern>(s|S)emi</pattern>
+        <style>semi</style>
+    </highlighter>
+    <highlighter type="regex">
+        <pattern>(\[).+?(\||\])</pattern>
+        <style>typereference</style>
+    </highlighter>
+    <highlighter type="regex">
+        <pattern>(\?|\(|\)|\*|\+|\|)</pattern>
+        <style>rulestructure</style>
+    </highlighter>
+</highlighters>
