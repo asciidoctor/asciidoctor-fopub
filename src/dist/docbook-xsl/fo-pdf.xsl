@@ -109,13 +109,13 @@
     Text properties
   -->
 
-  <xsl:param name="hyphenate">false</xsl:param>
+  <xsl:param name="hyphenate">true</xsl:param>
   <xsl:param name="line-height">1.5</xsl:param>
   <!--
   <xsl:param name="alignment">left</xsl:param>
   -->
   <xsl:param name="alignment">justify</xsl:param>
-  <xsl:param name="body.font.master">12</xsl:param>
+  <xsl:param name="body.font.master">8</xsl:param>
   <xsl:param name="body.font.size">
     <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
   </xsl:param>
@@ -126,12 +126,12 @@
 
   <!-- normal.para.spacing is the only attribute set applied to all paragraphs -->
   <xsl:attribute-set name="normal.para.spacing">
-    <xsl:attribute name="space-before.optimum">0</xsl:attribute>
-    <xsl:attribute name="space-before.minimum">0</xsl:attribute>
-    <xsl:attribute name="space-before.maximum">0</xsl:attribute>
+    <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
+    <xsl:attribute name="space-before.minimum">1em</xsl:attribute>
+    <xsl:attribute name="space-before.maximum">1em</xsl:attribute>
     <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
     <xsl:attribute name="space-after.minimum">0.8em</xsl:attribute>
-    <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
+    <xsl:attribute name="space-after.maximum">1em</xsl:attribute>
     <!--
     <xsl:attribute name="color"><xsl:value-of select="$text.color"/></xsl:attribute>
     -->
@@ -157,8 +157,8 @@
   <xsl:attribute-set name="verbatim.properties">
     <xsl:attribute name="color"><xsl:value-of select="$text.color"/></xsl:attribute>
     <xsl:attribute name="font-weight">normal</xsl:attribute>
-    <xsl:attribute name="border-top-style">dotted</xsl:attribute>
-    <xsl:attribute name="border-bottom-style">dotted</xsl:attribute>
+    <xsl:attribute name="border-top-style">solid</xsl:attribute>
+    <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
     <xsl:attribute name="border-width">1pt</xsl:attribute>
     <xsl:attribute name="border-color">#BFBFBF</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0</xsl:attribute>
@@ -177,22 +177,20 @@
 
   <xsl:attribute-set name="monospace.verbatim.properties"
                      use-attribute-sets="monospace.properties verbatim.properties">
-    <!--
-    <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
-    -->
-    <xsl:attribute name="font-size">10pt</xsl:attribute>
+    <xsl:attribute name="keep-together.within-column">auto</xsl:attribute>
+    <xsl:attribute name="font-size">6pt</xsl:attribute>
     <xsl:attribute name="text-align">start</xsl:attribute>
     <xsl:attribute name="wrap-option">wrap</xsl:attribute>
-    <!--
     <xsl:attribute name="hyphenation-character">&#x25BA;</xsl:attribute>
-    -->
   </xsl:attribute-set>
 
   <!-- shade.verbatim.style is added to listings when shade.verbatim is enabled -->
   <xsl:param name="shade.verbatim">1</xsl:param>
 
   <xsl:attribute-set name="shade.verbatim.style">
-    <xsl:attribute name="background-color">transparent</xsl:attribute>
+    <xsl:attribute name="background-color">#eeeeee</xsl:attribute> 
+    <xsl:attribute name="keep-together.within-column">auto</xsl:attribute>
+    <xsl:attribute name="wrap-option">wrap</xsl:attribute>
     <!--
     <xsl:attribute name="background-color">
       <xsl:choose>
@@ -255,17 +253,17 @@
   <xsl:param name="headers.on.blank.pages">1</xsl:param>
   <xsl:param name="footers.on.blank.pages">1</xsl:param>
   <xsl:param name="page.margin.top">10mm</xsl:param> <!-- top margin of page -->
-  <xsl:param name="page.margin.bottom">10mm</xsl:param> <!-- top margin of page -->
-  <xsl:param name="page.margin.inner">20mm</xsl:param> <!-- side margin of page (left, towards binding) -->
-  <xsl:param name="page.margin.outer">20mm</xsl:param> <!-- side margin of page (right, away from binding) -->
+  <xsl:param name="page.margin.bottom">20mm</xsl:param> <!-- top margin of page -->
+  <xsl:param name="page.margin.inner">10mm</xsl:param> <!-- side margin of page (left, towards binding) -->
+  <xsl:param name="page.margin.outer">10mm</xsl:param> <!-- side margin of page (right, away from binding) -->
   <xsl:param name="body.margin.top">15mm</xsl:param> <!-- top margin of content -->
-  <xsl:param name="body.margin.bottom">15mm</xsl:param> <!-- bottom margin of content -->
+  <xsl:param name="body.margin.bottom">20mm</xsl:param> <!-- bottom margin of content -->
   <xsl:param name="body.margin.inner">4mm</xsl:param> <!-- side margin of content (left, towards binding) -->
   <xsl:param name="body.margin.outer">6mm</xsl:param> <!-- side margin of content (right, away from binding) -->
   <xsl:param name="body.start.indent">0</xsl:param> <!-- text indentation -->
   <xsl:param name="body.end.indent">0</xsl:param> <!-- text recess from right -->
   <xsl:param name="region.before.extent">10mm</xsl:param> <!-- height of page header -->
-  <xsl:param name="region.after.extent">10mm</xsl:param> <!-- height of page footer -->
+  <xsl:param name="region.after.extent">20mm</xsl:param> <!-- height of page footer -->
   <xsl:param name="header.column.widths">1 5 1</xsl:param>
 
   <!--
@@ -273,7 +271,7 @@
   -->
 
   <xsl:param name="bridgehead.in.toc">0</xsl:param>
-  <xsl:param name="toc.section.depth">2</xsl:param>
+  <xsl:param name="toc.section.depth">3</xsl:param>
 
   <xsl:template name="toc.line">
     <xsl:variable name="id">
@@ -331,7 +329,7 @@
     <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
     <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
     <!-- Make examples, tables etc. break across pages -->
-    <xsl:attribute name="keep-together.within-column">auto</xsl:attribute>
+    <xsl:attribute name="keep-together.within-page">auto</xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:param name="formal.title.placement">
@@ -375,14 +373,15 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="sidebar.properties" use-attribute-sets="formal.object.properties">
-    <xsl:attribute name="border-style">solid</xsl:attribute>
-    <xsl:attribute name="border-width">1pt</xsl:attribute>
+    <xsl:attribute name="border-style">none</xsl:attribute>
+    <xsl:attribute name="border-width">0pt</xsl:attribute>
     <xsl:attribute name="border-color">#D9D9D9</xsl:attribute>
-    <xsl:attribute name="background-color">#F2F2F2</xsl:attribute>
-    <xsl:attribute name="padding-start">16pt</xsl:attribute>
+    <xsl:attribute name="background-color">#FFFFFF</xsl:attribute>
+    <xsl:attribute name="padding-start">456pt</xsl:attribute>
     <xsl:attribute name="padding-end">16pt</xsl:attribute>
-    <xsl:attribute name="padding-top">18pt</xsl:attribute>
-    <xsl:attribute name="padding-bottom">0</xsl:attribute>
+    <xsl:attribute name="padding-top">-14pt</xsl:attribute>
+    <xsl:attribute name="padding-right">-12pt</xsl:attribute>
+    <xsl:attribute name="font-size">7pt</xsl:attribute>
   </xsl:attribute-set>
  
   <xsl:attribute-set name="sidebar.title.properties">
@@ -794,10 +793,10 @@
 
   <xsl:attribute-set name="list.block.spacing">
     <xsl:attribute name="space-before.optimum">1.2em</xsl:attribute>
-    <xsl:attribute name="space-before.minimum">1em</xsl:attribute>
+    <xsl:attribute name="space-before.minimum">0.2em</xsl:attribute>
     <xsl:attribute name="space-before.maximum">1.4em</xsl:attribute>
     <xsl:attribute name="space-after.optimum">1.2em</xsl:attribute>
-    <xsl:attribute name="space-after.minimum">1em</xsl:attribute>
+    <xsl:attribute name="space-after.minimum">0.2em</xsl:attribute>
     <xsl:attribute name="space-after.maximum">1.4em</xsl:attribute>
   </xsl:attribute-set>
 

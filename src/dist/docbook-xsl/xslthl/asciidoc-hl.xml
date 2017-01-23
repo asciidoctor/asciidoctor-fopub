@@ -5,6 +5,42 @@ Syntax highlighting definition for AsciiDoc files
 
 -->
 <highlighters>
+  <highlighter type="regex">
+    <pattern>(\|===|\|)</pattern>
+    <style>adoc-table</style>
+  </highlighter>
+  <highlighter type="regex">
+    <pattern>\+\+\+\+</pattern>
+    <style>comment</style>
+  </highlighter>
+  <highlighter type="regex">
+    <pattern>((task:|cite:\[|cwiki:)|((task:|cite:\[|cwiki:)\[\]|\]|\[\]))|(?!cwiki:\[)\[(?=title)</pattern>
+    <style>macro</style>
+  </highlighter> 
+  <highlighter type="regex">
+    <pattern>(?!cwiki:)[a-zA-Z]+(?=\[)</pattern>
+    <style>cwiki-target</style>
+  </highlighter> 
+  <highlighter type="regex">
+    <pattern>(?!cite:\[)([a-zA-Z](\([0-9]\S?\))?)+(?=\])</pattern>
+    <style>reference</style>
+  </highlighter> 
+  <highlighter type="regex">
+    <pattern>(?!task:)[0-9a-zA-Z|-]+(?=\[\])</pattern>
+    <style>reference</style>
+  </highlighter>
+  <highlighter type="regex">
+    <pattern>(?!\"title=)\w+(?=\")</pattern>
+    <style>title</style>
+  </highlighter>
+  <highlighter type="regex">
+    <pattern>(\$).+?(\$)</pattern>
+    <style>comment</style>
+  </highlighter>
+  <highlighter type="regex">
+    <pattern>(?!\[)\w+?=</pattern>
+    <style>adoc-attr</style>
+  </highlighter>
   <highlighter type="multiline-comment">
     <start>////</start>
     <end>////</end>

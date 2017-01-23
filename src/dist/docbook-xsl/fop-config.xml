@@ -5,6 +5,14 @@
     <renderer mime="application/pdf">
       <fonts>
         <auto-detect />
+        <!-- Templates for adding a new font.
+    	<font kerning="yes" embed-url="/System/Library/Fonts/Arial.ttf" embedding-mode="subset">
+            <font-triplet name="Arial" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes" embed-url="/System/Library/Fonts/AEHO____.PFB">
+            <font-triplet name="Avenir-HeavyOblique" style="normal" weight="bold"/>
+        </font>
+        -->
       </fonts>
     </renderer>
   </renderers>
