@@ -170,7 +170,7 @@
     </highlighter>
 
     <highlighter type="regex">
-        <pattern>(?&lt;=\&lt;)(\w+)</pattern>
+        <pattern>(?!&lt;)(\w+?)(?=&gt;|\|\/)</pattern>
         <style>jsx-attr</style>
     </highlighter>
     

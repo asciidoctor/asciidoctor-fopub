@@ -13,7 +13,29 @@
 
   <xsl:param name="highlight.source" select="1"/>
 
-<!-- ########### Start EBNF  ############ -->
+  <!-- ########### Start ADOC  ############ -->
+
+  <xsl:template match="xslthl:adoc-table" mode="xslthl">
+    <fo:inline font-weight="bold" color="#800000"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:macro" mode="xslthl">
+    <fo:inline font-weight="bold" color="#EE7600"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:reference" mode="xslthl">
+    <fo:inline font-weight="bold" color="#6599FF"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:adoc-attr" mode="xslthl">
+    <fo:inline font-weight="bold" color="#cebb9e"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <xsl:template match="xslthl:cwiki-target" mode="xslthl">
+    <fo:inline font-weight="bold" color="#e6be8a"><xsl:apply-templates mode="xslthl"/></fo:inline>
+  </xsl:template>
+
+  <!-- ########### Start EBNF  ############ -->
 
   <xsl:template match="xslthl:ebnf-keyword" mode="xslthl">
     <fo:inline font-weight="bold" color="#800000"><xsl:apply-templates mode="xslthl"/></fo:inline>
@@ -126,7 +148,7 @@
   </xsl:template>
 
   <xsl:template match="xslthl:heading" mode="xslthl">
-    <fo:inline color="#880000"><xsl:apply-templates mode="xslthl"/></fo:inline>
+    <fo:inline font-style="bold" color="#880000"><xsl:apply-templates mode="xslthl"/></fo:inline>
   </xsl:template>
 
   <xsl:template match="xslthl:title" mode="xslthl">
