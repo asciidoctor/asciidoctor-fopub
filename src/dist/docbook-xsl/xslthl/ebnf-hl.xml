@@ -5,7 +5,11 @@
         <style>rule-heading</style>
     </highlighter>
     <highlighter type="regex">
-        <pattern>'.+?'</pattern>
+        <pattern>(([A-Z]+)|\S+\_+\S+)\s+?(?=::=)</pattern>
+        <style>rule-heading</style>
+    </highlighter>
+    <highlighter type="regex">
+        <pattern>("|').+?("|')</pattern>
         <style>literal</style>
     </highlighter>
     <highlighter type="regex">
