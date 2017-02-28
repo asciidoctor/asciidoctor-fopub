@@ -18,7 +18,7 @@ set FOPUB_DIR=%PRG_DIR%\build\fopub
 set FOPUB_CMD=%FOPUB_DIR%\bin\fopub.bat
 
 set DOCBOOK_DIR=%FOPUB_DIR%\docbook
-set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
+if not defined DOCBOOK_XSL_DIR set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
 set XSLTHL_CONFIG_URI=file:///%DOCBOOK_XSL_DIR%\xslthl-config.xml
 
 :init
