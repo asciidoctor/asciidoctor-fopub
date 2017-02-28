@@ -87,18 +87,26 @@ set DOCBOOK_DIR_PARAM=!DOCBOOK_DIR_PARAM:\=/!
 set XSLTHL_CONFIG_URI=!XSLTHL_CONFIG_URI:\=/!
 
 if "%TYPE%" == "pdf" (
-  set OUTPUT_PDF_FILE="%SOURCE_ROOTNAME%.pdf"
-  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
-  if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
+  set OUTPUT_FILE=%SOURCE_ROOTNAME%.pdf
+  set OUTPUT_OPT=-pdf
+)
+
+if "%TYPE%" == "ps" (
+  set OUTPUT_FILE=%SOURCE_ROOTNAME%.ps
+  set OUTPUT_OPT=-ps
 )
 
 if "%TYPE%" == "fo" (
-  set OUTPUT_FO_FILE="%SOURCE_ROOTNAME%.fo"
-  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
-  if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
+  set OUTPUT_FILE=%SOURCE_ROOTNAME%.fo
+  set OUTPUT_OPT=-foout
 )
 
-echo "Unsupported output type %TYPE%"
+if NOT "%OUTPUT_FILE%" == "" (
+   %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" !OUTPUT_OPT! !OUTPUT_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
+   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
+)
+
+echo "Unsupported output type '%TYPE%'. Must be pdf, ps or fo."
 
 :fail
 exit /b 1
