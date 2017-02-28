@@ -3,7 +3,7 @@
 @rem
 @rem  fopub script for Windows
 @rem
-@rem  WARNING: This script has not yet been tested!
+@rem  WARNING: This script has had limited testing!
 @rem
 @rem ##########################################################################
 
@@ -16,33 +16,45 @@ if "%PRG_DIR%" == "" set PRG_DIR=.
 set GRADLEW_CMD=%PRG_DIR%gradlew
 set FOPUB_DIR=%PRG_DIR%\build\fopub
 set FOPUB_CMD=%FOPUB_DIR%\bin\fopub.bat
-
 set DOCBOOK_DIR=%FOPUB_DIR%\docbook
-if not defined DOCBOOK_XSL_DIR set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
+
+@rem Default output type and config dir. These may be overridden by options
+set TYPE=pdf
+set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
+
+@rem Parse command line options
+:opt_parse
+
+@rem Check for -H help
+if "%1" == "-H" GOTO :usage
+
+@rem Check for -t XSL dir
+if NOT "%1" == "-t" GOTO :opt_output_type
+shift
+if "%1" == "" GOTO :usage_error
+set DOCBOOK_XSL_DIR=%~f1
+shift
+goto :opt_parse
+
+:opt_output_type
+@rem Check for -f output format type
+if NOT "%1" == "-f" GOTO :opt_done
+shift
+if "%1" == "" GOTO :usage_error
+set TYPE=%~1
+shift
+goto :opt_parse
+
+:opt_done
+@rem Done with parsing options
 set XSLTHL_CONFIG_URI=file:///%DOCBOOK_XSL_DIR%\xslthl-config.xml
 
-:init
-set SOURCE_FILE=
-set TYPE=pdf
-@rem Process first argument
-if %1a==a goto endInit
-@rem Store fully-qualified drive+path+name+extension of first argument
+@rem Store fully-qualified drive+path+name+extension of source file
 set SOURCE_FILE=%~f1
+if "%SOURCE_FILE%" == "" goto :usage_error
 @rem Store fully-qualified drive+path+name of first argument
 set SOURCE_ROOTNAME=%~dpn1
 shift
-@rem Process second argument
-if %1a==a goto endInit
-set TYPE=%1
-shift
-:endInit
-
-if "%SOURCE_FILE%" == "" (
-  echo .
-  echo You must specify a DocBook XML source file as the first command argument
-  echo .
-  goto fail
-)
 
 :install
 if exist "%FOPUB_CMD%" goto endInstall
@@ -77,5 +89,14 @@ if "%TYPE%" == "fo" (
 :fail
 exit /b 1
 
+:usage_error
+echo Syntax error!
+:usage
+@rem Don't use %FOPUB_CMD% here as that points somewhere else!
+echo Usage: fopub [-t PATH] [-f FORMAT] [-H] FILE
+echo Example: fopub -t \path\to\custom\docbook-xsl mydoc.xml
+exit /b 1 
+
 :mainEnd
 if "%OS%"=="Windows_NT" endlocal
+
