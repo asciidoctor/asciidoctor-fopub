@@ -26,7 +26,7 @@ set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
 :opt_parse
 
 @rem Check for -H help
-if "%1" == "-H" GOTO :usage
+if "%1" == "-h" GOTO :usage
 
 @rem Check for -t XSL dir
 if NOT "%1" == "-t" GOTO :opt_output_type
@@ -38,12 +38,17 @@ goto :opt_parse
 
 :opt_output_type
 @rem Check for -f output format type
-if NOT "%1" == "-f" GOTO :opt_done
+if NOT "%1" == "-f" GOTO :opt_hyphenate
 shift
 if "%1" == "" GOTO :usage_error
 set TYPE=%~1
 shift
 goto :opt_parse
+
+:opt_hyphenate
+if NOT "%1" == "-H" GOTO :opt_done
+shift
+set CONVERT_ARGS="-param hyphenate true"
 
 :opt_done
 @rem Done with parsing options
@@ -55,6 +60,13 @@ if "%SOURCE_FILE%" == "" goto :usage_error
 @rem Store fully-qualified drive+path+name of first argument
 set SOURCE_ROOTNAME=%~dpn1
 shift
+
+@rem collect any additional arguments to be passed on to FOP
+:collect
+if [%1] == [] goto :install
+set CONVERT_ARGS=%CONVERT_ARGS% %1
+shift
+goto :collect
 
 :install
 if exist "%FOPUB_CMD%" goto endInstall
@@ -76,15 +88,17 @@ set XSLTHL_CONFIG_URI=!XSLTHL_CONFIG_URI:\=/!
 
 if "%TYPE%" == "pdf" (
   set OUTPUT_PDF_FILE="%SOURCE_ROOTNAME%.pdf"
-  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
+  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -pdf !OUTPUT_PDF_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
 
 if "%TYPE%" == "fo" (
   set OUTPUT_FO_FILE="%SOURCE_ROOTNAME%.fo"
-  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/"
+  %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" -foout !OUTPUT_FO_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
   if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
+
+echo "Unsupported output type %TYPE%"
 
 :fail
 exit /b 1
