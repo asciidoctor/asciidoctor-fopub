@@ -181,7 +181,7 @@
     <xsl:attribute name="font-size">6pt</xsl:attribute>
     <xsl:attribute name="text-align">start</xsl:attribute>
     <xsl:attribute name="wrap-option">wrap</xsl:attribute>
-    <xsl:attribute name="hyphenation-character">&#x25BA;</xsl:attribute>
+    <xsl:attribute name="hyphenation-character">-</xsl:attribute>
   </xsl:attribute-set>
 
   <!-- shade.verbatim.style is added to listings when shade.verbatim is enabled -->
