@@ -158,7 +158,7 @@
     <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
     <xsl:attribute name="margin-left">-26pt</xsl:attribute>
     <xsl:attribute name="border">1pt solid grey</xsl:attribute>
-    <xsl:attribute name="padding">3pt</xsl:attribute>
+    <xsl:attribute name="padding-left">5pt</xsl:attribute>
     <xsl:attribute name="border-width">1pt</xsl:attribute>
     <xsl:attribute name="border-color">black</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0</xsl:attribute>
@@ -253,17 +253,17 @@
   <xsl:param name="headers.on.blank.pages">1</xsl:param>
   <xsl:param name="footers.on.blank.pages">1</xsl:param>
   <xsl:param name="page.margin.top">10mm</xsl:param> <!-- top margin of page -->
-  <xsl:param name="page.margin.bottom">20mm</xsl:param> <!-- top margin of page -->
-  <xsl:param name="page.margin.inner">30mm</xsl:param> <!-- side margin of page (left, towards binding) -->
-  <xsl:param name="page.margin.outer">15mm</xsl:param> <!-- side margin of page (right, away from binding) -->
+  <xsl:param name="page.margin.bottom">10mm</xsl:param> <!-- bottom margin of page -->
+  <xsl:param name="page.margin.inner">18mm</xsl:param> <!-- side margin of page (left, towards binding) -->
+  <xsl:param name="page.margin.outer">8mm</xsl:param> <!-- side margin of page (right, away from binding) -->
   <xsl:param name="body.margin.top">15mm</xsl:param> <!-- top margin of content -->
-  <xsl:param name="body.margin.bottom">20mm</xsl:param> <!-- bottom margin of content -->
+  <xsl:param name="body.margin.bottom">10mm</xsl:param> <!-- bottom margin of content -->
   <xsl:param name="body.margin.inner">4mm</xsl:param> <!-- side margin of content (left, towards binding) -->
   <xsl:param name="body.margin.outer">8mm</xsl:param> <!-- side margin of content (right, away from binding) -->
-  <xsl:param name="body.start.indent">3mm</xsl:param> <!-- text indentation -->
-  <xsl:param name="body.end.indent">5mm</xsl:param> <!-- text recess from right -->
+  <xsl:param name="body.start.indent">0px</xsl:param> <!-- text indentation -->
+  <xsl:param name="body.end.indent">30px</xsl:param> <!-- text recess from right -->
   <xsl:param name="region.before.extent">10mm</xsl:param> <!-- height of page header -->
-  <xsl:param name="region.after.extent">20mm</xsl:param> <!-- height of page footer -->
+  <xsl:param name="region.after.extent">8mm</xsl:param> <!-- height of page footer -->
   <xsl:param name="header.column.widths">1 5 1</xsl:param>
   <xsl:param name="double.sided">1</xsl:param>
 
@@ -363,16 +363,17 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="example.properties" use-attribute-sets="formal.object.properties">
-    <xsl:attribute name="padding-top">12pt</xsl:attribute>
-    <xsl:attribute name="padding-right">12pt</xsl:attribute>
     <xsl:attribute name="padding-bottom">0</xsl:attribute>
     <xsl:attribute name="padding-left">12pt</xsl:attribute>
     <xsl:attribute name="margin-left">0</xsl:attribute>
     <xsl:attribute name="margin-right">0</xsl:attribute>
+    <xsl:attribute name="margin-bottom">5px</xsl:attribute>
     <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
     <xsl:attribute name="border">1pt solid black</xsl:attribute>
     <xsl:attribute name="padding">3pt</xsl:attribute>
     <xsl:attribute name="page-break-before">always</xsl:attribute>
+    <xsl:attribute name="background-color">#FAFAFA</xsl:attribute>
+
   </xsl:attribute-set>
 
 
@@ -380,8 +381,8 @@
     SIDEBAR
   -->
 
-<xsl:param name="margin.note.float.type">start</xsl:param> 
-<xsl:param name="margin.note.width">18px</xsl:param> 
+<xsl:param name="margin.note.float.type">right</xsl:param> 
+<xsl:param name="margin.note.width">30px</xsl:param> 
 
 <xsl:template match="db:sidebar">
   <xsl:call-template name="margin.note">
@@ -391,10 +392,12 @@
 <xsl:attribute-set name="margin.note.properties">
   <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
   <xsl:attribute name="font-size">5pt</xsl:attribute>
-  <xsl:attribute name="margin-left">-26pt</xsl:attribute>
   <xsl:attribute name="border">1pt solid grey</xsl:attribute>
-  <xsl:attribute name="padding">3pt</xsl:attribute>
+  <xsl:attribute name="padding-left">5pt</xsl:attribute>
+  <xsl:attribute name="padding-right">30pt</xsl:attribute>
   <xsl:attribute name="keep-together.within-page">auto</xsl:attribute>
+  <xsl:attribute name="background-color">#F6FBFC</xsl:attribute>
+  <xsl:attribute name="margin-left">420pt</xsl:attribute>
 </xsl:attribute-set>
 
 
