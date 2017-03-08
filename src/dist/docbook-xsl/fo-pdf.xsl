@@ -157,10 +157,12 @@
     <xsl:attribute name="font-weight">normal</xsl:attribute>
     <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
     <xsl:attribute name="margin-left">-26pt</xsl:attribute>
+
     <xsl:attribute name="border">1pt solid grey</xsl:attribute>
     <xsl:attribute name="padding-left">5pt</xsl:attribute>
     <xsl:attribute name="border-width">1pt</xsl:attribute>
     <xsl:attribute name="border-color">black</xsl:attribute>
+
     <xsl:attribute name="space-before.minimum">0</xsl:attribute>
     <xsl:attribute name="space-before.optimum">.2em</xsl:attribute>
     <xsl:attribute name="space-before.maximum">.4em</xsl:attribute>
@@ -345,14 +347,15 @@
   </xsl:attribute-set>
 
   <xsl:template match="*" mode="admon.graphic.width">
-    <xsl:text>36pt</xsl:text>
+    <xsl:text>26pt</xsl:text>
   </xsl:template>
 
-  <xsl:attribute-set name="admonition.properties">
+  <xsl:attribute-set name="admonition.properties" use-attribute-sets="example.properties">
     <xsl:attribute name="color">#6F6F6F</xsl:attribute>
-    <xsl:attribute name="padding-left">18pt</xsl:attribute>
+    <xsl:attribute name="padding-left">8pt</xsl:attribute>
+    <xsl:attribute name="margin-left">8pt</xsl:attribute>
     <xsl:attribute name="border-left-width">.75pt</xsl:attribute>
-    <xsl:attribute name="border-left-style">solid</xsl:attribute>
+    <xsl:attribute name="border-left-style">none</xsl:attribute>
     <xsl:attribute name="border-left-color"><xsl:value-of select="$border.color"/></xsl:attribute>
     <xsl:attribute name="margin-left">0</xsl:attribute>
   </xsl:attribute-set>
@@ -365,6 +368,7 @@
   <xsl:attribute-set name="example.properties" use-attribute-sets="formal.object.properties">
     <xsl:attribute name="padding-bottom">0</xsl:attribute>
     <xsl:attribute name="padding-left">12pt</xsl:attribute>
+    <xsl:attribute name="padding-right">20pt</xsl:attribute>
     <xsl:attribute name="margin-left">0</xsl:attribute>
     <xsl:attribute name="margin-right">0</xsl:attribute>
     <xsl:attribute name="margin-bottom">5px</xsl:attribute>
