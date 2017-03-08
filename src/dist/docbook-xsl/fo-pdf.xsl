@@ -155,8 +155,11 @@
   <xsl:attribute-set name="verbatim.properties">
     <xsl:attribute name="color"><xsl:value-of select="$text.color"/></xsl:attribute>
     <xsl:attribute name="font-weight">normal</xsl:attribute>
-    <xsl:attribute name="border-top-style">solid</xsl:attribute>
-    <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
+    <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
+    <xsl:attribute name="margin-left">-26pt</xsl:attribute>
+    <xsl:attribute name="border">1pt solid grey</xsl:attribute>
+    <xsl:attribute name="padding">3pt</xsl:attribute>
+    <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
     <xsl:attribute name="border-width">1pt</xsl:attribute>
     <xsl:attribute name="border-color">#BFBFBF</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0</xsl:attribute>
@@ -171,6 +174,7 @@
     <xsl:attribute name="white-space-treatment">preserve</xsl:attribute>
     <xsl:attribute name="linefeed-treatment">preserve</xsl:attribute>
     <xsl:attribute name="text-align">start</xsl:attribute>
+
   </xsl:attribute-set>
 
   <xsl:attribute-set name="monospace.verbatim.properties"
@@ -329,7 +333,7 @@
     <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
     <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
     <!-- Make examples, tables etc. break across pages -->
-    <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+    <xsl:attribute name="keep-together.within-page">auto</xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:param name="formal.title.placement">
@@ -361,15 +365,15 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="example.properties" use-attribute-sets="formal.object.properties">
-    <xsl:attribute name="border-width">1pt</xsl:attribute>
-    <xsl:attribute name="border-style">solid</xsl:attribute>
-    <xsl:attribute name="border-color">#E6E6E6</xsl:attribute>
-    <xsl:attribute name="padding-top">12pt</xsl:attribute>
+    <xsl:attribute name="padding-top">6pt</xsl:attribute>
     <xsl:attribute name="padding-right">12pt</xsl:attribute>
     <xsl:attribute name="padding-bottom">0</xsl:attribute>
     <xsl:attribute name="padding-left">12pt</xsl:attribute>
     <xsl:attribute name="margin-left">0</xsl:attribute>
     <xsl:attribute name="margin-right">0</xsl:attribute>
+    <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
+    <xsl:attribute name="border">1pt solid black</xsl:attribute>
+    <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
   </xsl:attribute-set>
 
 
@@ -378,16 +382,16 @@
   -->
 
 <xsl:param name="margin.note.float.type">start</xsl:param> 
-<xsl:param name="margin.note.width">13px</xsl:param> 
+<xsl:param name="margin.note.width">18px</xsl:param> 
 
-<xsl:template match="db:sidebar | book.sidebar">
+<xsl:template match="db:sidebar">
   <xsl:call-template name="margin.note">
   </xsl:call-template>
 </xsl:template>
 
 <xsl:attribute-set name="margin.note.properties">
   <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
-  <xsl:attribute name="font-size">6pt</xsl:attribute>
+  <xsl:attribute name="font-size">5pt</xsl:attribute>
   <xsl:attribute name="margin-left">-26pt</xsl:attribute>
   <xsl:attribute name="border">1pt solid grey</xsl:attribute>
   <xsl:attribute name="padding">3pt</xsl:attribute>
@@ -425,26 +429,26 @@
   -->
 
   <xsl:attribute-set name="table.cell.padding">
-    <xsl:attribute name="padding-left">4pt</xsl:attribute>
-    <xsl:attribute name="padding-right">4pt</xsl:attribute>
+    <xsl:attribute name="padding-left">2pt</xsl:attribute>
+    <xsl:attribute name="padding-right">2pt</xsl:attribute>
     <xsl:attribute name="padding-top">2pt</xsl:attribute>
     <xsl:attribute name="padding-bottom">2pt</xsl:attribute>
   </xsl:attribute-set>
 
-  <xsl:param name="table.frame.border.thickness">0.3pt</xsl:param>
-  <xsl:param name="table.cell.border.thickness">0.15pt</xsl:param>
+  <xsl:param name="table.frame.border.thickness">1pt</xsl:param>
+  <xsl:param name="table.cell.border.thickness">0.5pt</xsl:param>
   <xsl:param name="table.cell.border.color">#5c5c4f</xsl:param>
   <xsl:param name="table.frame.border.color">#5c5c4f</xsl:param>
-  <xsl:param name="table.cell.border.right.color">white</xsl:param>
+  <xsl:param name="table.cell.border.right.color">blue</xsl:param>
   <xsl:param name="table.cell.border.left.color">white</xsl:param>
-  <xsl:param name="table.frame.border.right.color">white</xsl:param>
+  <xsl:param name="table.frame.border.right.color">blue</xsl:param>
   <xsl:param name="table.frame.border.left.color">white</xsl:param>
 
   <xsl:attribute-set name="table.cell.padding">
-    <xsl:attribute name="padding-left">4pt</xsl:attribute>
-    <xsl:attribute name="padding-right">4pt</xsl:attribute>
-    <xsl:attribute name="padding-top">2pt</xsl:attribute>
-    <xsl:attribute name="padding-bottom">2pt</xsl:attribute>
+    <xsl:attribute name="padding-left">2pt</xsl:attribute>
+    <xsl:attribute name="padding-right">2pt</xsl:attribute>
+    <xsl:attribute name="padding-top">1pt</xsl:attribute>
+    <xsl:attribute name="padding-bottom">1pt</xsl:attribute>
   </xsl:attribute-set>
 
   <!--
@@ -455,7 +459,7 @@
   <!--
   <xsl:param name="graphicsize.extension">1</xsl:param>
   -->
-  <xsl:param name="default.image.width">6.3in</xsl:param>
+  <xsl:param name="default.image.width">200px</xsl:param>
   <xsl:param name="default.inline.image.height">1em</xsl:param>
 
   <xsl:template name="process.image">
