@@ -103,7 +103,7 @@
   </xsl:param>
 
   <xsl:param name="title.font.family">
-    <xsl:call-template name="pickfont-serif"/>
+    <xsl:call-template name="pickfont-sans"/>
   </xsl:param>
 
   <!--
@@ -159,9 +159,8 @@
     <xsl:attribute name="margin-left">-26pt</xsl:attribute>
     <xsl:attribute name="border">1pt solid grey</xsl:attribute>
     <xsl:attribute name="padding">3pt</xsl:attribute>
-    <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
     <xsl:attribute name="border-width">1pt</xsl:attribute>
-    <xsl:attribute name="border-color">#BFBFBF</xsl:attribute>
+    <xsl:attribute name="border-color">black</xsl:attribute>
     <xsl:attribute name="space-before.minimum">0</xsl:attribute>
     <xsl:attribute name="space-before.optimum">.2em</xsl:attribute>
     <xsl:attribute name="space-before.maximum">.4em</xsl:attribute>
@@ -174,7 +173,6 @@
     <xsl:attribute name="white-space-treatment">preserve</xsl:attribute>
     <xsl:attribute name="linefeed-treatment">preserve</xsl:attribute>
     <xsl:attribute name="text-align">start</xsl:attribute>
-
   </xsl:attribute-set>
 
   <xsl:attribute-set name="monospace.verbatim.properties"
@@ -333,7 +331,7 @@
     <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
     <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
     <!-- Make examples, tables etc. break across pages -->
-    <xsl:attribute name="keep-together.within-page">auto</xsl:attribute>
+    <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
   </xsl:attribute-set>
 
   <xsl:param name="formal.title.placement">
@@ -365,7 +363,7 @@
   </xsl:attribute-set>
 
   <xsl:attribute-set name="example.properties" use-attribute-sets="formal.object.properties">
-    <xsl:attribute name="padding-top">6pt</xsl:attribute>
+    <xsl:attribute name="padding-top">12pt</xsl:attribute>
     <xsl:attribute name="padding-right">12pt</xsl:attribute>
     <xsl:attribute name="padding-bottom">0</xsl:attribute>
     <xsl:attribute name="padding-left">12pt</xsl:attribute>
@@ -373,7 +371,8 @@
     <xsl:attribute name="margin-right">0</xsl:attribute>
     <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
     <xsl:attribute name="border">1pt solid black</xsl:attribute>
-    <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+    <xsl:attribute name="padding">3pt</xsl:attribute>
+    <xsl:attribute name="page-break-before">always</xsl:attribute>
   </xsl:attribute-set>
 
 
