@@ -3,7 +3,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
   <!-- Asciidoctor theme -->
-  <xsl:param name="text.color">#222222</xsl:param>
+  <xsl:param name="text.color">black</xsl:param>
   <xsl:param name="link.color">#527AA3</xsl:param>
   <xsl:param name="border.color">#DDDDDD</xsl:param>
   <xsl:param name="header.font-weight">normal</xsl:param>
@@ -13,7 +13,7 @@
   <xsl:param name="caption.color">#527AA3</xsl:param>
   <xsl:param name="code.color" select="$text.color"/>
   <xsl:param name="code.font-weight">bold</xsl:param>
-  <xsl:param name="code.background-color">#f5f2f0</xsl:param>
+  <xsl:param name="code.background-color">transparent</xsl:param>
 
   <!-- Foundation theme -->
   <!--
@@ -100,18 +100,16 @@
   <xsl:param name="navig.graphics.path">images/icons/</xsl:param>
   <xsl:param name="navig.showtitles">0</xsl:param>
 
-  <xsl:param name="shade.verbatim">0</xsl:param>
+  <xsl:param name="shade.verbatim">1</xsl:param>
 
   <xsl:attribute-set name="shade.verbatim.style">
-    <xsl:attribute name="border">0</xsl:attribute>
     <xsl:attribute name="background-color">#E0E0E0</xsl:attribute>
   </xsl:attribute-set>
 
-  <!--
+
   <xsl:param name="linenumbering.extension">1</xsl:param>
   <xsl:param name="linenumbering.width">2</xsl:param>
   <xsl:param name="linenumbering.everyNth">1</xsl:param>
-  -->
 
   <xsl:param name="admon.graphics">1</xsl:param>
   <xsl:param name="admon.graphics.path">images/icons/</xsl:param>
