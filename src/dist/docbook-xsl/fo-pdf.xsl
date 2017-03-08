@@ -252,13 +252,13 @@
   <xsl:param name="footers.on.blank.pages">1</xsl:param>
   <xsl:param name="page.margin.top">10mm</xsl:param> <!-- top margin of page -->
   <xsl:param name="page.margin.bottom">20mm</xsl:param> <!-- top margin of page -->
-  <xsl:param name="page.margin.inner">10mm</xsl:param> <!-- side margin of page (left, towards binding) -->
-  <xsl:param name="page.margin.outer">30mm</xsl:param> <!-- side margin of page (right, away from binding) -->
+  <xsl:param name="page.margin.inner">30mm</xsl:param> <!-- side margin of page (left, towards binding) -->
+  <xsl:param name="page.margin.outer">15mm</xsl:param> <!-- side margin of page (right, away from binding) -->
   <xsl:param name="body.margin.top">15mm</xsl:param> <!-- top margin of content -->
   <xsl:param name="body.margin.bottom">20mm</xsl:param> <!-- bottom margin of content -->
   <xsl:param name="body.margin.inner">4mm</xsl:param> <!-- side margin of content (left, towards binding) -->
   <xsl:param name="body.margin.outer">8mm</xsl:param> <!-- side margin of content (right, away from binding) -->
-  <xsl:param name="body.start.indent">1mm</xsl:param> <!-- text indentation -->
+  <xsl:param name="body.start.indent">3mm</xsl:param> <!-- text indentation -->
   <xsl:param name="body.end.indent">5mm</xsl:param> <!-- text recess from right -->
   <xsl:param name="region.before.extent">10mm</xsl:param> <!-- height of page header -->
   <xsl:param name="region.after.extent">20mm</xsl:param> <!-- height of page footer -->
@@ -377,21 +377,24 @@
     SIDEBAR
   -->
 
- <xsl:param name="margin.note.float.type">start</xsl:param> 
- <xsl:param name="margin.note.float.width">20px</xsl:param> 
+<xsl:param name="margin.note.float.type">start</xsl:param> 
+<xsl:param name="margin.note.width">13px</xsl:param> 
 
-<xsl:template match="db:sidebar">
-  <xsl:call-template name="margin.note"></xsl:call-template>
+<xsl:template match="db:sidebar | book.sidebar">
+  <xsl:call-template name="margin.note">
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:attribute-set name="margin.note.properties">
   <xsl:attribute name="fox:border-radius">4pt</xsl:attribute>
   <xsl:attribute name="font-size">6pt</xsl:attribute>
+  <xsl:attribute name="margin-left">-26pt</xsl:attribute>
   <xsl:attribute name="border">1pt solid grey</xsl:attribute>
   <xsl:attribute name="padding">3pt</xsl:attribute>
-  <xsl:attribute name="padding-right">2pt</xsl:attribute>
-  <xsl:attribute name="keep-together.within-page">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-page">auto</xsl:attribute>
 </xsl:attribute-set>
+
+
 
 <!--
   <xsl:attribute-set name="sidebar.properties" use-attribute-sets="formal.object.properties">
