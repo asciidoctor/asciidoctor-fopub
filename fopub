@@ -134,6 +134,8 @@ case $FORMAT in
   ;;
 esac
 
+export FOPUB_OPTS="-Djava.util.logging.config.file=$APP_DIR/logging.properties"
+
 eval $FOPUB_CMD -q -catalog \
   -c \"$DOCBOOK_XSL_DIR/fop-config.xml\" \
   $CONVERT_ARGS \

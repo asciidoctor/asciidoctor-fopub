@@ -63,6 +63,15 @@ applicationDistribution.from(extractDocbookXml) {
   into "docbook/xml-dtd-4.5"
 }
 
+task copyLoggingConfig(type: Copy) {
+	from "logging.properties"
+	into file("$buildDir/logging/")
+}
+
+applicationDistribution.from(copyLoggingConfig) {
+	into "."
+}
+
 CreateStartScripts startScripts = project.startScripts
 startScripts.with {
   doLast {
