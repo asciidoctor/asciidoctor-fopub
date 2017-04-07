@@ -67,6 +67,6 @@ CreateStartScripts startScripts = project.startScripts
 startScripts.with {
   doLast {
     unixScript.text = unixScript.text.replaceFirst('APP_DIR', '\\$APP_DIR')
-    windowsScript.text = windowsScript.text.replaceFirst('APP_DIR', '%APP_HOME%')
+    windowsScript.text = windowsScript.text.replaceFirst('APP_DIR', '%APP_DIR%')
   }
 }
