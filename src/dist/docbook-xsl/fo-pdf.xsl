@@ -12,12 +12,12 @@
     The absolute URL imports point to system-wide locations by way of this /etc/xml/catalog entry:
   
       <rewriteURI
-        uriStartString="http://docbook.sourceforge.net/release/xsl/current"
+        uriStartString="https://cdn.docbook.org/release/xsl/current"
         rewritePrefix="file:///usr/share/sgml/docbook/xsl-stylesheets-%docbook-style-xsl-version%"/>
   
     %docbook-style-xsl-version% represents the version installed on the system.
   -->
-  <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl"/>
+  <xsl:import href="https://cdn.docbook.org/release/xsl/current/fo/docbook.xsl"/>
   <xsl:import href="common.xsl"/>
   <xsl:import href="highlight.xsl"/>
   <xsl:import href="callouts.xsl"/>
