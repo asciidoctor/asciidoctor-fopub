@@ -97,7 +97,7 @@ Next, let's grab a file to convert.
 
 If you don't already have a DocBook file, you can generate one using http://asciidoctor.org[Asciidoctor] (or your tool of choice).
 
-To create a DocBook file using Asciidoctor, first create an AsciiDoc file named [file]_sample.adoc_ in the current directory and populate it the sample content below.
+To create a DocBook file using Asciidoctor, first create an AsciiDoc file named [file]_sample.adoc_ in the current directory and populate it with the sample content below.
 
 .sample.adoc
 [source,asciidoc]
