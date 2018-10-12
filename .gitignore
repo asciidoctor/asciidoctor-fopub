@@ -1,4 +1,24 @@
-/.gradle/
+########################################
+# OS generated files 
+########################################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+#Icon?
+ehthumbs.db
+Thumbs.db
+*~
+
+########################################
+# Eclipse, Gradle, Build Products
+########################################
+/bin
 /build/
+/.gradle/
 /.idea
 *.iml
+/.classpath
+/.project
+/.settings

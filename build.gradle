@@ -23,7 +23,7 @@ dependencies {
   runtime 'net.sf.xslthl:xslthl:2.1.0'
   // To enable hyphenation, uncomment the next line, then run `./gradlew clean` then use `./fopub`
   runtime 'net.sf.offo:fop-hyph:2.0'
-  dist 'net.sf.docbook:docbook-xsl:1.78.1:ns-resources@zip'
+  dist 'net.sf.docbook:docbook-xsl:1.79.1:ns-resources@zip'
   dist 'org.neo4j.build.plugins:neo4j-docbook-xml:4.5'
 }
 
@@ -36,7 +36,7 @@ installApp {
 }
 
 task extractDocbookXsl(type: Copy) {
-  def archive = configurations.dist.find { it.name.endsWith('docbook-xsl-1.78.1-ns-resources.zip') }
+  def archive = configurations.dist.find { it.name.endsWith('docbook-xsl-1.79.1-ns-resources.zip') }
   def outputDir = file("$buildDir/unpacked/docbook")
   // extract zip, stripping root directory
   from(zipTree(archive)) {

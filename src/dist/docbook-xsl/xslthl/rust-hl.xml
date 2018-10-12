@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Syntax highlighting definition for C++
+Syntax highlighting definition for Rust
 
 xslthl - XSLT Syntax Highlighting
 http://sourceforge.net/projects/xslthl/
@@ -26,7 +26,7 @@ freely, subject to the following restrictions:
 Michal Molhanec <mol1111 at users.sourceforge.net>
 Jirka Kosek <kosek at users.sourceforge.net>
 Michiel Hendriks <elmuerte at users.sourceforge.net>
-
+Jens Getreu <getreu at web.de>
 -->
 <highlighters>
 	<highlighter type="multiline-comment">
