@@ -27,19 +27,19 @@ set DOCBOOK_XSL_DIR=%FOPUB_DIR%\docbook-xsl
 :opt_parse
 
 @rem Check for -H help
-if "%1" == "-h" GOTO :usage
+if "%~1" == "-h" GOTO :usage
 
 @rem Check for -t XSL dir
-if NOT "%1" == "-t" GOTO :opt_output_type
+if NOT "%~1" == "-t" GOTO :opt_output_type
 shift
-if "%1" == "" GOTO :usage_error
+if "%~1" == "" GOTO :usage_error
 set DOCBOOK_XSL_DIR=%~f1
 shift
 goto :opt_parse
 
 :opt_output_type
 @rem Check for -f output format type
-if NOT "%1" == "-f" GOTO :opt_hyphenate
+if NOT "%~1" == "-f" GOTO :opt_hyphenate
 shift
 if "%1" == "" GOTO :usage_error
 set TYPE=%~1
@@ -47,7 +47,7 @@ shift
 goto :opt_parse
 
 :opt_hyphenate
-if NOT "%1" == "-H" GOTO :opt_done
+if NOT "%~1" == "-H" GOTO :opt_done
 shift
 set CONVERT_ARGS="-param hyphenate true"
 
@@ -103,7 +103,7 @@ if "%TYPE%" == "fo" (
 )
 
 if NOT "%OUTPUT_FILE%" == "" (
-   %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" !OUTPUT_OPT! !OUTPUT_FILE! -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
+   %FOPUB_CMD% -q -catalog -c "%DOCBOOK_XSL_DIR%\fop-config.xml" -xml "%SOURCE_FILE%" -xsl "%DOCBOOK_XSL_DIR%\fo-pdf.xsl" !OUTPUT_OPT! "!OUTPUT_FILE!" -param highlight.xslthl.config "%XSLTHL_CONFIG_URI%" -param admon.graphics.path "%DOCBOOK_DIR_PARAM%/images/" -param callout.graphics.path "%DOCBOOK_DIR_PARAM%/images/callouts/" %CONVERT_ARGS%
    if not "%ERRORLEVEL%"=="0" goto fail else goto mainEnd
 )
 
