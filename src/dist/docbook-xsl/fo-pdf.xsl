@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Generates a FO document from a DocBook XML document using the DocBook XSL stylesheets.
-  See http://docbook.sourceforge.net/release/xsl/1.78.1/doc/fo for all parameters.
+  See http://docbook.sourceforge.net/release/xsl/1.79.1/doc/fo for all parameters.
 -->
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

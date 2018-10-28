@@ -126,6 +126,9 @@ case $FORMAT in
   fo)
     CONVERT_ARGS="$CONVERT_ARGS -foout \"$OUT_FILE\""
   ;;
+  xhtml)
+    CONVERT_ARGS="${CONVERT_ARGS/fo-pdf/xhtml} -foout \"$OUT_FILE\""
+  ;;
   *)
     echo Unexpected output format: "$FORMAT"
     echo Valid options: pdf, ps, fo
