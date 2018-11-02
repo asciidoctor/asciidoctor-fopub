@@ -73,7 +73,7 @@ goto :collect
 if exist "%FOPUB_CMD%" goto endInstall
 echo .
 echo Initializing application...
-"%GRADLEW_CMD%" -q -u installApp
+"%GRADLEW_CMD%" -q -u installDist
 if not "%ERRORLEVEL%"=="0" goto fail
 echo Application initialized!
 echo .
