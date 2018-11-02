@@ -223,7 +223,7 @@ For example if you want to use Colony style::
 
 -t <path>::
   tells fopub which docbook-xsl directory to use (optional, defaults to location inside fopub installation)
--f [pdf|ps|fo]::
+-f [pdf|ps|fo|xhtml]::
   tells fopub which output to produce (optional, defaults to `pdf`)
 -h::
   prints usage
