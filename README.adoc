@@ -381,7 +381,7 @@ It builds on prior work done by authors of the http://asciidoc.org[AsciiDoc], ht
 
 == Copyright
 
-Copyright (C) 2013 Dan Allen.
+Copyright (C) 2013-2018 Dan Allen.
 Free use of this software is granted under the terms of the MIT License.
 
 See the link:LICENSE[LICENSE] file for details.
