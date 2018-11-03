@@ -97,7 +97,7 @@ Next, let's grab a file to convert.
 
 If you don't already have a DocBook file, you can generate one using http://asciidoctor.org[Asciidoctor] (or your tool of choice).
 
-To create a DocBook file using Asciidoctor, first create an AsciiDoc file named [file]_sample.adoc_ in the current directory and populate it the sample content below.
+To create a DocBook file using Asciidoctor, first create an AsciiDoc file named [file]_sample.adoc_ in the current directory and populate it with the sample content below.
 
 .sample.adoc
 [source,asciidoc]
@@ -183,9 +183,7 @@ Here's how you would pass that through fopub to fop.
 
 You'll now notice that the PDF generated is rendered in landscape mode.
 
-NOTE: See http://docbook.sourceforge.net/release/xsl/1.78.1/doc/param.html[DocBook XSL parameter reference] for a list of all XSL parameters you can set.
-
-CAUTION: Custom parameters are currently only implemented in the Unix version of the fopub script.
+NOTE: See http://docbook.sourceforge.net/release/xsl/1.79.1/doc/param.html[DocBook XSL parameter reference] for a list of all XSL parameters you can set.
 
 === Custom XSL templates
 
@@ -225,7 +223,7 @@ For example if you want to use Colony style::
 
 -t <path>::
   tells fopub which docbook-xsl directory to use (optional, defaults to location inside fopub installation)
--f [pdf|ps|fo]::
+-f [pdf|ps|fo|xhtml]::
   tells fopub which output to produce (optional, defaults to `pdf`)
 -H::
  enables hyphenation. You need to set the lang attribute to a valid country code (which defaults to en for English), e.g.
@@ -392,7 +390,7 @@ It builds on prior work done by authors of the http://asciidoc.org[AsciiDoc], ht
 
 == Copyright
 
-Copyright (C) 2013 Dan Allen.
+Copyright (C) 2013-2018 Dan Allen.
 Free use of this software is granted under the terms of the MIT License.
 
 See the link:LICENSE[LICENSE] file for details.
