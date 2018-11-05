@@ -363,7 +363,7 @@ We are doing our best to hide those details so that it's as simple as it should 
 |2.1.0
 
 |Gradle
-|2.0
+|4.9
 |===
 
 == Contributing

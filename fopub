@@ -81,7 +81,7 @@ fi
 
 if [ ! -e "$FOPUB_CMD" ]; then
   echo Initializing application...
-  "$GRADLEW_CMD" -p "$PRG_DIR" -q -u installApp
+  "$GRADLEW_CMD" -p "$PRG_DIR" -q -u installDist
   if [ $? != 0 ]; then
     echo Failed to initialize application
     exit 1
