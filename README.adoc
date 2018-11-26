@@ -25,7 +25,7 @@ Before we get into the goals and the technical details of the project, let's see
 === Prerequisites
 
 The only prerequisite to perform the DocBook to PDF conversion is a Java Development Kit (JDK), which includes the Java runtime (and, naturally, an internet connection).
-You can use any recent JDK (i.e., Java SE 6 or better).
+You can use any recent JDK (i.e., Java SE 8 or better).
 
 If Java runtime (JVM) is setup correctly, you should be able to type:
 
@@ -38,9 +38,9 @@ or
 and see output that looks like:
 
 ....
-java version "1.7.0_25"
-OpenJDK Runtime Environment (fedora-2.3.10.3.fc17-x86_64)
-OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)
+openjdk version "1.8.0_181"
+OpenJDK Runtime Environment (build 1.8.0_181-b15)
+OpenJDK 64-Bit Server VM (build 25.181-b15, mixed mode)
 ....
 
 If the Java Devlopment Kit (JDK) is setup correctly, you should be able to type:
@@ -54,7 +54,7 @@ or
 and see output that looks like:
 
 ....
-javac 1.7.0_25
+javac 1.8.0_181
 ....
 
 If not, you can install a JDK using your system's package manager or by downloading a distribution from the http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java for developers download site].
