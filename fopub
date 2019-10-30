@@ -137,7 +137,7 @@ case $FORMAT in
   ;;
 esac
 
-eval $FOPUB_CMD -q -catalog \
+eval \"$FOPUB_CMD\" -q -catalog \
   -c \"$DOCBOOK_XSL_DIR/fop-config.xml\" \
   $CONVERT_ARGS \
   -param highlight.xslthl.config \"$XSLTHL_CONFIG_URI\" \
